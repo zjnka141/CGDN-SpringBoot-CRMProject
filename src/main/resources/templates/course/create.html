@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Course</title>
+</head>
+<body>
+<a href="/">Home Page</a><hr>
+<h1>Create Course</h1>
+<p><a href="/courses/list">Back to list of courses</a></p>
+<form action="/courses/create" method="post" th:object="${course}">
+    <table>
+        <tr>
+            <td>Name:</td>
+            <td><input type="text" th:field="*{name}"></td>
+        </tr>
+        <tr>
+            <td>Start day:</td>
+            <td><input type="date" th:value="*{startDay}"  th:field="*{startDay}"></td>
+        </tr>
+        <tr>
+            <td>End day:</td>
+            <td><input type="date" th:value="*{endDay}"  th:field="*{endDay}"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Create course"></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

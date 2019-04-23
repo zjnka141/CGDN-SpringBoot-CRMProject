@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Lead</title>
+</head>
+<body>
+<a href="/">Home Page</a><hr>
+<h1>Delete lead of the campaign <span th:text="${campaign.name}"></span></h1>
+<h2>Are you sure?</h2>
+<p><a th:href="@{/campaign/__${campaign.id}__/lead/list}">Back to list of leads</a></p>
+<form th:action="@{/campaign/__${campaign.id}__/lead/delete}" method="post">
+    <input type="hidden" name="lead_id" th:value="${lead.id}">
+    <table>
+        <tr>
+            <td>Name:</td>
+            <td th:text="${lead.name}"></td>
+        </tr>
+        <tr>
+            <td>Email:</td>
+            <td th:text="${lead.email}"></td>
+        </tr>
+        <tr>
+            <td>Phone</td>
+            <td th:text="${lead.phone}"></td>
+        </tr>
+        <tr>
+            <td>Source</td>
+            <td th:text="${lead.source}"></td>
+        </tr>
+        <td>Status</td>
+        <td th:text="${lead.status}"></td>
+        </tr>
+        <tr>
+            <td>Campaign:</td>
+            <td th:text="${lead.campaign.name}"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Delete"></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List Of Courses</title>
+</head>
+<body>
+<a href="/">Home Page</a><hr>
+<a href="/courses/create">Create new course</a>
+<h1>Courses</h1>
+<p>
+    <th:block th:if="${message}">
+        <p th:text="${message}"></p>
+    </th:block>
+</p>
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Start Day</th>
+        <th>End Day</th>
+        <th></th>
+        <th></th>
+    </tr>
+    <th:block th:each="course : ${courses}">
+        <tr>
+            <td><a th:href="@{/courses/class/list/__${course.id}__}" th:text="${course.name}"></a></td>
+            <td th:text="${course.startDay}"></td>
+            <td th:text="${course.endDay}"></td>
+            <td><a th:href="@{/courses/edit/__${course.id}__}">Edit</a></td>
+            <td><a th:href="@{/courses/delete/__${course.id}__}">Delete</a></td>
+        </tr>
+    </th:block>
+</table>
+</body>
+</html>

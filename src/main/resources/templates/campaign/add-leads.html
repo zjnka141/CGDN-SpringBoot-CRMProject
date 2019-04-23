@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Lead</title>
+</head>
+<body>
+<a href="/">Home Page</a><hr>
+<h1>Add lead of the campaign <span th:text="${campaign.name}"></span></h1>
+<p><a th:href="@{/campaign/__${campaign.id}__/lead/list}">Back to list of leads</a></p>
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Source</th>
+        <th>Status</th>
+        <th></th>
+    </tr>
+    <th:block th:each="lead : ${leads}">
+        <form th:action="@{/campaign/__${campaign.id}__/lead/add}" method="post">
+            <input type="hidden" name="lead_id" th:value="${lead.id}">
+            <input type="hidden" name="campaign_id" th:value="${campaign.id}">
+            <tr>
+                <td th:text="${lead.name}"></td>
+                <td th:text="${lead.email}"></td>
+                <td th:text="${lead.phone}"></td>
+                <td th:text="${lead.source}"></td>
+                <td th:text="${lead.status}"></td>
+                <td><input type="submit" value="Add"></td>
+            </tr>
+        </form>
+    </th:block>
+</table>
+</body>
+</html>

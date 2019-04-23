@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Course</title>
+</head>
+<body>
+<a href="/">Home Page</a><hr>
+<h1>Delete Course</h1>
+<h2>Are you sure?</h2>
+<p>
+    <a href="/course/list">Back to list of courses</a>
+</p>
+<form action="/course/delete" method="post" th:object="${course}">
+    <input type="hidden" th:field="*{id}">
+    <table>
+        <tr>
+            <td>Name:</td>
+            <td th:text="${course.name}"></td>
+        </tr>
+        <tr>
+            <td>Start day:</td>
+            <td th:text="${course.startDay}"></td>
+        </tr>
+        <tr>
+            <td>End day:</td>
+            <td th:text="${course.endDay}"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Delete course"></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

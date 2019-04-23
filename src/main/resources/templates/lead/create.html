@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Lead</title>
+</head>
+<body>
+<a href="/">Home Page</a><hr>
+<h1>Create Lead</h1>
+<p><a href="/lead/list">Back to list of leads</a></p>
+<form action="/lead/create" method="post" th:object="${lead}">
+    <table>
+        <tr>
+            <td>Name:</td>
+            <td><input type="text" th:field="*{name}"></td>
+        </tr>
+        <tr>
+            <td>Email:</td>
+            <td><input type="text" th:field="*{email}"></td>
+        </tr>
+        <tr>
+            <td>Phone:</td>
+            <td><input type="text" th:field="*{phone}"></td>
+        </tr>
+        <tr>
+            <td>Source:</td>
+            <td><input type="text" th:field="*{source}"></td>
+        </tr>
+        <tr>
+            <td>Status:</td>
+            <td><input type="text" th:field="*{status}"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Create lead"></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

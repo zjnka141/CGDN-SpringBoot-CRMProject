@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Class</title>
+</head>
+<body>
+<a href="/">Home Page</a><hr>
+<h1>Edit Class</h1>
+<p><a href="/class/list">Back to list of classes</a></p>
+<form action="/class/edit" method="post" th:object="${class}">
+    <input type="hidden" th:field="*{id}">
+    <table>
+        <tr>
+            <td>Name:</td>
+            <td><input type="text" th:field="*{name}"></td>
+        </tr>
+        <tr>
+            <td>Course:</td>
+            <td>
+                <select name="course">
+                    <option th:each="c : ${courses}"
+                            th:value="${c.id}"
+                            th:text="${c.name}"
+                            th:selected="${c.id} == *{course.id}"></option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Update class"></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

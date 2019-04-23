@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Course</title>
+</head>
+<body>
+<a href="/">Home Page</a><hr>
+<h1>Edit Course</h1>
+<p><a href="/course/list">Back to list of courses</a></p>
+<form action="/course/edit" method="post" th:object="${course}">
+    <input type="hidden" th:field="*{id}">
+    <table>
+        <tr>
+            <td>Name:</td>
+            <td><input type="text" th:field="*{name}"></td>
+        </tr>
+        <tr>
+            <td>Start day:</td>
+            <td><input type="text" th:field="*{startDay}"></td>
+        </tr>
+        <tr>
+            <td>End day:</td>
+            <td><input type="text" th:field="*{endDay}"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Update course"></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

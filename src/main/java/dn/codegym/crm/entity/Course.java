@@ -1,27 +1,26 @@
 package dn.codegym.crm.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Entity
 @Table(name = "courses")
-public class Course extends BaseEntity {
+public class Course extends BaseEntity{
 
     @Id
-    private String id = UUID.randomUUID().toString();
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private String name;
-    private LocalDateTime startDay;
-    private LocalDateTime endDay;
-    private boolean flag;
+    private LocalDate startDay;
+    private LocalDate endDay;
+    private boolean deleted;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -33,27 +32,27 @@ public class Course extends BaseEntity {
         this.name = name;
     }
 
-    public LocalDateTime getStartDay() {
+    public LocalDate getStartDay() {
         return startDay;
     }
 
-    public void setStartDay(LocalDateTime startDay) {
+    public void setStartDay(LocalDate startDay) {
         this.startDay = startDay;
     }
 
-    public LocalDateTime getEndDay() {
+    public LocalDate getEndDay() {
         return endDay;
     }
 
-    public void setEndDay(LocalDateTime endDay) {
+    public void setEndDay(LocalDate endDay) {
         this.endDay = endDay;
     }
 
-    public boolean isFlag() {
-        return flag;
+    public boolean isDeleted() {
+        return deleted;
     }
 
-    public void setFlag(boolean flag) {
-        this.flag = flag;
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 }
