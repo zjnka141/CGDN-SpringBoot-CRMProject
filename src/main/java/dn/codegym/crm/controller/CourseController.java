@@ -18,8 +18,8 @@ public class CourseController {
 
     @GetMapping("/create")
     public ModelAndView showCreateForm() {
-        ModelAndView modelAndView = new ModelAndView("courses/create");
-        modelAndView.addObject("course", new Course());
+        ModelAndView modelAndView = new ModelAndView("course/create");
+        modelAndView.addObject("course", new CourseDTO());
         return modelAndView;
     }
 
@@ -27,12 +27,12 @@ public class CourseController {
     public String saveCourse(@ModelAttribute("course") CourseDTO course, RedirectAttributes redirect) {
         courseService.save(course);
         redirect.addFlashAttribute("message", "New course created successfully!");
-        return "redirect:/list";
+        return "redirect:/courses/list";
     }
 
     @GetMapping("/list")
     public ModelAndView listCourses() {
-        ModelAndView modelAndView = new ModelAndView("courses/list");
+        ModelAndView modelAndView = new ModelAndView("course/list");
         modelAndView.addObject("courses", courseService.findAllByDeletedIsFalse());
         return modelAndView;
     }
