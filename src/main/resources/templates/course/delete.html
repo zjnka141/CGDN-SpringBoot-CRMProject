@@ -9,9 +9,9 @@
 <h1>Delete Course</h1>
 <h2>Are you sure?</h2>
 <p>
-    <a href="/course/list">Back to list of courses</a>
+    <a href="/courses/list">Back to list of courses</a>
 </p>
-<form action="/course/delete" method="post" th:object="${course}">
+<form action="/courses/delete" method="post" th:object="${course}">
     <input type="hidden" th:field="*{id}">
     <table>
         <tr>

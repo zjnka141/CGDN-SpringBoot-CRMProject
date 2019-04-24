@@ -7,8 +7,8 @@
 <body>
 <a href="/">Home Page</a><hr>
 <h1>Edit Course</h1>
-<p><a href="/course/list">Back to list of courses</a></p>
-<form action="/course/edit" method="post" th:object="${course}">
+<p><a href="/courses/list">Back to list of courses</a></p>
+<form action="/courses/edit" method="post" th:object="${course}">
     <input type="hidden" th:field="*{id}">
     <table>
         <tr>
@@ -17,11 +17,11 @@
         </tr>
         <tr>
             <td>Start day:</td>
-            <td><input type="text" th:field="*{startDay}"></td>
+            <td><input type="date" th:field="*{startDay}"></td>
         </tr>
         <tr>
             <td>End day:</td>
-            <td><input type="text" th:field="*{endDay}"></td>
+            <td><input type="date" th:field="*{endDay}"></td>
         </tr>
         <tr>
             <td></td>

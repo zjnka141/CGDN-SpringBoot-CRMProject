@@ -23,7 +23,7 @@
     </tr>
     <th:block th:each="course : ${courses}">
         <tr>
-            <td><a th:href="@{/courses/class/list/__${course.id}__}" th:text="${course.name}"></a></td>
+            <td th:text="${course.name}"></td>
             <td th:text="${course.startDay}"></td>
             <td th:text="${course.endDay}"></td>
             <td><a th:href="@{/courses/edit/__${course.id}__}">Edit</a></td>
