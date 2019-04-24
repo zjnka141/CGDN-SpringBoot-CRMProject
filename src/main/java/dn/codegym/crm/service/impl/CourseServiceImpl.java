@@ -20,7 +20,7 @@ public class CourseServiceImpl implements CourseService {
     private CourseRepository courseRepository;
 
     @Override
-    public void save(CourseDTO courseDTO) {
+    public void create(CourseDTO courseDTO) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(AppConsts.STRING_TO_DATE_FORMAT);
         LocalDate startDay = LocalDate.parse(courseDTO.getStartDay(), formatter);
         LocalDate endDay = LocalDate.parse(courseDTO.getEndDay(), formatter);
@@ -43,7 +43,6 @@ public class CourseServiceImpl implements CourseService {
         course.setName(courseDTO.getName());
         course.setStartDay(startDay);
         course.setEndDay(endDay);
-        courseDTO.setDeleted(courseDTO.isDeleted());
 
         courseRepository.save(course);
     }
@@ -70,7 +69,9 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public void delete(String id) {
-        courseRepository.deleteById(id);
+        Course course = courseRepository.findById(id).orElse(null);
+        course.setDeleted(true);
+        courseRepository.save(course);
     }
 
     @Override
