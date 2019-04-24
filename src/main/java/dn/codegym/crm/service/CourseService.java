@@ -5,7 +5,7 @@ import dn.codegym.crm.entity.Course;
 
 public interface CourseService {
     Iterable<Course> findAllByDeletedIsFalse();
-    void save(CourseDTO courseDTO);
+    void create(CourseDTO courseDTO);
     void update(CourseDTO courseDTO);
     CourseDTO findById(String id);
     void delete(String id);

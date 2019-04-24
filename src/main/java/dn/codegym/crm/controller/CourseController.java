@@ -24,7 +24,7 @@ public class CourseController {
 
     @PostMapping("/create")
     public String saveCourse(@ModelAttribute("course") CourseDTO courseDTO, RedirectAttributes redirect) {
-        courseService.save(courseDTO);
+        courseService.create(courseDTO);
         redirect.addFlashAttribute("message", "New course created successfully!");
         return "redirect:/courses/list";
     }
