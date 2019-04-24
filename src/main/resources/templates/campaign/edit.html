@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Campaign</title>
+</head>
+<body>
+<a href="/">Home Page</a><hr>
+<h1>Edit Campaign</h1>
+<p><a href="/campaigns/list">Back to list of campaigns</a></p>
+<form action="/campaigns/edit" method="post" th:object="${campaign}">
+    <input type="hidden" th:field="*{id}">
+    <table>
+        <tr>
+            <td>Name: </td>
+            <td><input type="text" th:field="*{name}"></td>
+        </tr>
+        <tr>
+            <td>Phone Number: </td>
+            <td><input type="text" th:field="*{phone_number}"></td>
+        </tr>
+        <tr>
+            <td>Description: </td>
+            <td><textarea rows="5" cols="50" th:field="*{description}"></textarea></td>
+        </tr>
+        <tr>
+            <td>Start day:</td>
+            <td><input type="date" th:field="*{start_day}"></td>
+        </tr>
+        <tr>
+            <td>End day:</td>
+            <td><input type="date" th:field="*{end_day}"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Update campaign"></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
