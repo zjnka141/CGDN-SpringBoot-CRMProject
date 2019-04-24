@@ -2,6 +2,7 @@ package dn.codegym.crm.entity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -9,19 +10,11 @@ import java.util.UUID;
 public class Course extends BaseEntity{
 
     @Id
-    private String id = UUID.randomUUID().toString();
+    private String id= UUID.randomUUID().toString();
     private String name;
     private LocalDate startDay;
     private LocalDate endDay;
     private boolean deleted;
-
-    public boolean isDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
-    }
 
     public String getId() {
         return id;
@@ -53,5 +46,13 @@ public class Course extends BaseEntity{
 
     public void setEndDay(LocalDate endDay) {
         this.endDay = endDay;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 }

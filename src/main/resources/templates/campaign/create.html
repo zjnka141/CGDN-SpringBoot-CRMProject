@@ -7,28 +7,28 @@
 <body>
 <a href="/">Home Page</a><hr>
 <h1>Create Campaign</h1>
-<p><a href="/campaign/list">Back to list of campaigns</a></p>
-<form action="/campaign/create" method="post" th:object="${campaign}">
+<p><a href="/campaigns/list">Back to list of campaign</a></p>
+<form action="/campaigns/create" method="post" th:object="${campaign}">
     <table>
         <tr>
             <td>Name:</td>
             <td><input type="text" th:field="*{name}"></td>
         </tr>
         <tr>
+            <td>Description:</td>
+            <td><textarea rows="4" cols="50" th:value="*{description}"  th:field="*{description}"></textarea></td>
+        </tr>
+        <tr>
+            <td>Phone Number</td>
+            <td><input type="text" th:value="*{phone_number}" th:field="*{phone_number}"></td>
+        </tr>
+        <tr>
             <td>Start day:</td>
-            <td><input th:field="*{startDay}"></td>
+            <td><input type="date" th:field="*{start_day}"></td>
         </tr>
         <tr>
             <td>End day:</td>
-            <td><input th:field="*{endDay}"></td>
-        </tr>
-        <tr>
-            <td>Course:</td>
-            <td>
-                <select th:field="*{course}">
-                    <option th:each="course : ${courses}" th:value="${course.id}" th:text="${course.name}"></option>
-                </select>
-            </td>
+            <td><input type="date" th:field="*{end_day}"></td>
         </tr>
         <tr>
             <td></td>
