@@ -1,30 +1,15 @@
-package dn.codegym.crm.entity;
+package dn.codegym.crm.dto;
 
-import javax.persistence.*;
 import java.util.UUID;
 
-@Entity
-@Table(name = "leads")
-public class Lead extends BaseEntity {
-    @Id
-    private String id = UUID.randomUUID().toString();
+public class LeadDTO {
+    private String id;
     private String name;
-
     private String phone_number;
     private String email;
     private String source;
     private String status;
     private boolean deleted;
-
-
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
 
     public String getId() {
         return id;
@@ -64,6 +49,14 @@ public class Lead extends BaseEntity {
 
     public void setSource(String source) {
         this.source = source;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public boolean isDeleted() {

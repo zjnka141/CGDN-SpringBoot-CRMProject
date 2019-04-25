@@ -7,8 +7,8 @@
 <body>
 <a href="/">Home Page</a><hr>
 <h1>Edit Lead</h1>
-<p><a href="/lead/list">Back to list of leads</a></p>
-<form action="/lead/edit" method="post" th:object="${lead}">
+<p><a href="/leads/list">Back to list of leads</a></p>
+<form action="/leads/edit" method="post" th:object="${lead}">
     <input type="hidden" th:field="*{id}">
     <table>
         <tr>
@@ -21,7 +21,7 @@
         </tr>
         <tr>
             <td>Phone:</td>
-            <td><input type="text" th:field="*{phone}"></td>
+            <td><input type="text" th:field="*{phoneNumber}"></td>
         </tr>
         <tr>
             <td>Source:</td>
@@ -29,7 +29,16 @@
         </tr>
         <tr>
             <td>Status:</td>
-            <td><input type="text" th:field="*{status}"></td>
+            <td>
+                <select th:field="*{status}">
+                    <option value="G1">G1</option>
+                    <option value="G2">G2</option>
+                    <option value="G3">G3</option>
+                    <option value="G4">G4</option>
+                    <option value="G5">G5</option>
+                    <option value="G6">G6</option>
+                </select>
+            </td>
         </tr>
         <tr>
             <td></td>
