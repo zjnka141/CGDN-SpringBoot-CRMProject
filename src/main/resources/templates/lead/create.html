@@ -7,7 +7,7 @@
 <body>
 <a href="/">Home Page</a><hr>
 <h1>Create Lead</h1>
-<p><a href="/lead/list">Back to list of leads</a></p>
+<p><a href="/leads/list">Back to list of leads</a></p>
 <form action="/leads/create" method="post" th:object="${lead}">
     <table>
         <tr>
@@ -28,7 +28,16 @@
         </tr>
         <tr>
             <td>Status:</td>
-            <td><input type="text" th:field="*{status}"></td>
+            <td>
+                <select th:field="*{status}">
+                    <option value="G1">G1</option>
+                    <option value="G2" >G2</option>
+                    <option value="G3">G3</option>
+                    <option value="G4">G4</option>
+                    <option value="G5">G5</option>
+                    <option value="G6">G6</option>
+                </select>
+            </td>
         </tr>
         <tr>
             <td></td>
