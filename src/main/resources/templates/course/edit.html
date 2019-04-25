@@ -1,33 +1,36 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+                xmlns:layout="http://www.w3.org/1999/xhtml"
+                layout:decorate="~{fragments/main_layout}">
 <head>
     <meta charset="UTF-8">
     <title>Edit Course</title>
 </head>
 <body>
-<a href="/">Home Page</a><hr>
-<h1>Edit Course</h1>
-<p><a href="/courses/list">Back to list of courses</a></p>
-<form action="/courses/edit" method="post" th:object="${course}">
-    <input type="hidden" th:field="*{id}">
-    <table>
-        <tr>
-            <td>Name:</td>
-            <td><input type="text" th:field="*{name}"></td>
-        </tr>
-        <tr>
-            <td>Start day:</td>
-            <td><input type="date" th:field="*{startDay}"></td>
-        </tr>
-        <tr>
-            <td>End day:</td>
-            <td><input type="date" th:field="*{endDay}"></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td><input type="submit" value="Update course"></td>
-        </tr>
-    </table>
-</form>
+<div layout:fragment="content" class="container">
+    <div class="w3-card-4">
+        <div class="w3-container w3-green">
+            <h1>Edit Course</h1>
+        </div>
+        <form class="w3-container" action="/courses/edit" method="post" th:object="${course}">
+            <input type="hidden" th:field="*{id}">
+            <p>
+                <label class="w3-text-green"><b>Name</b></label>
+                <input class="w3-input w3-border w3-sand" type="text" th:field="*{name}">
+            </p>
+            <p>
+                <label class="w3-text-green"><b>Start day</b></label>
+                <input class="w3-input w3-border w3-sand" type="date" th:field="*{startDay}">
+            </p>
+            <p>
+                <label class="w3-text-green"><b>End day</b></label>
+                <input class="w3-input w3-border w3-sand" type="date" th:field="*{endDay}">
+            </p>
+            <p>
+                <button class="w3-btn w3-green" type="submit">Update course</button>
+            </p>
+        </form>
+    </div>
+</div>
 </body>
 </html>
