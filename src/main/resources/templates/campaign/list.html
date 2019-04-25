@@ -6,6 +6,10 @@
 </head>
 <body>
 <a href="/">Home Page</a><hr>
+<form action="#" th:action="@{/campaigns/searchName}" method="get">
+    <input type="text" name="name" placeholder="Search Name">
+    <input type="submit" value="Search name">
+</form>
 <a href="/campaigns/create">Create new campaign</a>
 <h1>Campaigns</h1>
 <p>

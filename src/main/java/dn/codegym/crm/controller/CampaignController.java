@@ -47,6 +47,10 @@ public class CampaignController {
         redirect.addFlashAttribute("message", "New campaign created successfully!");
         return "redirect:/campaigns/list";
     }
+    @GetMapping("/searchName")
+    public ModelAndView findAllByName(@ModelAttribute("name")String name){
+        return new ModelAndView("campaign/list","campaigns",campaignService.searchName(name));
+    }
 
     @GetMapping("/edit/{id}")
     public ModelAndView showEditForm(@PathVariable String id) {

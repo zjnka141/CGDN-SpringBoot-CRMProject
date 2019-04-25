@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Service
 @Transactional
@@ -20,6 +21,11 @@ public class CampaignServiceImpl implements CampaignService {
     @Override
     public Iterable<Campaign> findAllByDeletedIsFalse() {
         return campaignRepository.findAllByDeletedIsFalse();
+    }
+
+    @Override
+    public List<Campaign> searchName(String name) {
+        return campaignRepository.findAllByNameContaining(name);
     }
 
     @Override
