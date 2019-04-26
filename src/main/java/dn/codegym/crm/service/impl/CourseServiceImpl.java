@@ -7,15 +7,15 @@ import dn.codegym.crm.repository.CourseRepository;
 import dn.codegym.crm.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 @Service
-@Transactional
 public class CourseServiceImpl implements CourseService {
 
     @Autowired
@@ -78,11 +78,13 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public Page<Course> findAllByDeletedIsFalse(Pageable pageable) {
+        pageable = PageRequest.of(pageable.getPageNumber(), 10, Sort.by("name"));
         return courseRepository.findAllByDeletedIsFalse(pageable);
     }
 
     @Override
-    public Page<Course> findAllByNameContaining(String name, Pageable pageable) {
-        return courseRepository.findAllByNameContaining(name, pageable);
+    public Page<Course> findAllByDeletedIsFalseAndNameContaining(String name, Pageable pageable) {
+        pageable = PageRequest.of(pageable.getPageNumber(), 10, Sort.by("name"));
+        return courseRepository.findAllByDeletedIsFalseAndNameContaining(name, pageable);
     }
 }

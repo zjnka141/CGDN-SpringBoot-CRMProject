@@ -1,12 +1,16 @@
 package dn.codegym.crm.dto;
 
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
 public class CourseDTO implements Serializable {
 
     private String id;
+    @NotEmpty(message = "Course name is not empty")
     private String name;
+    @NotEmpty(message = "Start day is not empty")
     private String startDay;
+    @NotEmpty(message = "End day is not empty")
     private String endDay;
     private boolean deleted;
 

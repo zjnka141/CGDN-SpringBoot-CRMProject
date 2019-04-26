@@ -11,7 +11,7 @@
     <a href="/courses/create">Create new course</a>
     <h1>Courses</h1>
     <form>
-        <input name="name" type="text" placeholder="Input Name Course" th:value="${name}">
+        <input name="name" type="text" placeholder="Input course name" th:value="${name}">
         <input type="submit" value="Search">
     </form>
     <p>
@@ -20,7 +20,7 @@
     </th:block>
     </p>
     <th:block th:if="${courses.getTotalElements() > 0}">
-        <table id="table">
+        <table class="table">
             <tr>
                 <th>Name</th>
                 <th>Start Day</th>
@@ -38,11 +38,19 @@
                 </tr>
             </th:block>
         </table>
-        <div>
-            <a th:href="@{'/courses/list'(page=${courses.number - 1})}" th:if="${courses.hasPrevious()}">Previous</a>
-            <span th:text="${courses.number+1}"></span>/<span th:text="${courses.totalPages}"></span>
-            <a th:href="@{'/courses/list'(page=${courses.number + 1})}" th:if="${courses.hasNext()}">Next</a>
-        </div>
+        <th:block th:switch="${name}">
+            <div th:case="null">
+                <a th:href="@{'/courses/list'(page=${courses.number - 1})}" th:if="${courses.hasPrevious()}">Previous</a>
+                <span th:text="${courses.number+1}"></span>/<span th:text="${courses.totalPages}"></span>
+                <a th:href="@{'/courses/list'(page=${courses.number + 1})}" th:if="${courses.hasNext()}">Next</a>
+            </div>
+
+            <div th:case="*">
+                <a th:href="@{'/courses/list'(page=${courses.number - 1}, name=${name})}" th:if="${courses.hasPrevious()}">Previous</a>
+                <span th:text="${courses.number+1}"></span>/<span th:text="${courses.totalPages}"></span>
+                <a th:href="@{'/courses/list'(page=${courses.number + 1}, name=${name})}" th:if="${courses.hasNext()}">Next</a>
+            </div>
+        </th:block>
     </th:block>
 </div>
 </body>

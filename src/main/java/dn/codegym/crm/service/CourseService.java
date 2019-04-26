@@ -7,7 +7,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface CourseService {
     Page<Course> findAllByDeletedIsFalse(Pageable pageable);
-    Page<Course> findAllByNameContaining(String name, Pageable pageable);
+    Page<Course> findAllByDeletedIsFalseAndNameContaining(String name, Pageable pageable);
     void create(CourseDTO courseDTO);
     void update(CourseDTO courseDTO);
     CourseDTO findById(String id);
