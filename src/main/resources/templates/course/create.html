@@ -16,14 +16,17 @@
             <p>
                 <label class="w3-text-green"><b>Name</b></label>
                 <input class="w3-input w3-border w3-sand" type="text" th:field="*{name}">
+                <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
             </p>
             <p>
                 <label class="w3-text-green"><b>Start day</b></label>
                 <input class="w3-input w3-border w3-sand" type="date" th:field="*{startDay}">
+                <span th:if="${#fields.hasErrors('startDay')}" th:errors="*{startDay}"></span>
             </p>
             <p>
                 <label class="w3-text-green"><b>End day</b></label>
                 <input class="w3-input w3-border w3-sand" type="date" th:field="*{endDay}">
+                <span th:if="${#fields.hasErrors('endDay')}" th:errors="*{endDay}"></span>
             </p>
             <p>
                 <button class="w3-btn w3-green" type="submit">Create course</button>

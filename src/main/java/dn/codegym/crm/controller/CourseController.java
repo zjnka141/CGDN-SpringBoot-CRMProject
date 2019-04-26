@@ -3,14 +3,18 @@ package dn.codegym.crm.controller;
 import dn.codegym.crm.dto.CourseDTO;
 import dn.codegym.crm.entity.Course;
 import dn.codegym.crm.service.CourseService;
+import dn.codegym.crm.validator.CourseValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 
@@ -20,6 +24,21 @@ public class CourseController {
     @Autowired
     private CourseService courseService;
 
+    @Autowired
+    private CourseValidator courseValidator;
+
+    @InitBinder
+    protected void initBinder(WebDataBinder dataBinder) {
+        Object target = dataBinder.getTarget();
+        if (target == null) {
+            return;
+        }
+        System.out.println("Target=" + target);
+        if (target.getClass() == Course.class) {
+            dataBinder.setValidator(courseValidator);
+        }
+    }
+
     @GetMapping("/create")
     public ModelAndView showCreateForm() {
         ModelAndView modelAndView = new ModelAndView("course/create");
@@ -28,7 +47,12 @@ public class CourseController {
     }
 
     @PostMapping("/create")
-    public String saveCourse(@ModelAttribute("course") CourseDTO courseDTO, RedirectAttributes redirect) {
+    public String saveCourse(@Valid @ModelAttribute("course") CourseDTO courseDTO,
+                             BindingResult result,
+                             RedirectAttributes redirect) {
+        if (result.hasErrors()) {
+            return "course/create";
+        }
         courseService.create(courseDTO);
         redirect.addFlashAttribute("message", "New course created successfully!");
         return "redirect:/courses/list";
@@ -39,8 +63,11 @@ public class CourseController {
         Page<Course> courses;
         ModelAndView modelAndView = new ModelAndView("course/list");
         if (name.isPresent()) {
-            courses = courseService.findAllByNameContaining(name.get(), pageable);
+            courses = courseService.findAllByDeletedIsFalseAndNameContaining(name.get(), pageable);
             modelAndView.addObject("name", name.get());
+            if (courses.getTotalElements() == 0) {
+                modelAndView.addObject("message", "Course name not found!");
+            }
         } else {
             courses = courseService.findAllByDeletedIsFalse(pageable);
         }
@@ -61,7 +88,12 @@ public class CourseController {
     }
 
     @PostMapping("/edit")
-    public String updateCourse(@ModelAttribute("course") CourseDTO courseDTO, RedirectAttributes redirect) {
+    public String updateCourse(@Valid @ModelAttribute("course") CourseDTO courseDTO,
+                               BindingResult result,
+                               RedirectAttributes redirect) {
+        if (result.hasErrors()) {
+            return "course/edit";
+        }
         courseService.update(courseDTO);
         redirect.addFlashAttribute("message", "Course updated successfully!");
         return "redirect:/courses/list";
