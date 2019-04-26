@@ -88,6 +88,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Page<Student> findAllByNameContaining(String name,Pageable pageable) {
-        return studentRepository.findAllByNameContaining(name,pageable);
-    }
+         studentRepository.findAllByDeletedIsFalse(pageable);
+            return studentRepository.findAllByNameContaining(name, pageable);
+        }
 }
