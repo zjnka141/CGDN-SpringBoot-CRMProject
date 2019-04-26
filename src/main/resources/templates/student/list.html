@@ -5,35 +5,47 @@
     <title>List Of Students</title>
 </head>
 <body>
-<a href="/">Home Page</a><hr>
-<a href="/student/create">Create new student</a>
+<a href="/">Home Page</a>
+<hr>
+
+<a href="/students/create">Add new student</a>
 <h1>Students</h1>
-<p>
-    <th:block th:if="${message}">
-        <p th:text="${message}"></p>
+<form th:action="@{/students/list}" method="get">
+    search by name
+    <input name="student" th:value="${student}" type="text">
+    <input type="submit" value="Search">
+    <p>
+        <th:block th:if="${message}">
+    <p th:text="${message}"></p>
     </th:block>
-</p>
-<table border="1">
-    <tr>
-        <th>Name</th>
-        <th>Birth day</th>
-        <th>Email</th>
-        <th>Phone</th>
-        <th>Class</th>
-        <th></th>
-        <th></th>
-    </tr>
-    <th:block th:each="student : ${students}">
+    </p>
+    <table border="1">
+        <div>
+            <a th:href="@{'/students/list'(page=${students.number - 1})}" th:if="${students.hasPrevious()}">Previous</a>
+            <span th:text="${students.number + 1}"></span>/<span th:text="${students.totalPages}"></span>
+            <a th:href="@{'/students/list'(page=${students.getNumber() + 1})}" th:if="${students.hasNext()}">Next</a>
+        </div>
         <tr>
-            <td th:text="${student.name}"></td>
-            <td th:text="${student.birthDay}"></td>
-            <td th:text="${student.email}"></td>
-            <td th:text="${student.phone}"></td>
-            <td th:text="${student.classroom.name}"></td>
-            <td><a th:href="@{/student/edit/__${student.id}__}">Edit</a></td>
-            <td><a th:href="@{/student/delete/__${student.id}__}">Delete</a></td>
+            <th>Name</th>
+            <th>Birth day</th>
+            <th>Gender</th>
+            <th>Class</th>
+            <th>View</th>
+            <th>Edit</th>
+            <th>Delete</th>
         </tr>
-    </th:block>
-</table>
+        <th:block th:each="student : ${students}">
+            <tr>
+                <td th:text="${student.name}"></td>
+                <td th:text="${student.birthday}"></td>
+                <td th:text="${student.gender}"></td>
+                <td th:text="${student.idClass.name}"></td>
+                <td><a th:href="@{/students/{id}/view(id=${student.getId()})}">view</a></td>
+                <td><a th:href="@{/students/{id}/edit(id=${student.getId()})}">edit</a></td>
+                <td><a th:href="@{/students/{id}/delete(id=${student.getId()})}">delete</a></td>
+            </tr>
+        </th:block>
+    </table>
+</form>
 </body>
 </html>

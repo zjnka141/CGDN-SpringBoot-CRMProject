@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View Student</title>
+</head>
+<body>
+<h3>view Blog</h3>
+<p>
+    <a href="/students/list">Back to list student</a>
+</p>
+<div>
+    <div>
+        <label>Id:</label>
+        <label th:text="${students.getId()}"></label>
+    </div >
+    <div>
+        <label>Name:</label>
+        <label th:text="${students.getName()}"></label>
+    </div >
+    <div>
+        <label>Birthday:</label>
+        <label th:text="${students.birthday}"></label>
+    </div>
+    <div>
+        <label>Gender:</label>
+        <label th:text="${students.gender}"></label>
+    </div>
+    <div>
+        <label>Class</label>
+        <label th:text="${students.idClass.getName()}"></label>
+    </div>
+</div>
+
+</body>
+</html>
