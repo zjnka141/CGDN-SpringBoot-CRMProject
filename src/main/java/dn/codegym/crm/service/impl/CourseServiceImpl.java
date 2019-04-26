@@ -6,6 +6,8 @@ import dn.codegym.crm.entity.Course;
 import dn.codegym.crm.repository.CourseRepository;
 import dn.codegym.crm.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -75,7 +77,12 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Iterable<Course> findAllByDeletedIsFalse() {
-        return courseRepository.findAllByDeletedIsFalse();
+    public Page<Course> findAllByDeletedIsFalse(Pageable pageable) {
+        return courseRepository.findAllByDeletedIsFalse(pageable);
+    }
+
+    @Override
+    public Page<Course> findAllByNameContaining(String name, Pageable pageable) {
+        return courseRepository.findAllByNameContaining(name, pageable);
     }
 }

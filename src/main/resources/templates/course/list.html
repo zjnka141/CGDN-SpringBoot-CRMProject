@@ -1,35 +1,49 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{fragments/main_layout}">
 <head>
     <meta charset="UTF-8">
     <title>List Of Courses</title>
 </head>
 <body>
-<a href="/">Home Page</a><hr>
-<a href="/courses/create">Create new course</a>
-<h1>Courses</h1>
-<p>
-    <th:block th:if="${message}">
-        <p th:text="${message}"></p>
+<div layout:fragment="content" class="container">
+    <a href="/courses/create">Create new course</a>
+    <h1>Courses</h1>
+    <form>
+        <input name="name" type="text" placeholder="Input Name Course" th:value="${name}">
+        <input type="submit" value="Search">
+    </form>
+    <p>
+        <th:block th:if="${message}">
+    <p th:text="${message}"></p>
     </th:block>
-</p>
-<table border="1">
-    <tr>
-        <th>Name</th>
-        <th>Start Day</th>
-        <th>End Day</th>
-        <th></th>
-        <th></th>
-    </tr>
-    <th:block th:each="course : ${courses}">
-        <tr>
-            <td th:text="${course.name}"></td>
-            <td th:text="${course.startDay}"></td>
-            <td th:text="${course.endDay}"></td>
-            <td><a th:href="@{/courses/edit/__${course.id}__}">Edit</a></td>
-            <td><a th:href="@{/courses/delete/__${course.id}__}">Delete</a></td>
-        </tr>
+    </p>
+    <th:block th:if="${courses.getTotalElements() > 0}">
+        <table id="table">
+            <tr>
+                <th>Name</th>
+                <th>Start Day</th>
+                <th>End Day</th>
+                <th></th>
+                <th></th>
+            </tr>
+            <th:block th:each="course : ${courses}">
+                <tr>
+                    <td th:text="${course.name}"></td>
+                    <td th:text="${course.startDay}"></td>
+                    <td th:text="${course.endDay}"></td>
+                    <td><a th:href="@{/courses/edit/__${course.id}__}">Edit</a></td>
+                    <td><a th:href="@{/courses/delete/__${course.id}__}">Delete</a></td>
+                </tr>
+            </th:block>
+        </table>
+        <div>
+            <a th:href="@{'/courses/list'(page=${courses.number - 1})}" th:if="${courses.hasPrevious()}">Previous</a>
+            <span th:text="${courses.number+1}"></span>/<span th:text="${courses.totalPages}"></span>
+            <a th:href="@{'/courses/list'(page=${courses.number + 1})}" th:if="${courses.hasNext()}">Next</a>
+        </div>
     </th:block>
-</table>
+</div>
 </body>
 </html>

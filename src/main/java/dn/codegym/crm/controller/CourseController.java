@@ -1,12 +1,17 @@
 package dn.codegym.crm.controller;
 
 import dn.codegym.crm.dto.CourseDTO;
+import dn.codegym.crm.entity.Course;
 import dn.codegym.crm.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.Optional;
 
 
 @Controller
@@ -30,9 +35,16 @@ public class CourseController {
     }
 
     @GetMapping("/list")
-    public ModelAndView listCourses() {
+    public ModelAndView listCourses(@RequestParam("name") Optional<String> name, Pageable pageable) {
+        Page<Course> courses;
         ModelAndView modelAndView = new ModelAndView("course/list");
-        modelAndView.addObject("courses", courseService.findAllByDeletedIsFalse());
+        if (name.isPresent()) {
+            courses = courseService.findAllByNameContaining(name.get(), pageable);
+            modelAndView.addObject("name", name.get());
+        } else {
+            courses = courseService.findAllByDeletedIsFalse(pageable);
+        }
+        modelAndView.addObject("courses", courses);
         return modelAndView;
     }
 
