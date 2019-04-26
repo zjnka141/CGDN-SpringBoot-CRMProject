@@ -7,36 +7,48 @@
 <body>
 <a href="/">Home Page</a><hr>
 <h1>Create Student</h1>
-<p><a href="/student/list">Back to list of students</a></p>
-<form action="/student/create" method="post" th:object="${student}">
+<p><a href="/students/list">Back to list of students</a></p>
+<form action="/students/create" method="post" th:object="${students}">
+    <p>
+        <th:block th:if="${message}">
+            <p th:text="${message}"></p>
+        </th:block>
+    </p>
     <table>
         <tr>
             <td>Name:</td>
             <td><input type="text" th:field="*{name}"></td>
+            <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</td>
         </tr>
         <tr>
             <td>Birth day:</td>
-            <td><input type="text" th:field="*{birthDay}"></td>
+            <td><input type="date" th:value="*{birthday}" th:field="*{birthday}"></td>
+
         </tr>
         <tr>
-            <td>Email:</td>
-            <td><input type="text" th:field="*{email}"></td>
-        </tr>
-        <tr>
-            <td>Phone:</td>
-            <td><input type="text" th:field="*{phone}"></td>
-        </tr>
-        <tr>
-            <td>Class:</td>
+            <td>Gender:</td>
             <td>
-                <select th:field="*{classroom}">
-                    <option th:each="class : ${classes}" th:value="${class.id}" th:text="${class.name}"></option>
+                <select th:field="*{gender}">
+                    <option value="male">male</option>
+                    <option value="female">female</option>
+                </select>
+
+            </td>
+        </tr>
+        <tr>
+            <td>IdClass</td>
+            <td>
+                <select th:field="*{idClass}">
+                    <option th:each ="p:${classes}"
+                            th:value="${p.id}"
+                            th:text="${p.name}">
+                    </option>
                 </select>
             </td>
         </tr>
         <tr>
             <td></td>
-            <td><input type="submit" value="Create student"></td>
+            <td><input type="submit" value="Add new student"></td>
         </tr>
     </table>
 </form>

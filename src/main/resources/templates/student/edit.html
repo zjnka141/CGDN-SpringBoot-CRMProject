@@ -7,8 +7,8 @@
 <body>
 <a href="/">Home Page</a><hr>
 <h1>Edit Student</h1>
-<p><a href="/student/list">Back to list of students</a></p>
-<form action="/student/edit" method="post" th:object="${student}">
+<p><a href="/students/list">Back to list of students</a></p>
+<form action="/students/update" method="post" th:object="${students}">
     <input type="hidden" th:field="*{id}">
     <table>
         <tr>
@@ -17,24 +17,25 @@
         </tr>
         <tr>
             <td>Birth day:</td>
-            <td><input type="text" th:field="*{birthDay}"></td>
+            <td><input type="date" th:value="${birthday}" th:field="*{birthday}"></td>
         </tr>
         <tr>
-            <td>Email:</td>
-            <td><input type="text" th:field="*{email}"></td>
-        </tr>
-        <tr>
-            <td>Phone:</td>
-            <td><input type="text" th:field="*{phone}"></td>
+            <td>Gender:</td>
+            <td>
+                <select th:field="*{gender}">
+                    <option value="male">male</option>
+                    <option value="female">female</option>
+                </select>
+            </td>
         </tr>
         <tr>
             <td>Class:</td>
             <td>
-                <select name="classroom">
-                    <option th:each="c : ${classes}"
-                            th:value="${c.id}"
-                            th:text="${c.name}"
-                            th:selected="${c.id} == *{classroom.id}"></option>
+                <select th:name="idClass">
+                    <option th:each="c:${classes}"
+                    th:value="${c.id}"
+                    th:text="${c.getName()}"
+                    th:selected="(${c.id}==*{idClass.getId()})"></option>
                 </select>
             </td>
         </tr>
@@ -42,6 +43,7 @@
             <td></td>
             <td><input type="submit" value="Update student"></td>
         </tr>
+
     </table>
 </form>
 </body>

@@ -9,30 +9,26 @@
 <h1>Delete Student</h1>
 <h2>Are you sure?</h2>
 <p>
-    <a href="/student/list">Back to list of students</a>
+    <a href="/students/list">Back to list of students</a>
 </p>
-<form action="/student/delete" method="post" th:object="${student}">
+<form action="/students/delete" method="post" th:object="${students}">
     <input type="hidden" th:field="*{id}">
     <table>
         <tr>
             <td>Name:</td>
-            <td th:text="${student.name}"></td>
+            <td th:text="${students.name}"></td>
         </tr>
         <tr>
             <td>Birth day:</td>
-            <td th:text="${student.birthDay}"></td>
+            <td th:text="${students.birthday}"></td>
         </tr>
         <tr>
-            <td>Email:</td>
-            <td th:text="${student.email}"></td>
+            <td>Gender:</td>
+            <td th:text="${students.gender}"></td>
         </tr>
         <tr>
-            <td>Phone:</td>
-            <td th:text="${student.phone}"></td>
-        </tr>
-        <tr>
-            <td>Class:</td>
-            <td th:text="${student.classroom.name}"></td>
+            <td>Class</td>
+            <td th:text="${students.idClass.name}"></td>
         </tr>
         <tr>
             <td></td>
