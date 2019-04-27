@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Lead</title>
+</head>
+<body>
+<a href="/">Home Page</a><hr>
+<h1>Create Lead</h1>
+<p><a href="/leads/list">Back to list of leads</a></p>
+<form action="/leads/create" method="post" th:object="${lead}">
+    <table>
+        <tr>
+            <td>Name:</td>
+            <td><input type="text" th:field="*{name}"></td>
+        </tr>
+        <tr>
+            <td>Email:</td>
+            <td><input type="text" th:field="*{email}"></td>
+        </tr>
+        <tr>
+            <td>Phone:</td>
+            <td><input type="text" th:field="*{phoneNumber}"></td>
+        </tr>
+        <tr>
+            <td>Source:</td>
+            <td><input type="text" th:field="*{source}"></td>
+        </tr>
+        <tr>
+            <td>Status:</td>
+            <td>
+                <select th:field="*{status}">
+                    <option value="G1">G1</option>
+                    <option value="G2" >G2</option>
+                    <option value="G3">G3</option>
+                    <option value="G4">G4</option>
+                    <option value="G5">G5</option>
+                    <option value="G6">G6</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Campaign:</td>
+            <td>
+                <select th:field="*{campaign}">
+                    <option th:each="p : ${campaigns}" th:value="${p.id}" th:text="${p.name}"></option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Create lead"></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

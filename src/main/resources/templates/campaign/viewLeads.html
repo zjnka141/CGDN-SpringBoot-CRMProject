@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ADD LEADS INTO CAMPAIGN</title>
+</head>
+<body>
+<a href="/">Home Page</a>
+<hr>
+<a href="/campaigns/list">Back to list campaign</a>
+</th:block>
+</p>
+<h2>View leads of campaign:
+    <th:block th:text="${campaign.name}"></th:block>
+</h2>
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Source</th>
+        <th>Status</th>
+    </tr>
+    <th:block th:each="lead : ${leads}">
+        <tr>
+            <td th:text="${lead.name}"></td>
+            <td th:text="${lead.email}"></td>
+            <td th:text="${lead.phoneNumber}"></td>
+            <td th:text="${lead.source}"></td>
+            <td th:text="${lead.status}"></td>
+        </tr>
+    </th:block>
+</table>
+</body>
+</html>

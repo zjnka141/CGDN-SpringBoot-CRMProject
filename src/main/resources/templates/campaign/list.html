@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List Of Campaigns</title>
+</head>
+<body>
+<a href="/">Home Page</a><hr>
+<form action="#" th:action="@{/campaigns/searchName}" method="get">
+    <input type="text" name="name" placeholder="Search Name">
+    <input type="submit" value="Search name">
+</form>
+<a href="/campaigns/create">Create new campaign</a>
+<h1>Campaigns</h1>
+<p>
+    <th:block th:if="${message}">
+<p th:text="${message}"></p>
+</th:block>
+</p>
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Start Day</th>
+        <th>End Day</th>
+        <th>Edit</th>
+        <th>Delete</th>
+        <th>Add Leads</th>
+        <th>View Leads</th>
+    </tr>
+    <th:block th:each="campaign : ${campaigns}">
+        <tr>
+            <td><a th:href="@{/campaigns/view/__${campaign.id}__}" th:text="${campaign.name}"></a></td>
+            <td th:text="${campaign.start_day}"></td>
+            <td th:text="${campaign.end_day}"></td>
+            <td><a th:href="@{/campaigns/edit/__${campaign.id}__}">Edit</a></td>
+            <td><a th:href="@{/campaigns/delete/__${campaign.id}__}">Delete</a></td>
+            <td><a th:href="@{/campaigns/addLead/__${campaign.id}__}">Add</a></td>
+            <td><a th:href="@{/campaigns/viewLeads/__${campaign.id}__}">View</a></td>
+        </tr>
+    </th:block>
+</table>
+</form>
+</body>
+</html>

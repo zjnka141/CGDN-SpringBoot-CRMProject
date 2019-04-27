@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List Of Leads</title>
+</head>
+<body>
+<a href="/">Home Page</a><hr>
+
+<a href="/leads/status/G1">G1</a>
+<a href="/leads/status/G2">G2</a>
+<a href="/leads/status/G3">G3</a>
+<a href="/leads/status/G4">G4</a>
+<a href="/leads/status/G5">G5</a>
+<a href="/leads/status/G6">G6</a>
+
+<br><br><a href="/leads/create">Create new lead</a>
+<h1>Leads</h1>
+<p>
+    <th:block th:if="${message}">
+        <p th:text="${message}"></p>
+    </th:block>
+</p>
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Source</th>
+        <th>Status</th>
+        <th>Campaign</th>
+        <th></th>
+        <th></th>
+    </tr>
+    <th:block th:each="lead : ${leads}">
+        <tr>
+            <td th:text="${lead.name}"></td>
+            <td th:text="${lead.email}"></td>
+            <td th:text="${lead.phoneNumber}"></td>
+            <td th:text="${lead.source}"></td>
+            <td th:text="${lead.status}"></td>
+            <td th:text="${lead.campaign.name}"></td>
+            <td><a th:href="@{/leads/edit/__${lead.id}__}">Edit</a></td>
+            <td><a th:href="@{/leads/delete/__${lead.id}__}">Delete</a></td>
+        </tr>
+    </th:block>
+</table>
+</body>
+</html>
