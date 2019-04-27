@@ -3,13 +3,11 @@ package dn.codegym.crm.controller;
 import dn.codegym.crm.dto.CourseDTO;
 import dn.codegym.crm.entity.Course;
 import dn.codegym.crm.service.CourseService;
-import dn.codegym.crm.validator.CourseValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -23,21 +21,6 @@ import java.util.Optional;
 public class CourseController {
     @Autowired
     private CourseService courseService;
-
-    @Autowired
-    private CourseValidator courseValidator;
-
-    @InitBinder
-    protected void initBinder(WebDataBinder dataBinder) {
-        Object target = dataBinder.getTarget();
-        if (target == null) {
-            return;
-        }
-        System.out.println("Target=" + target);
-        if (target.getClass() == Course.class) {
-            dataBinder.setValidator(courseValidator);
-        }
-    }
 
     @GetMapping("/create")
     public ModelAndView showCreateForm() {
