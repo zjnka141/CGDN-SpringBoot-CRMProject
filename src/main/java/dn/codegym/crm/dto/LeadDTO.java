@@ -1,5 +1,7 @@
 package dn.codegym.crm.dto;
 
+import dn.codegym.crm.entity.Campaign;
+
 import java.util.UUID;
 
 public class LeadDTO {
@@ -10,6 +12,15 @@ public class LeadDTO {
     private String source;
     private String status;
     private boolean deleted;
+    private Campaign campaign;
+
+    public Campaign getCampaign() {
+        return campaign;
+    }
+
+    public void setCampaign(Campaign campaign) {
+        this.campaign = campaign;
+    }
 
     public String getId() {
         return id;

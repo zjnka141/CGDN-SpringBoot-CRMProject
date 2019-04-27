@@ -3,8 +3,10 @@ package dn.codegym.crm.service.impl;
 import dn.codegym.crm.constants.AppConsts;
 import dn.codegym.crm.dto.CourseDTO;
 import dn.codegym.crm.dto.LeadDTO;
+import dn.codegym.crm.entity.Campaign;
 import dn.codegym.crm.entity.Course;
 import dn.codegym.crm.entity.Lead;
+import dn.codegym.crm.repository.CampaignRepository;
 import dn.codegym.crm.repository.LeadRepository;
 import dn.codegym.crm.service.LeadService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +14,15 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Service("leadService")
 public class LeadServiceImpl implements LeadService {
     @Autowired
     private LeadRepository leadRepository;
+
+    @Autowired
+    private CampaignRepository campaignRepository;
 
     @Override
     public Iterable<Lead> findAllByDeletedIsFalse() {
@@ -37,8 +43,10 @@ public class LeadServiceImpl implements LeadService {
         lead.setSource(leadDTO.getSource());
         lead.setStatus(leadDTO.getStatus());
         lead.setDeleted(Boolean.FALSE);
+        lead.setCampaign(leadDTO.getCampaign());
         leadRepository.save(lead);
     }
+
     @Override
     public void update(LeadDTO leadDTO) {
         Lead lead = leadRepository.findById(leadDTO.getId()).orElse(null);
@@ -47,6 +55,7 @@ public class LeadServiceImpl implements LeadService {
         lead.setPhoneNumber(leadDTO.getPhoneNumber());
         lead.setSource(leadDTO.getSource());
         lead.setStatus(leadDTO.getStatus());
+        lead.setCampaign(leadDTO.getCampaign());
         leadRepository.save(lead);
     }
 
@@ -62,6 +71,7 @@ public class LeadServiceImpl implements LeadService {
             leadDTO.setPhoneNumber(lead.getPhoneNumber());
             leadDTO.setSource(lead.getSource());
             leadDTO.setStatus(lead.getStatus());
+            leadDTO.setCampaign(lead.getCampaign());
             leadDTO.setDeleted(lead.isDeleted());
 
             return leadDTO;
@@ -69,14 +79,18 @@ public class LeadServiceImpl implements LeadService {
         return null;
     }
 
-        @Override
-        public void delete (String id){
-            Lead lead = leadRepository.findById(id).orElse(null);
-            lead.setDeleted(true);
-            leadRepository.save(lead);
-        }
-
-
+    @Override
+    public void delete(String id) {
+        Lead lead = leadRepository.findById(id).orElse(null);
+        lead.setDeleted(true);
+        leadRepository.save(lead);
+    }
+    @Override
+    public List<Lead> findAllByCampaignId(String campaignId) {
+        Campaign campaign=campaignRepository.findById(campaignId).orElse(null);
+        List<Lead> leads =leadRepository.findAllByCampaignAndDeletedIsFalse(campaign);
+        return leads;
+    }
 
 }
 

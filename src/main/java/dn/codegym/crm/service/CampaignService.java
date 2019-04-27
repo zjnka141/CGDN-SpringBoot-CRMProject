@@ -6,7 +6,7 @@ import dn.codegym.crm.entity.Campaign;
 import java.util.List;
 
 public interface CampaignService {
-    Iterable<Campaign> findAllByDeletedIsFalse();
+    List<Campaign> findAllByDeletedIsFalse();
 
     List<Campaign> searchName(String name);
 

@@ -1,7 +1,9 @@
 package dn.codegym.crm.controller;
 
 import dn.codegym.crm.dto.LeadDTO;
+import dn.codegym.crm.entity.Campaign;
 import dn.codegym.crm.entity.Lead;
+import dn.codegym.crm.service.CampaignService;
 import dn.codegym.crm.service.LeadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class LeadController {
     @Autowired
     private LeadService leadService;
+
+    @Autowired
+    private CampaignService campaignService;
+
+    @ModelAttribute("campaigns")
+    public Iterable<Campaign> campaigns(){
+        return campaignService.findAllByDeletedIsFalse();
+    }
 
     @GetMapping("/create")
     public ModelAndView showCreateForm() {

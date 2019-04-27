@@ -2,20 +2,32 @@ package dn.codegym.crm.entity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Table(name = "campaigns")
-public class Campaign extends BaseEntity{
+public class Campaign extends BaseEntity {
 
     @Id
-    private String id= UUID.randomUUID().toString();
+    private String id = UUID.randomUUID().toString();
     private String name;
     private String description;
     private boolean deleted;
     private LocalDate start_day;
     private LocalDate end_day;
     private String phone_number;
+
+    @OneToMany(mappedBy = "campaign", cascade = CascadeType.ALL)
+    private List<Lead> leads;
+
+    public List<Lead> getLeads() {
+        return leads;
+    }
+
+    public void setLeads(List<Lead> leads) {
+        this.leads = leads;
+    }
 
     public LocalDate getStart_day() {
         return start_day;

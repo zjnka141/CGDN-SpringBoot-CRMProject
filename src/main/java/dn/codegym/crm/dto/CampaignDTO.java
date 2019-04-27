@@ -1,6 +1,9 @@
 package dn.codegym.crm.dto;
 
+import dn.codegym.crm.entity.Lead;
+
 import java.io.Serializable;
+import java.util.List;
 
 public class CampaignDTO implements Serializable {
 
@@ -11,6 +14,15 @@ public class CampaignDTO implements Serializable {
     private String end_day;
     private String phone_number;
     private boolean deleted;
+    private List<Lead> leads;
+
+    public List<Lead> getLeads() {
+        return leads;
+    }
+
+    public void setLeads(List<Lead> leads) {
+        this.leads = leads;
+    }
 
     public boolean isDeleted() {
         return deleted;

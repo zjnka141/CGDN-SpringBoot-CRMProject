@@ -3,7 +3,9 @@ package dn.codegym.crm.service.impl;
 import dn.codegym.crm.constants.AppConsts;
 import dn.codegym.crm.dto.CampaignDTO;
 import dn.codegym.crm.entity.Campaign;
+import dn.codegym.crm.entity.Lead;
 import dn.codegym.crm.repository.CampaignRepository;
+import dn.codegym.crm.repository.LeadRepository;
 import dn.codegym.crm.service.CampaignService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,14 +20,18 @@ import java.util.List;
 public class CampaignServiceImpl implements CampaignService {
     @Autowired
     private CampaignRepository campaignRepository;
+
+    @Autowired
+    private LeadRepository leadRepository;
+
     @Override
-    public Iterable<Campaign> findAllByDeletedIsFalse() {
+    public List<Campaign> findAllByDeletedIsFalse() {
         return campaignRepository.findAllByDeletedIsFalse();
     }
 
     @Override
     public List<Campaign> searchName(String name) {
-        return campaignRepository.findAllByNameContaining(name);
+        return campaignRepository.findAllByNameContainingAndDeletedIsFalse(name);
     }
 
     @Override
@@ -33,7 +39,7 @@ public class CampaignServiceImpl implements CampaignService {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(AppConsts.STRING_TO_DATE_FORMAT);
         LocalDate startDay = LocalDate.parse(campaignDTO.getStart_day(), formatter);
         LocalDate endDay = LocalDate.parse(campaignDTO.getEnd_day(), formatter);
-        Campaign campaign=new Campaign();
+        Campaign campaign = new Campaign();
         campaign.setName(campaignDTO.getName());
         campaign.setDescription(campaignDTO.getDescription());
         campaign.setEnd_day(endDay);
@@ -62,8 +68,12 @@ public class CampaignServiceImpl implements CampaignService {
 
     @Override
     public void delete(String id) {
-        Campaign campaign=campaignRepository.findById(id).orElse(null);
+        Campaign campaign = campaignRepository.findById(id).orElse(null);
         campaign.setDeleted(true);
+        List<Lead> leads=leadRepository.findAllByCampaignAndDeletedIsFalse(campaign);
+        for (Lead lead:leads) {
+            lead.setCampaign(campaignRepository.findById(AppConsts.CAMPAIGN_NULL).orElse(null));
+        }
         campaignRepository.save(campaign);
     }
 
