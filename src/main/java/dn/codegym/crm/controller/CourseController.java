@@ -1,7 +1,10 @@
 package dn.codegym.crm.controller;
 
 import dn.codegym.crm.dto.CourseDTO;
+import dn.codegym.crm.entity.ClassRoom;
 import dn.codegym.crm.entity.Course;
+import dn.codegym.crm.repository.CourseRepository;
+import dn.codegym.crm.service.ClassRoomService;
 import dn.codegym.crm.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,6 +24,10 @@ import java.util.Optional;
 public class CourseController {
     @Autowired
     private CourseService courseService;
+    @Autowired
+    private ClassRoomService classRoomService;
+    @Autowired
+    private CourseRepository courseRepository;
 
     @GetMapping("/create")
     public ModelAndView showCreateForm() {
@@ -64,6 +71,18 @@ public class CourseController {
         if (courseDTO != null) {
             ModelAndView modelAndView = new ModelAndView("course/edit");
             modelAndView.addObject("course", courseDTO);
+            return modelAndView;
+        } else {
+            return new ModelAndView("error404");
+        }
+    }
+
+    @GetMapping("/{id}/classes")
+    public ModelAndView showClassesByCourse(@PathVariable String id, Pageable pageable) {
+        Page<ClassRoom> classRooms = classRoomService.findAllByDeletedIsFalseAndIdCourse(courseRepository.findById(id).orElse(null),pageable);
+        if (classRooms != null) {
+            ModelAndView modelAndView = new ModelAndView("course/classListView");
+            modelAndView.addObject("classes", classRooms);
             return modelAndView;
         } else {
             return new ModelAndView("error404");

@@ -11,12 +11,12 @@ public class ClassRoom extends BaseEntity{
     private String name;
     @ManyToOne
     @JoinColumn(name = "courses_id")
-    private Course id_course;
+    private Course course;
     private Boolean deleted;
 
-    public Course getId_course() { return id_course; }
+    public Course getCourse() { return course; }
 
-    public void setId_course(Course id_course) { this.id_course = id_course; }
+    public void setCourse(Course course) { this.course = course; }
 
     public Boolean getDeleted() { return deleted; }
 

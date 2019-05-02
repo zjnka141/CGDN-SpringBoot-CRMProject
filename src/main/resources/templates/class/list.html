@@ -28,7 +28,7 @@
     <th:block th:each="class : ${classes}">
         <tr>
             <td th:text="${class.name}"></td>
-            <td th:text="${class.id_course.name}"></td>
+            <td th:text="${class.course.name}"></td>
             <td><a th:href="@{/classes/edit/__${class.id}__}">Edit</a></td>
             <td><a th:href="@{/classes/delete/__${class.id}__}">Delete</a></td>
         </tr>

@@ -2,10 +2,10 @@ package dn.codegym.crm.service.impl;
 
 import dn.codegym.crm.dto.ClassRoomDTO;
 import dn.codegym.crm.entity.ClassRoom;
+import dn.codegym.crm.entity.Course;
 import dn.codegym.crm.repository.ClassRoomRepository;
 import dn.codegym.crm.repository.CourseRepository;
 import dn.codegym.crm.service.ClassRoomService;
-import dn.codegym.crm.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,8 +27,8 @@ public class ClassRoomServiceImpl implements ClassRoomService {
     public void save(ClassRoom classRoom) {
         ClassRoom classes = new ClassRoom();
         classes.setName(classRoom.getName());
-        System.out.println(classRoom.getId_course().getName());
-        classes.setId_course(classRoom.getId_course());
+        System.out.println(classRoom.getCourse().getName());
+        classes.setCourse(classRoom.getCourse());
         classes.setDeleted(Boolean.FALSE);
         classRoomRepository.save(classes);
     }
@@ -37,7 +37,7 @@ public class ClassRoomServiceImpl implements ClassRoomService {
     public void update(ClassRoomDTO classRoomDTO) {
         ClassRoom classRoom = classRoomRepository.findById(classRoomDTO.getId()).orElse(null);
         classRoom.setName(classRoomDTO.getName());
-        classRoom.setId_course(classRoomDTO.getId_course());
+        classRoom.setCourse(classRoomDTO.getId_course());
         classRoomRepository.save(classRoom);
     }
 
@@ -47,7 +47,7 @@ public class ClassRoomServiceImpl implements ClassRoomService {
         if(classRoom != null){
             ClassRoomDTO classRoomDTO = new ClassRoomDTO();
             classRoomDTO.setId(classRoom.getId());
-            classRoomDTO.setId_course(classRoom.getId_course());
+            classRoomDTO.setId_course(classRoom.getCourse());
             classRoomDTO.setName(classRoom.getName());
             return classRoomDTO;
         }
@@ -75,5 +75,10 @@ public class ClassRoomServiceImpl implements ClassRoomService {
     @Override
     public Iterable<ClassRoom> findAll() {
         return classRoomRepository.findAll();
+    }
+
+    @Override
+    public Page<ClassRoom> findAllByDeletedIsFalseAndIdCourse(Course course, Pageable pageable) {
+        return classRoomRepository.findAllByDeletedIsFalseAndCourse(course, pageable);
     }
 }
