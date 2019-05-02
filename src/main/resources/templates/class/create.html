@@ -7,8 +7,8 @@
 <body>
 <a href="/">Home Page</a><hr>
 <h1>Create Class</h1>
-<p><a href="/class/list">Back to list of classes</a></p>
-<form action="/class/create" method="post" th:object="${class}">
+<p><a href="/classes/list">Back to list of classes</a></p>
+<form action="/classes/create" method="post" th:object="${classes}">
     <table>
         <tr>
             <td>Name:</td>
@@ -17,8 +17,12 @@
         <tr>
             <td>Course:</td>
             <td>
-                <select th:field="*{course}">
-                    <option th:each="course : ${courses}" th:value="${course.id}" th:text="${course.name}"></option>
+                <select th:field="*{id_course}">
+                    <option th:each="c: ${course}"
+                            th:value="${c.id}"
+                            th:text="${c.name}">
+
+                    </option>
                 </select>
             </td>
         </tr>

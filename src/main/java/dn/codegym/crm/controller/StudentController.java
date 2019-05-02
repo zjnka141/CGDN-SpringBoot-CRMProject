@@ -23,8 +23,8 @@ public class StudentController {
     @Autowired
     private ClassRoomService classRoomService;
     @ModelAttribute("classes")
-    public Iterable<ClassRoom> classRooms() {
-        return classRoomService.findAllByDeletedIsFalse();
+    public Page<ClassRoom> classRooms(Pageable pageable) {
+        return classRoomService.findAllByDeletedIsFalse(pageable);
     }
     @GetMapping("/create")
     public ModelAndView createStudent() {

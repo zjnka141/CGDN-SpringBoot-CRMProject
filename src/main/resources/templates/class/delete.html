@@ -9,18 +9,18 @@
 <h1>Delete Class</h1>
 <h2>Are you sure?</h2>
 <p>
-    <a href="/class/list">Back to list of classes</a>
+    <a href="/classes/list">Back to list of classes</a>
 </p>
-<form action="/class/delete" method="post" th:object="${class}">
+<form action="/classes/delete" method="post" th:object="${classes}">
     <input type="hidden" th:field="*{id}">
     <table>
         <tr>
             <td>Name:</td>
-            <td th:text="${class.name}"></td>
+            <td th:text="${classes.name}"></td>
         </tr>
         <tr>
             <td>Course:</td>
-            <td th:text="${class.course.name}"></td>
+            <td th:text="${classes.id_course.name}"></td>
         </tr>
         <tr>
             <td></td>

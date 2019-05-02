@@ -1,12 +1,20 @@
 package dn.codegym.crm.dto;
 
+import dn.codegym.crm.entity.Course;
+
 import java.io.Serializable;
 
 public class ClassRoomDTO implements Serializable {
     private String id;
     private String name;
-    private String idCourse;
+    private Course id_course;
     private Boolean deleted;
+
+    public Course getId_course() { return id_course; }
+
+    public void setId_course(Course id_course) { this.id_course = id_course; }
+
+    public Boolean getDeleted() { return deleted; }
 
     public String getId() {
         return id;
@@ -24,13 +32,6 @@ public class ClassRoomDTO implements Serializable {
         this.name = name;
     }
 
-    public String getIdCourse() {
-        return idCourse;
-    }
-
-    public void setIdCourse(String idCourse) {
-        this.idCourse = idCourse;
-    }
 
     public Boolean isDeleted() {
         return deleted;

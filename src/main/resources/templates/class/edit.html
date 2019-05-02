@@ -7,8 +7,8 @@
 <body>
 <a href="/">Home Page</a><hr>
 <h1>Edit Class</h1>
-<p><a href="/class/list">Back to list of classes</a></p>
-<form action="/class/edit" method="post" th:object="${class}">
+<p><a href="/classes/list">Back to list of classes</a></p>
+<form action="/classes/edit" method="post" th:object="${classes}">
     <input type="hidden" th:field="*{id}">
     <table>
         <tr>
@@ -18,11 +18,11 @@
         <tr>
             <td>Course:</td>
             <td>
-                <select name="course">
-                    <option th:each="c : ${courses}"
+                <select th:field="*{id_course}">
+                    <option th:each="c:${course}"
                             th:value="${c.id}"
                             th:text="${c.name}"
-                            th:selected="${c.id} == *{course.id}"></option>
+                            th:selected="${c.id} == *{id_course.getId()}"></option>
                 </select>
             </td>
         </tr>

@@ -3,8 +3,14 @@ package dn.codegym.crm.service.impl;
 import dn.codegym.crm.dto.ClassRoomDTO;
 import dn.codegym.crm.entity.ClassRoom;
 import dn.codegym.crm.repository.ClassRoomRepository;
+import dn.codegym.crm.repository.CourseRepository;
 import dn.codegym.crm.service.ClassRoomService;
+import dn.codegym.crm.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import static java.lang.Boolean.TRUE;
@@ -12,36 +18,40 @@ import static java.lang.Boolean.TRUE;
 @Service
 public class ClassRoomServiceImpl implements ClassRoomService {
     @Autowired
-    ClassRoomRepository classRoomRepository;
+    private ClassRoomRepository classRoomRepository;
+
+    @Autowired
+    private CourseRepository courseRepository;
 
     @Override
-    public Iterable<ClassRoom> findAllByDeletedIsFalse() {
-        return classRoomRepository.findAllByDeletedIsFalse();
-    }
-
-    @Override
-    public void save(ClassRoomDTO classRoomDTO) {
-        ClassRoom classRoom = new ClassRoom();
-        classRoom.setName(classRoomDTO.getName());
-        classRoom.setIdCourse(classRoomDTO.getIdCourse());
-        classRoom.setDeleted(Boolean.FALSE);
-        classRoomRepository.save(classRoom);
+    public void save(ClassRoom classRoom) {
+        ClassRoom classes = new ClassRoom();
+        classes.setName(classRoom.getName());
+        System.out.println(classRoom.getId_course().getName());
+        classes.setId_course(classRoom.getId_course());
+        classes.setDeleted(Boolean.FALSE);
+        classRoomRepository.save(classes);
     }
 
     @Override
     public void update(ClassRoomDTO classRoomDTO) {
         ClassRoom classRoom = classRoomRepository.findById(classRoomDTO.getId()).orElse(null);
+        classRoom.setName(classRoomDTO.getName());
+        classRoom.setId_course(classRoomDTO.getId_course());
+        classRoomRepository.save(classRoom);
     }
 
     @Override
     public ClassRoomDTO findById(String id) {
         ClassRoom classRoom = classRoomRepository.findById(id).orElse(null);
-        ClassRoomDTO classRoomDTO = new ClassRoomDTO();
-        classRoomDTO.setId(classRoom.getId());
-        classRoomDTO.setName(classRoom.getName());
-        classRoomDTO.setIdCourse(classRoom.getIdCourse());
-        classRoomDTO.setDeleted(classRoom.isDeleted());
-        return classRoomDTO;
+        if(classRoom != null){
+            ClassRoomDTO classRoomDTO = new ClassRoomDTO();
+            classRoomDTO.setId(classRoom.getId());
+            classRoomDTO.setId_course(classRoom.getId_course());
+            classRoomDTO.setName(classRoom.getName());
+            return classRoomDTO;
+        }
+        return null;
     }
 
     @Override
@@ -49,6 +59,17 @@ public class ClassRoomServiceImpl implements ClassRoomService {
         ClassRoom classRoom = classRoomRepository.findById(id).orElse(null);
         classRoom.setDeleted(TRUE);
         classRoomRepository.save(classRoom);
+    }
+    @Override
+    public Page<ClassRoom> findAllByDeletedIsFalse(Pageable pageable) {
+        pageable = PageRequest.of(pageable.getPageNumber(), 10, Sort.by("name"));
+        return classRoomRepository.findAllByDeletedIsFalse(pageable);
+    }
+
+    @Override
+    public Page<ClassRoom> findAllByNameContaining(String name, Pageable pageable) {
+        pageable = PageRequest.of(pageable.getPageNumber(), 10, Sort.by("name"));
+        return classRoomRepository.findAllByNameContaining(name,pageable);
     }
 
     @Override
