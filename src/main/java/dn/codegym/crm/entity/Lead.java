@@ -14,7 +14,7 @@ public class Lead extends BaseEntity {
     private String id = UUID.randomUUID().toString();
     private String name;
 
-    private String phone_number;
+    private String phoneNumber;
     private String email;
     private String source;
     private String status;
@@ -59,11 +59,11 @@ public class Lead extends BaseEntity {
     }
 
     public String getPhoneNumber() {
-        return phone_number;
+        return phoneNumber;
     }
 
     public void setPhoneNumber(String phone_number) {
-        this.phone_number = phone_number;
+        this.phoneNumber = phone_number;
     }
 
     public String getEmail() {
