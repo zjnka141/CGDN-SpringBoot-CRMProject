@@ -6,10 +6,13 @@ import dn.codegym.crm.entity.Lead;
 import dn.codegym.crm.service.CampaignService;
 import dn.codegym.crm.service.LeadService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("leads")
@@ -21,8 +24,8 @@ public class LeadController {
     private CampaignService campaignService;
 
     @ModelAttribute("campaigns")
-    public Iterable<Campaign> campaigns(){
-        return campaignService.findAllByDeletedIsFalse();
+    public Iterable<Campaign> campaigns(Pageable pageable){
+        return campaignService.findAllByDeletedIsFalse(pageable);
     }
 
     @GetMapping("/create")

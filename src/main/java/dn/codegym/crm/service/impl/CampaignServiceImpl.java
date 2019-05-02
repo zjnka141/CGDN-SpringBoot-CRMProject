@@ -8,6 +8,10 @@ import dn.codegym.crm.repository.CampaignRepository;
 import dn.codegym.crm.repository.LeadRepository;
 import dn.codegym.crm.service.CampaignService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,13 +29,21 @@ public class CampaignServiceImpl implements CampaignService {
     private LeadRepository leadRepository;
 
     @Override
-    public List<Campaign> findAllByDeletedIsFalse() {
-        return campaignRepository.findAllByDeletedIsFalse();
+    public Page<Campaign> findAllByDeletedIsFalse(Pageable pageable) {
+        pageable = PageRequest.of(pageable.getPageNumber(), 10, Sort.by("name"));
+        return campaignRepository.findAllByDeletedIsFalse(pageable);
     }
 
     @Override
-    public List<Campaign> searchName(String name) {
-        return campaignRepository.findAllByNameContainingAndDeletedIsFalse(name);
+    public Page<Campaign> searchName(String name, Pageable pageable) {
+        pageable = PageRequest.of(pageable.getPageNumber(), 10, Sort.by("name"));
+        return campaignRepository.findAllByNameContainingAndNameIsNotAndDeletedIsFalse(name, AppConsts.CAMPAIGN_NAME_NULL, pageable);
+    }
+
+    @Override
+    public Page<Campaign> findAllByDeletedIsFalseAndNameIsNot(String name, Pageable pageable) {
+        pageable = PageRequest.of(pageable.getPageNumber(), 10, Sort.by("name"));
+        return campaignRepository.findAllByDeletedIsFalseAndNameIsNot(name, pageable);
     }
 
     @Override
@@ -70,9 +82,9 @@ public class CampaignServiceImpl implements CampaignService {
     public void delete(String id) {
         Campaign campaign = campaignRepository.findById(id).orElse(null);
         campaign.setDeleted(true);
-        List<Lead> leads=leadRepository.findAllByCampaignAndDeletedIsFalse(campaign);
-        for (Lead lead:leads) {
-            lead.setCampaign(campaignRepository.findById(AppConsts.CAMPAIGN_NULL).orElse(null));
+        List<Lead> leads = leadRepository.findAllByCampaignAndDeletedIsFalse(campaign);
+        for (Lead lead : leads) {
+            lead.setCampaign(campaignRepository.findById(AppConsts.CAMPAIGN_ID_NULL).orElse(null));
         }
         campaignRepository.save(campaign);
     }

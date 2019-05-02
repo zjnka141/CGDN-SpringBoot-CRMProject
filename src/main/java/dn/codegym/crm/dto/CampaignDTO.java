@@ -2,16 +2,23 @@ package dn.codegym.crm.dto;
 
 import dn.codegym.crm.entity.Lead;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.List;
 
 public class CampaignDTO implements Serializable {
 
     private String id;
+    @NotBlank(message = "Course name is not valid")
     private String name;
     private String description;
+    @NotEmpty(message = "Start day is not valid")
     private String start_day;
+    @NotEmpty(message = "End day is not valid")
     private String end_day;
+    @Pattern(regexp = "(^$|[0-9]{10})*$", message = "must has 10 number")
     private String phone_number;
     private boolean deleted;
     private List<Lead> leads;

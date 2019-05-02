@@ -2,12 +2,10 @@ package dn.codegym.crm.dto;
 
 import dn.codegym.crm.entity.Campaign;
 
-import java.util.UUID;
-
 public class LeadDTO {
     private String id;
     private String name;
-    private String phone_number;
+    private String phoneNumber;
     private String email;
     private String source;
     private String status;
@@ -39,11 +37,11 @@ public class LeadDTO {
     }
 
     public String getPhoneNumber() {
-        return phone_number;
+        return phoneNumber;
     }
 
     public void setPhoneNumber(String phone_number) {
-        this.phone_number = phone_number;
+        this.phoneNumber = phone_number;
     }
 
     public String getEmail() {

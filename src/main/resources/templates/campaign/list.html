@@ -5,7 +5,8 @@
     <title>List Of Campaigns</title>
 </head>
 <body>
-<a href="/">Home Page</a><hr>
+<a href="/">Home Page</a>
+<hr>
 <form action="#" th:action="@{/campaigns/searchName}" method="get">
     <input type="text" name="name" placeholder="Search Name">
     <input type="submit" value="Search name">
@@ -17,28 +18,45 @@
 <p th:text="${message}"></p>
 </th:block>
 </p>
-<table border="1">
-    <tr>
-        <th>Name</th>
-        <th>Start Day</th>
-        <th>End Day</th>
-        <th>Edit</th>
-        <th>Delete</th>
-        <th>Add Leads</th>
-        <th>View Leads</th>
-    </tr>
-    <th:block th:each="campaign : ${campaigns}">
+<th:block th:if="${campaigns.getTotalElements() > 0}">
+    <table border="1">
         <tr>
-            <td><a th:href="@{/campaigns/view/__${campaign.id}__}" th:text="${campaign.name}"></a></td>
-            <td th:text="${campaign.start_day}"></td>
-            <td th:text="${campaign.end_day}"></td>
-            <td><a th:href="@{/campaigns/edit/__${campaign.id}__}">Edit</a></td>
-            <td><a th:href="@{/campaigns/delete/__${campaign.id}__}">Delete</a></td>
-            <td><a th:href="@{/campaigns/addLead/__${campaign.id}__}">Add</a></td>
-            <td><a th:href="@{/campaigns/viewLeads/__${campaign.id}__}">View</a></td>
+            <th>Name</th>
+            <th>Start Day</th>
+            <th>End Day</th>
+            <th>Edit</th>
+            <th>Delete</th>
+            <th>Add Leads</th>
+            <th>View Leads</th>
         </tr>
+        <th:block th:each="campaign : ${campaigns}">
+            <tr>
+                <td><a th:href="@{/campaigns/view/__${campaign.id}__}" th:text="${campaign.name}"></a></td>
+                <td th:text="${campaign.start_day}"></td>
+                <td th:text="${campaign.end_day}"></td>
+                <td><a th:href="@{/campaigns/edit/__${campaign.id}__}">Edit</a></td>
+                <td><a th:href="@{/campaigns/delete/__${campaign.id}__}">Delete</a></td>
+                <td><a th:href="@{/campaigns/addLead/__${campaign.id}__}">Add</a></td>
+                <td><a th:href="@{/campaigns/viewLeads/__${campaign.id}__}">View</a></td>
+            </tr>
+        </th:block>
+    </table>
+    <th:block th:switch="${name}">
+        <div th:case="null">
+            <a th:href="@{'/campaigns/list'(page=${campaigns.number - 1})}"
+               th:if="${campaigns.hasPrevious()}">Previous</a>
+            <span th:text="${campaigns.number+1}"></span>/<span th:text="${campaigns.totalPages}"></span>
+            <a th:href="@{'/campaigns/list'(page=${campaigns.number + 1})}" th:if="${campaigns.hasNext()}">Next</a>
+        </div>
+
+        <div th:case="*">
+            <a th:href="@{'/campaigns/list'(page=${campaigns.number - 1}, name=${name})}" th:if="${campaigns.hasPrevious()}">Previous</a>
+            <span th:text="${campaigns.number+1}"></span>/<span th:text="${campaigns.totalPages}"></span>
+            <a th:href="@{'/courses/list'(page=${campaigns.number + 1}, name=${name})}"
+               th:if="${campaigns.hasNext()}">Next</a>
+        </div>
     </th:block>
-</table>
+</th:block>
 </form>
 </body>
 </html>

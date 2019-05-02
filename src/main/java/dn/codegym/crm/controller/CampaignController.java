@@ -9,12 +9,16 @@ import dn.codegym.crm.repository.CampaignRepository;
 import dn.codegym.crm.service.CampaignService;
 import dn.codegym.crm.service.LeadService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -31,14 +35,9 @@ public class CampaignController {
 
 
     @GetMapping("/list")
-    public ModelAndView listCampaign() {
+    public ModelAndView listCampaign(Pageable pageable) {
         ModelAndView modelAndView = new ModelAndView("campaign/list");
-        List<Campaign> campaigns = campaignService.findAllByDeletedIsFalse();
-        for (int i=0;i<campaigns.size();i++) {
-            if (campaigns.get(i).getId().equals(AppConsts.CAMPAIGN_NULL)) {
-               campaigns.remove(campaigns.get(i));
-            }
-        }
+        Page<Campaign> campaigns = campaignService.findAllByDeletedIsFalseAndNameIsNot(AppConsts.CAMPAIGN_NAME_NULL, pageable);
         modelAndView.addObject("campaigns", campaigns);
         return modelAndView;
     }
@@ -63,15 +62,20 @@ public class CampaignController {
     }
 
     @PostMapping("/create")
-    public String saveCampaign(@ModelAttribute("campaign") CampaignDTO campaign, RedirectAttributes redirect) {
-        campaignService.create(campaign);
-        redirect.addFlashAttribute("message", "New campaign created successfully!");
-        return "redirect:/campaigns/list";
+    public String saveCampaign(@Valid @ModelAttribute("campaign") CampaignDTO campaign, BindingResult bindingResult, RedirectAttributes redirect) {
+        if (bindingResult.hasErrors()) {
+            return "campaign/create";
+        } else {
+            campaignService.create(campaign);
+            redirect.addFlashAttribute("message", "New campaign created successfully!");
+            return "redirect:/campaigns/list";
+        }
     }
 
     @GetMapping("/searchName")
-    public ModelAndView findAllByName(@ModelAttribute("name") String name) {
-        return new ModelAndView("campaign/list", "campaigns", campaignService.searchName(name));
+    public ModelAndView findAllByName(@ModelAttribute("name") String name, Pageable pageable) {
+        Page<Campaign> campaigns = campaignService.searchName(name, pageable);
+        return new ModelAndView("campaign/list", "campaigns", campaigns);
     }
 
     @GetMapping("/edit/{id}")
@@ -114,7 +118,7 @@ public class CampaignController {
 
     @GetMapping("/addLead/{campaignId}")
     public ModelAndView viewAddLeads(@PathVariable String campaignId, Model model) {
-        List<Lead> leads = leadService.findAllByCampaignId(AppConsts.CAMPAIGN_NULL);
+        List<Lead> leads = leadService.findAllByCampaignId(AppConsts.CAMPAIGN_ID_NULL);
         model.addAttribute("campaign", campaignService.findById(campaignId));
         return new ModelAndView("campaign/addLeads", "leads", leads);
     }
@@ -123,7 +127,6 @@ public class CampaignController {
     public String addLeads(@PathVariable("leadId") String leadId, @PathVariable("campaignId") String campaignId, RedirectAttributes redirect) {
         LeadDTO leadDTO = leadService.findById(leadId);
         CampaignDTO campaignDTO = campaignService.findById(campaignId);
-        System.out.println(campaignDTO.getName());
         leadDTO.setCampaign(campaignRepository.findById(campaignDTO.getId()).orElse(null));
         leadService.update(leadDTO);
         redirect.addFlashAttribute("message", "Add lead into campaign successfully!");

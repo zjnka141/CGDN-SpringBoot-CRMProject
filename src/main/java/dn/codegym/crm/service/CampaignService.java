@@ -2,13 +2,16 @@ package dn.codegym.crm.service;
 
 import dn.codegym.crm.dto.CampaignDTO;
 import dn.codegym.crm.entity.Campaign;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-import java.util.List;
 
 public interface CampaignService {
-    List<Campaign> findAllByDeletedIsFalse();
+    Page<Campaign> findAllByDeletedIsFalse(Pageable pageable);
 
-    List<Campaign> searchName(String name);
+    Page<Campaign> searchName(String name,Pageable pageable);
+
+    Page<Campaign> findAllByDeletedIsFalseAndNameIsNot(String name, Pageable pageable);
 
     void create(CampaignDTO campaignDTO);
 
