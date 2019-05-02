@@ -6,6 +6,7 @@ import dn.codegym.crm.entity.Lead;
 import dn.codegym.crm.service.CampaignService;
 import dn.codegym.crm.service.LeadService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("leads")
@@ -43,9 +45,19 @@ public class LeadController {
     }
 
     @GetMapping("/list")
-    public ModelAndView listLeads() {
+    public ModelAndView listLeads(@RequestParam("name") Optional<String> name, Pageable pageable) {
+        Page<Lead> leads;
         ModelAndView modelAndView = new ModelAndView("lead/list");
-        modelAndView.addObject("leads", leadService.findAllByDeletedIsFalse());
+        if (name.isPresent()) {
+            leads = leadService.findAllByDeletedIsFalseAndNameContaining(name.get(), pageable);
+            modelAndView.addObject("name", name.get());
+            if (leads.getTotalElements() == 0) {
+                modelAndView.addObject("message", "Lead name not found!");
+            }
+        } else {
+            leads = leadService.findAllByDeletedIsFalse(pageable);
+        }
+        modelAndView.addObject("leads", leads);
         return modelAndView;
     }
 
@@ -88,9 +100,9 @@ public class LeadController {
     }
 
     @GetMapping("/status/{status}")
-    public ModelAndView listLeadsByStatus(@PathVariable String status) {
+    public ModelAndView listLeadsByStatus(@PathVariable String status, Pageable pageable) {
         ModelAndView modelAndView = new ModelAndView("lead/list");
-        modelAndView.addObject("leads", leadService.findAllByStatusContaining(status));
+        modelAndView.addObject("leads", leadService.findAllByDeletedIsFalseAndStatusContaining(status, pageable));
         return modelAndView;
     }
 }

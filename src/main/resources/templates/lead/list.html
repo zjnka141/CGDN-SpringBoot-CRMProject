@@ -16,11 +16,10 @@
 
 <br><br><a href="/leads/create">Create new lead</a>
 <h1>Leads</h1>
-<p>
-    <th:block th:if="${message}">
-        <p th:text="${message}"></p>
-    </th:block>
-</p>
+<form>
+    <input name="name" type="text" placeholder="Input Lead name" th:value="${name}">
+    <input type="submit" value="Search">
+</form>
 <table border="1">
     <tr>
         <th>Name</th>
@@ -43,6 +42,13 @@
             <td><a th:href="@{/leads/edit/__${lead.id}__}">Edit</a></td>
             <td><a th:href="@{/leads/delete/__${lead.id}__}">Delete</a></td>
         </tr>
+    </th:block>
+    <th:block>
+        <div>
+            <a th:href="@{'/leads/list'(page=${leads.number - 1})}" th:if="${leads.hasPrevious()}">Previous</a>
+            <span th:text="${leads.number + 1}"></span>/<span th:text="${leads.totalPages}"></span>
+            <a th:href="@{'/leads/list'(page=${leads.getNumber() + 1})}" th:if="${leads.hasNext()}">Next</a>
+        </div>
     </th:block>
 </table>
 </body>

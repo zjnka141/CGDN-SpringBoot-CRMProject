@@ -10,6 +10,10 @@ import dn.codegym.crm.repository.CampaignRepository;
 import dn.codegym.crm.repository.LeadRepository;
 import dn.codegym.crm.service.LeadService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -25,15 +29,29 @@ public class LeadServiceImpl implements LeadService {
     private CampaignRepository campaignRepository;
 
     @Override
-    public Iterable<Lead> findAllByDeletedIsFalse() {
-        return leadRepository.findAllByDeletedIsFalse();
+    public Page<Lead> findAllByDeletedIsFalse(Pageable pageable) {
+        pageable= PageRequest.of(pageable.getPageNumber(),10, Sort.by("name").ascending());
+        return leadRepository.findAllByDeletedIsFalse(pageable);
     }
 
     @Override
-    public Iterable<Lead> findAllByStatusContaining(String status) {
-        return leadRepository.findAllByStatusContaining(status);
+    public Page<Lead> findAllByDeletedIsFalseAndNameContaining(String name, Pageable pageble) {
+        pageble= PageRequest.of(pageble.getPageNumber(),10, Sort.by("name").ascending());
+        return leadRepository.findAllByDeletedIsFalseAndNameContaining(name, pageble);
     }
 
+    @Override
+    public Page<Lead> findAllByDeletedIsFalseAndStatusContaining(String status, Pageable pageable) {
+        pageable= PageRequest.of(pageable.getPageNumber(),10, Sort.by("name").ascending());
+        return leadRepository.findAllByDeletedIsFalseAndStatusContaining(status, pageable);
+    }
+
+    @Override
+    public List<Lead> findAllByCampaignId(String campaignId) {
+        Campaign campaign=campaignRepository.findById(campaignId).orElse(null);
+        List<Lead> leads =leadRepository.findAllByCampaignAndDeletedIsFalse(campaign);
+        return leads;
+    }
     @Override
     public void create(LeadDTO leadDTO) {
         Lead lead = new Lead();
@@ -85,12 +103,6 @@ public class LeadServiceImpl implements LeadService {
         lead.setDeleted(true);
         leadRepository.save(lead);
     }
-    @Override
-    public List<Lead> findAllByCampaignId(String campaignId) {
-        Campaign campaign=campaignRepository.findById(campaignId).orElse(null);
-        List<Lead> leads =leadRepository.findAllByCampaignAndDeletedIsFalse(campaign);
-        return leads;
-    }
+
 
 }
-
