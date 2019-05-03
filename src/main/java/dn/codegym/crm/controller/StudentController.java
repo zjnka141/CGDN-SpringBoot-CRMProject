@@ -23,8 +23,6 @@ public class StudentController {
     private StudentService studentService;
     @Autowired
     private ClassRoomService classRoomService;
-    @Autowired
-    private StudentRepository studentRepository;
 
     @ModelAttribute("classes")
     public Page<ClassRoom> classRooms(Pageable pageable) {
@@ -33,7 +31,7 @@ public class StudentController {
     @GetMapping("/create")
     public ModelAndView createStudent() {
         ModelAndView modelAndView = new ModelAndView("student/create");
-        modelAndView.addObject("students",new Student());
+        modelAndView.addObject("students",new StudentDTO());
         return modelAndView;
     }
     @GetMapping("/list")
@@ -54,7 +52,6 @@ public class StudentController {
             redirect.addFlashAttribute("message","have some thing wrong!!");
             return  "redirect:/students/create";
         }
-
         studentService.save(studentDTO);
         redirect.addFlashAttribute("message", "New student created successfully!");
         return "redirect:/students/list";

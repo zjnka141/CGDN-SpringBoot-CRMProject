@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -43,6 +44,11 @@ public class StudentServiceImpl implements StudentService {
     public Page<Student> findAllByDeletedIsFalse(Pageable pageable) {
         pageable = PageRequest.of(pageable.getPageNumber(), 10, Sort.by("name").ascending());
         return studentRepository.findAllByDeletedIsFalse(pageable);
+    }
+
+    @Override
+    public List<Student> findAllByDeletedIsFalse() {
+        return studentRepository.findAllByDeletedIsFalse();
     }
 
     @Override
@@ -107,6 +113,7 @@ public class StudentServiceImpl implements StudentService {
         if (studentDTO != null) {
             return null;
         } else {
+            studentDTO=new StudentDTO();
             studentDTO.setId(leadDTO.getId());
             studentDTO.setName(leadDTO.getName());
             studentDTO.setEmail(leadDTO.getEmail());
