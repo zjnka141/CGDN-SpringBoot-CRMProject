@@ -3,6 +3,7 @@ package dn.codegym.crm.controller;
 import dn.codegym.crm.dto.StudentDTO;
 import dn.codegym.crm.entity.ClassRoom;
 import dn.codegym.crm.entity.Student;
+import dn.codegym.crm.repository.StudentRepository;
 import dn.codegym.crm.service.ClassRoomService;
 import dn.codegym.crm.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ public class StudentController {
     private StudentService studentService;
     @Autowired
     private ClassRoomService classRoomService;
+    @Autowired
+    private StudentRepository studentRepository;
+
     @ModelAttribute("classes")
     public Page<ClassRoom> classRooms(Pageable pageable) {
         return classRoomService.findAllByDeletedIsFalse(pageable);
@@ -90,5 +94,16 @@ public class StudentController {
         studentService.delete(studentDTO.getId());
         redirect.addFlashAttribute("message", "delete successfull");
         return "redirect:/students/list";
+    }
+    @GetMapping("/{id}/classes/student")
+    public ModelAndView showStudentFromClassList(@PathVariable String id, Pageable pageable) {
+        Page<Student> students = null;//studentService.findAllByDeletedIsFalseAndIdClass(,pageable);
+        if (students != null) {
+            ModelAndView modelAndView = new ModelAndView("course/studentListView");
+            modelAndView.addObject("students", students);
+            return modelAndView;
+        } else {
+            return new ModelAndView("error404");
+        }
     }
 }

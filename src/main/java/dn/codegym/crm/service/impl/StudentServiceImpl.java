@@ -31,7 +31,7 @@ public class StudentServiceImpl implements StudentService {
         Student student = new Student();
         student.setName(studentDTO.getName());
         student.setBirthday(birthday);
-        student.setIdClass(studentDTO.getIdClass());
+        student.setClassRoom(studentDTO.getIdClass());
         student.setGender(studentDTO.getGender());
         student.setDeleted(Boolean.FALSE);
         student.setEmail(studentDTO.getEmail());
@@ -59,7 +59,7 @@ public class StudentServiceImpl implements StudentService {
             studentDTO.setName(student.getName());
             studentDTO.setBirthday(birthday);
             studentDTO.setGender(student.getGender());
-            studentDTO.setIdClass(student.getIdClass());
+            studentDTO.setIdClass(student.getClassRoom());
             studentDTO.setDeleted(student.isDeleted());
             studentDTO.setEmail(student.getEmail());
             studentDTO.setPhoneNumber(student.getPhoneNumber());
@@ -76,7 +76,7 @@ public class StudentServiceImpl implements StudentService {
         student.setName(studentDTO.getName());
         student.setGender(studentDTO.getGender());
         student.setBirthday(birthday);
-        student.setIdClass(studentDTO.getIdClass());
+        student.setClassRoom(studentDTO.getIdClass());
         student.setEmail(studentDTO.getEmail());
         student.setPhoneNumber(studentDTO.getPhoneNumber());
         studentRepository.save(student);

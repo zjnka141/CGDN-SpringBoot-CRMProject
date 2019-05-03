@@ -43,7 +43,7 @@
                 <td th:text="${student.gender}"></td>
                 <td th:text="${student.email}"></td>
                 <td th:text="${student.phoneNumber}"></td>
-                <td th:text="${student.idClass.name}"></td>
+                <td th:text="${student.classRoom.name}"></td>
                 <td><a th:href="@{/students/{id}/view(id=${student.getId()})}">view</a></td>
                 <td><a th:href="@{/students/{id}/edit(id=${student.getId()})}">edit</a></td>
                 <td><a th:href="@{/students/{id}/delete(id=${student.getId()})}">delete</a></td>

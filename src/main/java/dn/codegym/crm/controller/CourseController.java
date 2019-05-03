@@ -3,9 +3,12 @@ package dn.codegym.crm.controller;
 import dn.codegym.crm.dto.CourseDTO;
 import dn.codegym.crm.entity.ClassRoom;
 import dn.codegym.crm.entity.Course;
+import dn.codegym.crm.entity.Student;
 import dn.codegym.crm.repository.CourseRepository;
+import dn.codegym.crm.repository.StudentRepository;
 import dn.codegym.crm.service.ClassRoomService;
 import dn.codegym.crm.service.CourseService;
+import dn.codegym.crm.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,6 +31,10 @@ public class CourseController {
     private ClassRoomService classRoomService;
     @Autowired
     private CourseRepository courseRepository;
+    @Autowired
+    private StudentService studentService;
+    @Autowired
+    private StudentRepository studentRepository;
 
     @GetMapping("/create")
     public ModelAndView showCreateForm() {

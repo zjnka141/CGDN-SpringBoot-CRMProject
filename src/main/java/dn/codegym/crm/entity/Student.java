@@ -1,7 +1,5 @@
 package dn.codegym.crm.entity;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -20,7 +18,7 @@ public class Student extends BaseEntity {
     private String gender;
     @ManyToOne
     @JoinColumn(name = "classes_id")
-    private ClassRoom idClass;
+    private ClassRoom classRoom;
 
     private Boolean deleted;
     private String email;
@@ -82,12 +80,12 @@ public class Student extends BaseEntity {
         this.deleted = deleted;
     }
 
-    public ClassRoom getIdClass() {
-        return idClass;
+    public ClassRoom getClassRoom() {
+        return classRoom;
     }
 
-    public void setIdClass(ClassRoom idClass) {
-        this.idClass = idClass;
+    public void setClassRoom(ClassRoom idClass) {
+        this.classRoom = idClass;
     }
 
     public Boolean getDeleted() {
