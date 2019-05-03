@@ -10,7 +10,9 @@ import java.util.List;
 public interface CampaignRepository extends JpaRepository<Campaign, String> {
     Page<Campaign> findAllByDeletedIsFalse(Pageable pageable);
 
-    Page<Campaign> findAllByNameContainingAndNameIsNotAndDeletedIsFalse(String name,String nameNull, Pageable pageable);
+    List<Campaign> findAllByDeletedIsFalse();
+
+    Page<Campaign> findAllByDeletedIsFalseAndNameContainingAndNameIsNot(String name,String nameNull, Pageable pageable);
 
     Page<Campaign> findAllByDeletedIsFalseAndNameIsNot(String name, Pageable pageable);
 }

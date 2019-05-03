@@ -16,7 +16,7 @@ public class Lead extends BaseEntity {
 
     private String phoneNumber;
     private String email;
-    private String course;
+    private String source;
     private String status;
     private boolean deleted;
 
@@ -75,11 +75,11 @@ public class Lead extends BaseEntity {
     }
 
     public String getSource() {
-        return course;
+        return source;
     }
 
     public void setSource(String course) {
-        this.course = course;
+        this.source = course;
     }
 
     public boolean isDeleted() {

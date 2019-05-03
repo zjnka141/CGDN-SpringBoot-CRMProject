@@ -30,10 +30,6 @@ public class CampaignController {
     @Autowired
     private LeadService leadService;
 
-    @Autowired
-    private CampaignRepository campaignRepository;
-
-
     @GetMapping("/list")
     public ModelAndView listCampaign(Pageable pageable) {
         ModelAndView modelAndView = new ModelAndView("campaign/list");
@@ -91,7 +87,11 @@ public class CampaignController {
     }
 
     @PostMapping("/edit")
-    public String updateCourse(@ModelAttribute("campaign") CampaignDTO campaignDTO, RedirectAttributes redirect) {
+    public String updateCourse(@Valid @ModelAttribute("campaign") CampaignDTO campaignDTO , BindingResult bindingResult,
+                               RedirectAttributes redirect) {
+        if (bindingResult.hasErrors()) {
+            return "campaign/edit";
+        }
         campaignService.update(campaignDTO);
         redirect.addFlashAttribute("message", "Campaign updated successfully!");
         return "redirect:/campaigns/list";
@@ -110,15 +110,15 @@ public class CampaignController {
     }
 
     @PostMapping("/delete")
-    public String deleteCourse(@ModelAttribute("campaign") CampaignDTO campaignDTO, RedirectAttributes redirect) {
-        campaignService.delete(campaignDTO.getId());
+    public String deleteCourse(@ModelAttribute("campaign") CampaignDTO campaignDTO, RedirectAttributes redirect, Pageable pageable) {
+        campaignService.delete(campaignDTO.getId(), pageable);
         redirect.addFlashAttribute("message", "Campaign deleted successfully!");
         return "redirect:/campaigns/list";
     }
 
     @GetMapping("/addLead/{campaignId}")
-    public ModelAndView viewAddLeads(@PathVariable String campaignId, Model model) {
-        List<Lead> leads = leadService.findAllByCampaignId(AppConsts.CAMPAIGN_ID_NULL);
+    public ModelAndView viewAddLeads(@PathVariable String campaignId, Model model, Pageable pageable) {
+        Page<Lead> leads = leadService.findAllByCampaignId(AppConsts.CAMPAIGN_ID_NULL, pageable);
         model.addAttribute("campaign", campaignService.findById(campaignId));
         return new ModelAndView("campaign/addLeads", "leads", leads);
     }
@@ -127,15 +127,15 @@ public class CampaignController {
     public String addLeads(@PathVariable("leadId") String leadId, @PathVariable("campaignId") String campaignId, RedirectAttributes redirect) {
         LeadDTO leadDTO = leadService.findById(leadId);
         CampaignDTO campaignDTO = campaignService.findById(campaignId);
-        leadDTO.setCampaign(campaignRepository.findById(campaignDTO.getId()).orElse(null));
+        leadDTO.setCampaign(campaignService.findByCampaignId(campaignDTO.getId()));
         leadService.update(leadDTO);
         redirect.addFlashAttribute("message", "Add lead into campaign successfully!");
         return "redirect:/campaigns/addLead/{campaignId}";
     }
 
     @GetMapping("/viewLeads/{campaignId}")
-    public ModelAndView viewLeadsOfCampaign(@PathVariable String campaignId, Model model) {
-        List<Lead> leads = leadService.findAllByCampaignId(campaignId);
+    public ModelAndView viewLeadsOfCampaign(@PathVariable String campaignId, Model model, Pageable pageable) {
+        Page<Lead> leads = leadService.findAllByCampaignId(campaignId, pageable);
         model.addAttribute("campaign", campaignService.findById(campaignId));
         return new ModelAndView("campaign/viewLeads", "leads", leads);
     }

@@ -35,9 +35,14 @@ public class CampaignServiceImpl implements CampaignService {
     }
 
     @Override
+    public List<Campaign> findAllByDeletedIsFalse() {
+        return campaignRepository.findAllByDeletedIsFalse();
+    }
+
+    @Override
     public Page<Campaign> searchName(String name, Pageable pageable) {
         pageable = PageRequest.of(pageable.getPageNumber(), 10, Sort.by("name"));
-        return campaignRepository.findAllByNameContainingAndNameIsNotAndDeletedIsFalse(name, AppConsts.CAMPAIGN_NAME_NULL, pageable);
+        return campaignRepository.findAllByDeletedIsFalseAndNameContainingAndNameIsNot(name, AppConsts.CAMPAIGN_NAME_NULL, pageable);
     }
 
     @Override
@@ -79,10 +84,11 @@ public class CampaignServiceImpl implements CampaignService {
     }
 
     @Override
-    public void delete(String id) {
+    public void delete(String id,Pageable pageable) {
         Campaign campaign = campaignRepository.findById(id).orElse(null);
         campaign.setDeleted(true);
-        List<Lead> leads = leadRepository.findAllByCampaignAndDeletedIsFalse(campaign);
+        pageable = PageRequest.of(pageable.getPageNumber(), 10, Sort.by("name"));
+        Page<Lead> leads = leadRepository.findAllByCampaignAndDeletedIsFalse(campaign,pageable);
         for (Lead lead : leads) {
             lead.setCampaign(campaignRepository.findById(AppConsts.CAMPAIGN_ID_NULL).orElse(null));
         }
@@ -109,5 +115,15 @@ public class CampaignServiceImpl implements CampaignService {
             return campaignDTO;
         }
         return null;
+    }
+
+    @Override
+    public Campaign findByCampaignId(String id) {
+        Campaign campaign = campaignRepository.findById(id).orElse(null);
+        if(campaign!=null) {
+            return campaign;
+        } else {
+            return null;
+        }
     }
 }

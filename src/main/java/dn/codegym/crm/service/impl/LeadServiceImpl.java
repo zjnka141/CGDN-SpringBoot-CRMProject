@@ -47,12 +47,6 @@ public class LeadServiceImpl implements LeadService {
     }
 
     @Override
-    public List<Lead> findAllByCampaignId(String campaignId) {
-        Campaign campaign=campaignRepository.findById(campaignId).orElse(null);
-        List<Lead> leads =leadRepository.findAllByCampaignAndDeletedIsFalse(campaign);
-        return leads;
-    }
-    @Override
     public void create(LeadDTO leadDTO) {
         Lead lead = new Lead();
         lead.setName(leadDTO.getName());
@@ -103,6 +97,13 @@ public class LeadServiceImpl implements LeadService {
         lead.setDeleted(true);
         leadRepository.save(lead);
     }
-
+    @Override
+    public Page<Lead> findAllByCampaignId(String campaignId, Pageable pageable) {
+        Campaign campaign=campaignRepository.findById(campaignId).orElse(null);
+        pageable = PageRequest.of(pageable.getPageNumber(), 10, Sort.by("name"));
+        Page<Lead> leads =leadRepository.findAllByCampaignAndDeletedIsFalse(campaign,pageable);
+        return leads;
+    }
 
 }
+

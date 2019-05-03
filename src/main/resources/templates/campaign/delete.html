@@ -1,36 +1,39 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{fragments/main_layout}">
 <head>
     <meta charset="UTF-8">
     <title>Delete Campaign</title>
 </head>
 <body>
-<a href="/">Home Page</a><hr>
-<h1>Delete Campaign</h1>
-<h2>Are you sure?</h2>
-<p>
-    <a href="/campaigns/list">Back to list of campaigns</a>
-</p>
-<form action="/campaigns/delete" method="post" th:object="${campaign}">
-    <input type="hidden" th:field="*{id}">
-    <table>
-        <tr>
-            <td>Name:</td>
-            <td th:text="${campaign.name}"></td>
-        </tr>
-        <tr>
-            <td>Start day:</td>
-            <td th:text="${campaign.start_day}"></td>
-        </tr>
-        <tr>
-            <td>End day:</td>
-            <td th:text="${campaign.end_day}"></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td><input type="submit" value="Delete campaign"></td>
-        </tr>
-    </table>
-</form>
+<div layout:fragment="content" class="container">
+    <div class="w3-card-4">
+        <div class="w3-container w3-green">
+            <h1>Delete Campaign</h1>
+        </div>
+        <form class="w3-container" action="/campaigns/delete" method="post" th:object="${campaign}">
+            <input type="hidden" th:field="*{id}">
+            <p>
+                <label class="w3-text-green">Name:</label>
+                <span class="w3-input w3-border w3-sand" th:text="*{name}"></span>
+            </p>
+            <p>
+                <label class="w3-text-green">Phone Number</label>
+                <span class="w3-input w3-border w3-sand" th:text="*{phone_number}"></span>
+            </p>
+            <label class="w3-text-green">Start day:</label>
+            <span class="w3-input w3-border w3-sand" th:text="*{start_day}"></span>
+            </p>
+            <p>
+                <label class="w3-text-green">End day:</label>
+                <span class="w3-input w3-border w3-sand" th:text="*{end_day}"></span>
+            </p>
+            <p>
+                <input class="w3-btn w3-green" type="submit" value="Delete campaign">
+            </p>
+        </form>
+    </div>
+</div>
 </body>
 </html>

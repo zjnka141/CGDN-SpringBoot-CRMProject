@@ -1,45 +1,47 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{fragments/main_layout}">
 <head>
     <meta charset="UTF-8">
     <title>Create Campaign</title>
 </head>
 <body>
-<a href="/">Home Page</a>
-<hr>
-<h1>Create Campaign</h1>
-<p><a href="/campaigns/list">Back to list of campaign</a></p>
-<form action="/campaigns/create" method="post" th:object="${campaign}">
-    <table>
-        <tr>
-            <td>Name:</td>
-            <td><input type="text" th:field="*{name}"></td>
-            <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></td>
-        </tr>
-        <tr>
-            <td>Description:</td>
-            <td><textarea rows="4" cols="50" th:value="*{description}" th:field="*{description}"></textarea></td>
-        </tr>
-        <tr>
-            <td>Phone Number</td>
-            <td><input type="text" th:value="*{phone_number}" th:field="*{phone_number}"></td>
-            <td th:if="${#fields.hasErrors('phone_number')}" th:errors="*{phone_number}"></td>
-        </tr>
-        <tr>
-            <td>Start day:</td>
-            <td><input type="date" th:field="*{start_day}"></td>
-            <td th:if="${#fields.hasErrors('start_day')}" th:errors="*{start_day}"></td>
-        </tr>
-        <tr>
-            <td>End day:</td>
-            <td><input type="date" th:field="*{end_day}"></td>
-            <td th:if="${#fields.hasErrors('end_day')}" th:errors="*{end_day}"></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td><input type="submit" value="Create campaign"></td>
-        </tr>
-    </table>
-</form>
+<div layout:fragment="content" class="container">
+    <div class="w3-card-4">
+        <div class="w3-container w3-green">
+            <h1>Create Campaign</h1>
+        </div>
+        <form class="w3-container" action="/campaigns/create" method="post" th:object="${campaign}">
+            <p>
+                <label class="w3-text-green">Name:</label>
+                <input class="w3-input w3-border w3-sand" type="text" th:field="*{name}">
+                <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+            </p>
+            <p>
+                <label class="w3-text-green">Description:</label>
+                <textarea class="w3-input w3-border w3-sand" rows="4" cols="50" th:field="*{description}"></textarea>
+            </p>
+            <p>
+                <label class="w3-text-green">Phone Number</label>
+                <input class="w3-input w3-border w3-sand" type="text" th:field="*{phone_number}">
+                <span th:if="${#fields.hasErrors('phone_number')}" th:errors="*{phone_number}"></span>
+            </p>
+            <p>
+                <label class="w3-text-green">Start day:</label>
+                <input class="w3-input w3-border w3-sand" type="date" th:field="*{start_day}">
+                <span th:if="${#fields.hasErrors('start_day')}" th:errors="*{start_day}"></span>
+            </p>
+            <p>
+                <label class="w3-text-green">End day:</label>
+                <input class="w3-input w3-border w3-sand" type="date" th:field="*{end_day}">
+                <span th:if="${#fields.hasErrors('end_day')}" th:errors="*{end_day}"></span>
+            </p>
+            <p>
+                <input class="w3-btn w3-green" type="submit" value="Create campaign">
+            </p>
+        </form>
+    </div>
+</div>
 </body>
 </html>

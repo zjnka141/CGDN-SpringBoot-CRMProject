@@ -20,5 +20,5 @@ public interface LeadService {
 
     void delete(String id);
 
-    List<Lead> findAllByCampaignId(String campaignId);
+    Page<Lead> findAllByCampaignId(String campaignId, Pageable pageable);
 }

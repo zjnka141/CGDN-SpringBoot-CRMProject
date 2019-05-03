@@ -1,4 +1,3 @@
-
 package dn.codegym.crm.repository;
 
 import dn.codegym.crm.entity.Campaign;
@@ -14,5 +13,5 @@ public interface LeadRepository extends JpaRepository<Lead, String> {
     Page<Lead> findAllByDeletedIsFalseAndStatusContaining(String status, Pageable pageable);
     Page<Lead> findAllByDeletedIsFalseAndNameContaining(String name, Pageable pageble);
 
-    List<Lead> findAllByCampaignAndDeletedIsFalse(Campaign campaign);
+    Page<Lead> findAllByCampaignAndDeletedIsFalse(Campaign campaign,Pageable pageable);
 }

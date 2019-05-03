@@ -26,8 +26,8 @@ public class LeadController {
     private CampaignService campaignService;
 
     @ModelAttribute("campaigns")
-    public Iterable<Campaign> campaigns(Pageable pageable){
-        return campaignService.findAllByDeletedIsFalse(pageable);
+    public Iterable<Campaign> campaigns(){
+        return campaignService.findAllByDeletedIsFalse();
     }
 
     @GetMapping("/create")

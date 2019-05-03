@@ -1,26 +1,32 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{fragments/main_layout}">
 <head>
     <meta charset="UTF-8">
     <title>View Of Campaign</title>
 </head>
 <body>
-<a href="/">Home Page</a><hr>
-<a href="/campaigns/list">Back to list of campaigns</a>
-<h1>Campaign</h1>
-<table border="1">
-    <tr>
-        <th>Name</th>
-        <th>Phone Number</th>
-        <th>Description</th>
-    </tr>
-    <th:block th:object="${campaign}">
-        <tr>
-            <td th:text="${campaign.name}"></a></td>
-            <td th:text="${campaign.phone_number}"></td>
-            <td><textarea rows="5" cols="50" disabled th:text="${campaign.description}"></textarea> </td>
-        </tr>
-    </th:block>
-</table>
+<div layout:fragment="content" class="container">
+    <div class="w3-card-4">
+        <div class="w3-container w3-green">
+            <h1>View Of Campaign</h1>
+        </div>
+        <table class="table">
+            <tr>
+                <th>Name</th>
+                <th>Phone Number</th>
+                <th>Description</th>
+            </tr>
+            <th:block th:object="${campaign}">
+                <tr>
+                    <td th:text="${campaign.name}"></a></td>
+                    <td th:text="${campaign.phone_number}"></td>
+                    <td><textarea rows="5" cols="70" disabled th:text="${campaign.description}"></textarea></td>
+                </tr>
+            </th:block>
+        </table>
+    </div>
+</div>
 </body>
 </html>
