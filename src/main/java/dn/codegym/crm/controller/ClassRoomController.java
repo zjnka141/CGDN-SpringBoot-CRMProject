@@ -22,13 +22,12 @@ public class ClassRoomController {
     @Autowired
     private ClassRoomService classRoomService;
 
-    @Autowired
+   @Autowired
     private CourseService courseService;
-
-    @ModelAttribute("course")
-    public Page<Course> courses(Pageable pageable) {
-        return courseService.findAllByDeletedIsFalse(pageable);
-    }
+   @ModelAttribute("course")
+    public Iterable<Course> courses(Pageable pageable){
+     return courseService.findAllByDeletedIsFalse(pageable);
+   }
 
     @GetMapping("/create")
     public ModelAndView showCreateForm() {
@@ -39,8 +38,8 @@ public class ClassRoomController {
     }
 
     @PostMapping("/create")
-    public String saveClassRoom(@ModelAttribute("classes") ClassRoomDTO classRoomDTO, RedirectAttributes redirect) {
-        classRoomService.save(classRoomDTO);
+    public String saveClassRoom(@ModelAttribute("classes") ClassRoomDTO classRoom, RedirectAttributes redirect) {
+        classRoomService.save(classRoom);
         redirect.addFlashAttribute("message", "New Class created successfully!");
         return "redirect:/classes/list";
     }
@@ -49,10 +48,10 @@ public class ClassRoomController {
     public ModelAndView listClassRoomPage(@ModelAttribute("name") String name, Pageable pageable) {
         Page<ClassRoom> classRooms;
         ModelAndView modelAndView = new ModelAndView("class/list");
-        if (!name.isEmpty()) {
-            classRooms = classRoomService.findAllByDeletedIsFalseAndNameContaining(name, pageable);
-            modelAndView.addObject("classes", classRooms);
-        } else {
+        if(!name.isEmpty()){
+            classRooms = classRoomService.findAllByNameContaining(name, pageable);
+            modelAndView.addObject("classes",classRooms);
+        }else {
             modelAndView.addObject("classes", classRoomService.findAllByDeletedIsFalse(pageable));
         }
         return modelAndView;
@@ -99,15 +98,8 @@ public class ClassRoomController {
 
     @PostMapping("/delete")
     public String deleteStudent(@ModelAttribute("classes") ClassRoomDTO classRoomDTO, RedirectAttributes redirect) {
-        classRoomService.delete(classRoomDTO.getId());
+        courseService.delete(classRoomDTO.getId());
         redirect.addFlashAttribute("message", "delete is successfully");
         return "redirect:/classes/list";
-    }
-
-    @GetMapping("/view/{id}")
-    public ModelAndView viewClassesPage(@PathVariable String id) {
-        ModelAndView modelAndView = new ModelAndView("class/view");
-        modelAndView.addObject("classes", classRoomService.findById(id));
-        return modelAndView;
     }
 }

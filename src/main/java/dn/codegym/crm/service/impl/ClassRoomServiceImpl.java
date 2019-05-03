@@ -24,11 +24,10 @@ public class ClassRoomServiceImpl implements ClassRoomService {
     private CourseRepository courseRepository;
 
     @Override
-    public void save(ClassRoomDTO classRoomDTO) {
+    public void save(ClassRoomDTO classRoom) {
         ClassRoom classes = new ClassRoom();
-        classes.setName(classRoomDTO.getName());
-        System.out.println(classRoomDTO.getCourse().getName());
-        classes.setCourse(classRoomDTO.getCourse());
+        classes.setName(classRoom.getName());
+        classes.setCourse(classRoom.getId_course());
         classes.setDeleted(Boolean.FALSE);
         classRoomRepository.save(classes);
     }
@@ -37,7 +36,7 @@ public class ClassRoomServiceImpl implements ClassRoomService {
     public void update(ClassRoomDTO classRoomDTO) {
         ClassRoom classRoom = classRoomRepository.findById(classRoomDTO.getId()).orElse(null);
         classRoom.setName(classRoomDTO.getName());
-        classRoom.setCourse(classRoomDTO.getCourse());
+        classRoom.setCourse(classRoomDTO.getId_course());
         classRoomRepository.save(classRoom);
     }
 
@@ -47,7 +46,7 @@ public class ClassRoomServiceImpl implements ClassRoomService {
         if(classRoom != null){
             ClassRoomDTO classRoomDTO = new ClassRoomDTO();
             classRoomDTO.setId(classRoom.getId());
-            classRoomDTO.setCourse(classRoom.getCourse());
+            classRoomDTO.setId_course(classRoom.getCourse());
             classRoomDTO.setName(classRoom.getName());
             return classRoomDTO;
         }
@@ -67,9 +66,9 @@ public class ClassRoomServiceImpl implements ClassRoomService {
     }
 
     @Override
-    public Page<ClassRoom> findAllByDeletedIsFalseAndNameContaining(String name, Pageable pageable) {
+    public Page<ClassRoom> findAllByNameContaining(String name, Pageable pageable) {
         pageable = PageRequest.of(pageable.getPageNumber(), 10, Sort.by("name"));
-        return classRoomRepository.findAllByDeletedIsFalseAndNameContaining(name,pageable);
+        return classRoomRepository.findAllByNameContaining(name,pageable);
     }
 
     @Override
