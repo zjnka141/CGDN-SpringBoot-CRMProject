@@ -7,12 +7,12 @@ import java.io.Serializable;
 public class ClassRoomDTO implements Serializable {
     private String id;
     private String name;
-    private Course id_course;
+    private Course course;
     private Boolean deleted;
 
-    public Course getId_course() { return id_course; }
+    public Course getCourse() { return course; }
 
-    public void setId_course(Course id_course) { this.id_course = id_course; }
+    public void setCourse(Course course) { this.course = course; }
 
     public Boolean getDeleted() { return deleted; }
 

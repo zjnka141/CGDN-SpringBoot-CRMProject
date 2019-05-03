@@ -18,11 +18,11 @@
         <tr>
             <td>Course:</td>
             <td>
-                <select th:field="*{id_course}">
+                <select th:field="*{course}">
                     <option th:each="c:${course}"
                             th:value="${c.id}"
                             th:text="${c.name}"
-                            th:selected="${c.id} == *{id_course.getId()}"></option>
+                            th:selected="${c.id} == *{course.getId()}"></option>
                 </select>
             </td>
         </tr>
