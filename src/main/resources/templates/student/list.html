@@ -29,6 +29,8 @@
             <th>Name</th>
             <th>Birth day</th>
             <th>Gender</th>
+            <th>Email</th>
+            <th>Phone Number</th>
             <th>Class</th>
             <th>View</th>
             <th>Edit</th>
@@ -39,6 +41,8 @@
                 <td th:text="${student.name}"></td>
                 <td th:text="${student.birthday}"></td>
                 <td th:text="${student.gender}"></td>
+                <td th:text="${student.email}"></td>
+                <td th:text="${student.phoneNumber}"></td>
                 <td th:text="${student.idClass.name}"></td>
                 <td><a th:href="@{/students/{id}/view(id=${student.getId()})}">view</a></td>
                 <td><a th:href="@{/students/{id}/edit(id=${student.getId()})}">edit</a></td>

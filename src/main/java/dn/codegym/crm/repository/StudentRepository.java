@@ -9,5 +9,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface StudentRepository extends JpaRepository<Student,String> {
     Page<Student> findAllByDeletedIsFalse(Pageable pageable);
-    Page<Student> findAllByNameContaining(String name,Pageable pageable);
+    Page<Student> findAllByDeletedIsFalseAndNameContaining(String name,Pageable pageable);
 }

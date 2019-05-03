@@ -3,11 +3,13 @@ package dn.codegym.crm.controller;
 import dn.codegym.crm.constants.AppConsts;
 import dn.codegym.crm.dto.CampaignDTO;
 import dn.codegym.crm.dto.LeadDTO;
+import dn.codegym.crm.dto.StudentDTO;
 import dn.codegym.crm.entity.Campaign;
 import dn.codegym.crm.entity.Lead;
 import dn.codegym.crm.repository.CampaignRepository;
 import dn.codegym.crm.service.CampaignService;
 import dn.codegym.crm.service.LeadService;
+import dn.codegym.crm.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,6 +31,9 @@ public class CampaignController {
 
     @Autowired
     private LeadService leadService;
+
+    @Autowired
+    private StudentService studentService;
 
     @GetMapping("/list")
     public ModelAndView listCampaign(Pageable pageable) {
@@ -87,7 +92,7 @@ public class CampaignController {
     }
 
     @PostMapping("/edit")
-    public String updateCourse(@Valid @ModelAttribute("campaign") CampaignDTO campaignDTO , BindingResult bindingResult,
+    public String updateCourse(@Valid @ModelAttribute("campaign") CampaignDTO campaignDTO, BindingResult bindingResult,
                                RedirectAttributes redirect) {
         if (bindingResult.hasErrors()) {
             return "campaign/edit";
@@ -138,5 +143,19 @@ public class CampaignController {
         Page<Lead> leads = leadService.findAllByCampaignId(campaignId, pageable);
         model.addAttribute("campaign", campaignService.findById(campaignId));
         return new ModelAndView("campaign/viewLeads", "leads", leads);
+    }
+
+    @GetMapping("/move/{lead_id}")
+    public ModelAndView moveLeadToStudent(@PathVariable("lead_id") String leadId, Model model) {
+        LeadDTO leadDTO = leadService.findById(leadId);
+        if (leadDTO == null) {
+            return null;
+        } else {
+            StudentDTO studentDTO = studentService.moveLeadToStudent(leadDTO);
+            model.addAttribute("lead", leadDTO);
+            model.addAttribute("student", studentDTO);
+            return new ModelAndView("campaign/move");
+        }
+
     }
 }

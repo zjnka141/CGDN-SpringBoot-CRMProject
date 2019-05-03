@@ -31,9 +31,10 @@
             <th:block th:each="course : ${courses}">
                 <tr>
                     <td><a th:href="@{/courses/__${course.id}__/classes}" th:text="${course.name}"></a></td>
-                    <td th:text="${course.startDay}">td><a th:href="@{/courses/edit/__${course.id}__}">Edit</a></td>
-                    <td><a th:href="@{/courses/delete/__${course.id}__}">Delete</a></td></td>
+                    <td th:text="${course.startDay}">td>
                     <td th:text="${course.endDay}"></td>
+                    <td><a th:href="@{/courses/edit/__${course.id}__}">Edit</a></td>
+                    <td><a th:href="@{/courses/delete/__${course.id}__}">Delete</a></td></td>
                     <
                 </tr>
             </th:block>
