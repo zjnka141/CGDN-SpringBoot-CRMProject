@@ -133,7 +133,8 @@ public class CampaignController {
 
     @GetMapping("/addLead/{campaignId}")
     public ModelAndView viewAddLeads(@PathVariable String campaignId, Model model, Pageable pageable) {
-        Page<Lead> leads = leadService.findAllByCampaignId(AppConsts.CAMPAIGN_ID_NULL, pageable);
+        Campaign campaign = campaignService.findAllByDeletedIsFalseAndNameIs(AppConsts.CAMPAIGN_NAME_NULL);
+        Page<Lead> leads = leadService.findAllByCampaignId(campaign.getId(), pageable);
         model.addAttribute("campaign", campaignService.findById(campaignId));
         return new ModelAndView("campaign/addLeads", "leads", leads);
     }
@@ -168,8 +169,9 @@ public class CampaignController {
             return new ModelAndView("campaign/move");
         }
     }
+
     @PostMapping("/move/{campaignId}")
-    public String moveLeadToStudent(@ModelAttribute("student")StudentDTO studentDTO,
+    public String moveLeadToStudent(@ModelAttribute("student") StudentDTO studentDTO,
                                     @PathVariable("campaignId") String campaignId,
                                     RedirectAttributes redirect) {
         System.out.println(studentDTO.getId());

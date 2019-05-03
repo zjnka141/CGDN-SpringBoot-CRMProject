@@ -40,6 +40,11 @@ public class CampaignServiceImpl implements CampaignService {
     }
 
     @Override
+    public Campaign findAllByDeletedIsFalseAndNameIs(String name) {
+        return campaignRepository.findAllByDeletedIsFalseAndNameIs(name);
+    }
+
+    @Override
     public Page<Campaign> searchName(String name, Pageable pageable) {
         pageable = PageRequest.of(pageable.getPageNumber(), 10, Sort.by("name"));
         return campaignRepository.findAllByDeletedIsFalseAndNameContainingAndNameIsNot(name, AppConsts.CAMPAIGN_NAME_NULL, pageable);
@@ -90,7 +95,7 @@ public class CampaignServiceImpl implements CampaignService {
         pageable = PageRequest.of(pageable.getPageNumber(), 10, Sort.by("name"));
         Page<Lead> leads = leadRepository.findAllByCampaignAndDeletedIsFalse(campaign,pageable);
         for (Lead lead : leads) {
-            lead.setCampaign(campaignRepository.findById(AppConsts.CAMPAIGN_ID_NULL).orElse(null));
+            lead.setCampaign(campaignRepository.findAllByDeletedIsFalseAndNameIs(AppConsts.CAMPAIGN_NAME_NULL));
         }
         campaignRepository.save(campaign);
     }
