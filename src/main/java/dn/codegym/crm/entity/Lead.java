@@ -78,8 +78,8 @@ public class Lead extends BaseEntity {
         return source;
     }
 
-    public void setSource(String course) {
-        this.source = course;
+    public void setSource(String source) {
+        this.source = source;
     }
 
     public boolean isDeleted() {

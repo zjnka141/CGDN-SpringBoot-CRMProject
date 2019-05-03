@@ -9,10 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,10 +40,14 @@ public class LeadController {
     }
 
     @PostMapping("/create")
-    public String saveLead(@ModelAttribute("lead") LeadDTO lead, RedirectAttributes redirect) {
-        leadService.create(lead);
-        redirect.addFlashAttribute("message", "New lead created successfully!");
-        return "redirect:/leads/list";
+    public String saveLead(@Valid @ModelAttribute("lead") LeadDTO lead, BindingResult bindingResult, RedirectAttributes redirect) {
+        if (bindingResult.hasErrors()) {
+                return "/lead/create";
+        } else {
+            leadService.create(lead);
+            redirect.addFlashAttribute("message", "New lead created successfully!");
+            return "redirect:/leads/list";
+        }
     }
 
     @GetMapping("/list")
