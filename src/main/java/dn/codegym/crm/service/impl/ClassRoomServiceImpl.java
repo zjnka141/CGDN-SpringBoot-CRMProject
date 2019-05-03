@@ -24,11 +24,11 @@ public class ClassRoomServiceImpl implements ClassRoomService {
     private CourseRepository courseRepository;
 
     @Override
-    public void save(ClassRoom classRoom) {
+    public void save(ClassRoomDTO classRoomDTO) {
         ClassRoom classes = new ClassRoom();
-        classes.setName(classRoom.getName());
-        System.out.println(classRoom.getCourse().getName());
-        classes.setCourse(classRoom.getCourse());
+        classes.setName(classRoomDTO.getName());
+        System.out.println(classRoomDTO.getCourse().getName());
+        classes.setCourse(classRoomDTO.getCourse());
         classes.setDeleted(Boolean.FALSE);
         classRoomRepository.save(classes);
     }
@@ -37,7 +37,7 @@ public class ClassRoomServiceImpl implements ClassRoomService {
     public void update(ClassRoomDTO classRoomDTO) {
         ClassRoom classRoom = classRoomRepository.findById(classRoomDTO.getId()).orElse(null);
         classRoom.setName(classRoomDTO.getName());
-        classRoom.setCourse(classRoomDTO.getId_course());
+        classRoom.setCourse(classRoomDTO.getCourse());
         classRoomRepository.save(classRoom);
     }
 
@@ -47,7 +47,7 @@ public class ClassRoomServiceImpl implements ClassRoomService {
         if(classRoom != null){
             ClassRoomDTO classRoomDTO = new ClassRoomDTO();
             classRoomDTO.setId(classRoom.getId());
-            classRoomDTO.setId_course(classRoom.getCourse());
+            classRoomDTO.setCourse(classRoom.getCourse());
             classRoomDTO.setName(classRoom.getName());
             return classRoomDTO;
         }
@@ -67,9 +67,9 @@ public class ClassRoomServiceImpl implements ClassRoomService {
     }
 
     @Override
-    public Page<ClassRoom> findAllByNameContaining(String name, Pageable pageable) {
+    public Page<ClassRoom> findAllByDeletedIsFalseAndNameContaining(String name, Pageable pageable) {
         pageable = PageRequest.of(pageable.getPageNumber(), 10, Sort.by("name"));
-        return classRoomRepository.findAllByNameContaining(name,pageable);
+        return classRoomRepository.findAllByDeletedIsFalseAndNameContaining(name,pageable);
     }
 
     @Override

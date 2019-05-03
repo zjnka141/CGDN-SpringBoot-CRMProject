@@ -73,7 +73,7 @@ public class StudentController {
     @PostMapping("/update")
     public String editStudent(@ModelAttribute("students") StudentDTO studentDTO,RedirectAttributes redirect) {
         studentService.update(studentDTO);
-        redirect.addFlashAttribute("message","updated succesful!!");
+        redirect.addFlashAttribute("message","updated successful!!");
         return "redirect:/students/list";
     }
     @GetMapping("/{id}/delete")
@@ -89,7 +89,7 @@ public class StudentController {
     @PostMapping("/delete")
     public String deleteStudent(@ModelAttribute("students") StudentDTO studentDTO,RedirectAttributes redirect) {
         studentService.delete(studentDTO.getId());
-        redirect.addFlashAttribute("message", "delete successfull");
+        redirect.addFlashAttribute("message", "delete successful");
         return "redirect:/students/list";
     }
     @GetMapping("/{id}/classes/student")

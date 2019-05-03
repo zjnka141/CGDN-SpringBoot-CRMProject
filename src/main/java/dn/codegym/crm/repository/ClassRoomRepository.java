@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ClassRoomRepository extends JpaRepository<ClassRoom,String> {
     Page<ClassRoom> findAllByDeletedIsFalse( Pageable pageable);
-    Page<ClassRoom>findAllByNameContaining(String name, Pageable pageable);
+    Page<ClassRoom>findAllByDeletedIsFalseAndNameContaining(String name, Pageable pageable);
     Page<ClassRoom> findAllByDeletedIsFalseAndCourse(Course course, Pageable pageable);
 }

@@ -9,8 +9,8 @@ import org.springframework.data.domain.Pageable;
 
 public interface ClassRoomService {
     Page<ClassRoom>findAllByDeletedIsFalse(Pageable pageable);
-    Page<ClassRoom>findAllByNameContaining(String name, Pageable pageable);
-    void save(ClassRoom classRoom);
+    Page<ClassRoom>findAllByDeletedIsFalseAndNameContaining(String name, Pageable pageable);
+    void save(ClassRoomDTO classRoomDTO);
     void update(ClassRoomDTO classRoomDTO);
     ClassRoomDTO findById(String id);
     void delete(String id);

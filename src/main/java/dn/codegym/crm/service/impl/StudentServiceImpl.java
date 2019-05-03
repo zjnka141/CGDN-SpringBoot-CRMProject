@@ -4,7 +4,6 @@ import dn.codegym.crm.constants.AppConsts;
 
 import dn.codegym.crm.dto.LeadDTO;
 import dn.codegym.crm.dto.StudentDTO;
-import dn.codegym.crm.entity.ClassRoom;
 import dn.codegym.crm.entity.Student;
 import dn.codegym.crm.repository.StudentRepository;
 import dn.codegym.crm.service.StudentService;
@@ -32,7 +31,7 @@ public class StudentServiceImpl implements StudentService {
         Student student = new Student();
         student.setName(studentDTO.getName());
         student.setBirthday(birthday);
-        student.setClassRoom(studentDTO.getIdClass());
+        student.setClassRoom(studentDTO.getClassRoom());
         student.setGender(studentDTO.getGender());
         student.setDeleted(Boolean.FALSE);
         student.setEmail(studentDTO.getEmail());
@@ -65,7 +64,7 @@ public class StudentServiceImpl implements StudentService {
             studentDTO.setName(student.getName());
             studentDTO.setBirthday(birthday);
             studentDTO.setGender(student.getGender());
-            studentDTO.setIdClass(student.getClassRoom());
+            studentDTO.setClassRoom(student.getClassRoom());
             studentDTO.setDeleted(student.isDeleted());
             studentDTO.setEmail(student.getEmail());
             studentDTO.setPhoneNumber(student.getPhoneNumber());
@@ -82,7 +81,7 @@ public class StudentServiceImpl implements StudentService {
         student.setName(studentDTO.getName());
         student.setGender(studentDTO.getGender());
         student.setBirthday(birthday);
-        student.setClassRoom(studentDTO.getIdClass());
+        student.setClassRoom(studentDTO.getClassRoom());
         student.setEmail(studentDTO.getEmail());
         student.setPhoneNumber(studentDTO.getPhoneNumber());
         studentRepository.save(student);

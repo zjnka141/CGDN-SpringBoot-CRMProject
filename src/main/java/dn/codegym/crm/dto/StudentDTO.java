@@ -9,7 +9,7 @@ public class StudentDTO implements Serializable {
     private String name;
     private String birthday;
     private String gender;
-    private ClassRoom idClass;
+    private ClassRoom classRoom;
     private Boolean deleted;
     private String email;
     private String phoneNumber;
@@ -70,12 +70,12 @@ public class StudentDTO implements Serializable {
         this.deleted = deleted;
     }
 
-    public ClassRoom getIdClass() {
-        return idClass;
+    public ClassRoom getClassRoom() {
+        return classRoom;
     }
 
-    public void setIdClass(ClassRoom idClass) {
-        this.idClass = idClass;
+    public void setClassRoom(ClassRoom classRoom) {
+        this.classRoom = classRoom;
     }
 
     public Boolean getDeleted() {

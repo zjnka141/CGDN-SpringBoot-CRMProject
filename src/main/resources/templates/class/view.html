@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>View Class</title>
+</head>
+<body>
+<h3>view Class</h3>
+<p>
+    <a href="/classes/list">Back to list class</a>
+</p>
+<div>
+    <div>
+        <label>Name:</label>
+        <label th:text="${classes.name}"></label>
+    </div>
+    <div>
+        <label>Course:</label>
+        <label th:text="${classes.course.getName()}"></label>
+    </div>
+</div>
+</body>
+</html>
