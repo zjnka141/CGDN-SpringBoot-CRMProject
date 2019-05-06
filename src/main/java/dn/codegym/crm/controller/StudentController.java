@@ -51,7 +51,7 @@ public class StudentController {
     @PostMapping("/create")
     public String saveStudent(@Validated @ModelAttribute("student") StudentDTO studentDTO, BindingResult bindingResult, RedirectAttributes redirect) {
         if(bindingResult.hasFieldErrors()) {
-            redirect.addFlashAttribute("message","have some thing wrong!!");
+            redirect.addFlashAttribute("message","Have something wrong!!");
             return  "redirect:/students/create";
         }
 
@@ -76,7 +76,7 @@ public class StudentController {
     @PostMapping("/update")
     public String editStudent(@ModelAttribute("students") StudentDTO studentDTO,RedirectAttributes redirect) {
         studentService.update(studentDTO);
-        redirect.addFlashAttribute("message","updated succesful!!");
+        redirect.addFlashAttribute("message","updated succesfully!!");
         return "redirect:/students/list";
     }
     @GetMapping("/{id}/delete")
@@ -92,7 +92,7 @@ public class StudentController {
     @PostMapping("/delete")
     public String deleteStudent(@ModelAttribute("students") StudentDTO studentDTO,RedirectAttributes redirect) {
         studentService.delete(studentDTO.getId());
-        redirect.addFlashAttribute("message", "delete successfull");
+        redirect.addFlashAttribute("message", "delete successfully");
         return "redirect:/students/list";
     }
     @GetMapping("/{id}/classes/student")
