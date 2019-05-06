@@ -4,6 +4,7 @@ import dn.codegym.crm.dto.ClassRoomDTO;
 import dn.codegym.crm.dto.StudentDTO;
 import dn.codegym.crm.entity.ClassRoom;
 import dn.codegym.crm.entity.Course;
+import dn.codegym.crm.entity.Student;
 import dn.codegym.crm.service.ClassRoomService;
 import dn.codegym.crm.service.CourseService;
 import dn.codegym.crm.service.StudentService;

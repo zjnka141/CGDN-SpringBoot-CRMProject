@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Student of class</title>
+</head>
+<body>
+<h1>Student of class</h1>
+<th:block th:if="${studens.getTotalElements()>0}">
+<table>
+    <tr>
+        <td>Name student</td>
+    </tr>
+    <th:block th:each="student:${studens}">
+        <tr>
+            <td th:text="${student.name}"></td>
+        </tr>
+    </th:block>
+</table>
+</th:block>
+</body>
+</html>
