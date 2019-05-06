@@ -83,13 +83,13 @@ public class StudentController {
        StudentDTO studentDTO =studentService.findById(id);
        if(studentDTO!=null) {
            ModelAndView modelAndView = new ModelAndView("student/delete");
-           modelAndView.addObject("students",studentDTO);
+           modelAndView.addObject("student",studentDTO);
            return modelAndView;
        }
        return new ModelAndView("error404");
     }
     @PostMapping("/delete")
-    public String deleteStudent(@ModelAttribute("students") StudentDTO studentDTO,RedirectAttributes redirect) {
+    public String deleteStudent(@ModelAttribute("student") StudentDTO studentDTO,RedirectAttributes redirect) {
         studentService.delete(studentDTO.getId());
         redirect.addFlashAttribute("message", "delete successfully");
         return "redirect:/students/list";

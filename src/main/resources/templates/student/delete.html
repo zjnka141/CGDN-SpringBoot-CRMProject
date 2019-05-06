@@ -1,48 +1,51 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{fragments/main_layout}">
 <head>
     <meta charset="UTF-8">
     <title>Delete Student</title>
 </head>
 <body>
-<a href="/">Home Page</a><hr>
-<h1>Delete Student</h1>
-<h2>Are you sure?</h2>
-<p>
-    <a href="/students/list">Back to list of students</a>
-</p>
-<form action="/students/delete" method="post" th:object="${students}">
-    <input type="hidden" th:field="*{id}">
-    <table>
-        <tr>
-            <td>Name:</td>
-            <td th:text="${students.name}"></td>
-        </tr>
-        <tr>
-            <td>Birth day:</td>
-            <td th:text="${students.birthday}"></td>
-        </tr>
-        <tr>
-            <td>Email:</td>
-            <td th:text="${students.email}"></td>
-        </tr>
-        <tr>
-            <td>Phone Number:</td>
-            <td th:text="${students.phoneNumber}"></td>
-        </tr>
-        <tr>
-            <td>Gender:</td>
-            <td th:text="${students.gender}"></td>
-        </tr>
-        <tr>
-            <td>Class</td>
-            <td th:text="${students.classRoom.name}"></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td><input type="submit" value="Delete student"></td>
-        </tr>
-    </table>
-</form>
+<div layout:fragment="content" class="container">
+    <div class="w3-card-4">
+        <div class="w3-container">
+            <a href="/">Home Page</a><hr>
+        </div>
+        <div class="w3-container">
+            <a href="/students/list">Back to list student</a><hr>
+        </div>
+        <div class="w3-container w3-green">
+            <h1>Delete Student</h1>
+        </div>
+        <form class="w3-container" action="/students/delete" method="post" th:object="${student}">
+            <input type="hidden" th:field="*{id}">
+            <p>
+                <label class="w3-text-green"><b>Name</b></label>
+                <span class="w3-input w3-border w3-sand" th:text="*{name}"></span>
+            </p>
+            <p>
+                <label class="w3-text-green"><b>Gender</b></label>
+                <span class="w3-input w3-border w3-sand" th:text="*{gender}"></span>
+            </p>
+            <p>
+                <label class="w3-text-green"><b>Email</b></label>
+                <span class="w3-input w3-border w3-sand" th:text="*{email}"></span>
+            </p>
+            <p>
+                <label class="w3-text-green"><b>Phone number</b></label>
+                <span class="w3-input w3-border w3-sand" th:text="*{phoneNumber}"></span>
+            </p>
+            <p>
+                <label class="w3-text-green"><b>Class room</b></label>
+                <span class="w3-input w3-border w3-sand" th:text="*{classRoom}"></span>
+            </p>
+
+            <p>
+                <button class="w3-btn w3-green" type="submit">Delete student</button>
+            </p>
+        </form>
+    </div>
+</div>
 </body>
 </html>

@@ -1,55 +1,66 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{fragments/main_layout}">
 <head>
     <meta charset="UTF-8">
     <title>List Of Students</title>
 </head>
 <body>
-<a href="/">Home Page</a>
-<hr>
-
-<a href="/students/create">Add new student</a>
-<h1>Students</h1>
-<form th:action="@{/students/list}" method="get">
-    search by name
-    <input name="student" th:value="${student}" type="text">
-    <input type="submit" value="Search">
+<div layout:fragment="content" class="container">
+    <a href="/students/create">Create new student</a>
+    <h1>Students</h1>
+    <form>
+        <input name="name" type="text" placeholder="Input student name" th:value="${name}">
+        <input type="submit" value="Search">
+    </form>
     <p>
         <th:block th:if="${message}">
     <p th:text="${message}"></p>
     </th:block>
     </p>
-    <table border="1">
-        <div>
-            <a th:href="@{'/students/list'(page=${students.number - 1})}" th:if="${students.hasPrevious()}">Previous</a>
-            <span th:text="${students.number + 1}"></span>/<span th:text="${students.totalPages}"></span>
-            <a th:href="@{'/students/list'(page=${students.getNumber() + 1})}" th:if="${students.hasNext()}">Next</a>
-        </div>
-        <tr>
-            <th>Name</th>
-            <th>Birth day</th>
-            <th>Gender</th>
-            <th>Email</th>
-            <th>Phone Number</th>
-            <th>Class</th>
-            <th>View</th>
-            <th>Edit</th>
-            <th>Delete</th>
-        </tr>
-        <th:block th:each="student : ${students}">
+    <th:block th:if="${students.getTotalElements() > 0}">
+        <table class="table">
             <tr>
-                <td th:text="${student.name}"></td>
-                <td th:text="${student.birthday}"></td>
-                <td th:text="${student.gender}"></td>
-                <td th:text="${student.email}"></td>
-                <td th:text="${student.phoneNumber}"></td>
-                <td th:text="${student.classRoom.name}"></td>
-                <td><a th:href="@{/students/{id}/view(id=${student.getId()})}">view</a></td>
-                <td><a th:href="@{/students/{id}/edit(id=${student.getId()})}">edit</a></td>
-                <td><a th:href="@{/students/{id}/delete(id=${student.getId()})}">delete</a></td>
+                <th>Name</th>
+                <th>Birth day</th>
+                <th>Gender</th>
+                <th>Email</th>
+                <th>Phone number</th>
+                <th>Class</th>
+                <th>View</th>
+                <th>Edit</th>
+                <th>Delete</th>
             </tr>
+            <th:block th:each="student : ${students}">
+                <tr>
+                    <td th:text="${student.name}"></td>
+                    <td th:text="${student.birthday}"></td>
+                    <td th:text="${student.gender}"></td>
+                    <td th:text="${student.email}"></td>
+                    <td th:text="${student.phoneNumber}"></td>
+                    <td th:text="${student.classRoom.name}"></td>
+                    <td><a th:href="@{/students/{id}/view(id=${student.getId()})}">view</a></td>
+                    <td><a th:href="@{/students/{id}/edit(id=${student.getId()})}">edit</a></td>
+                    <td><a th:href="@{/students/{id}/delete(id=${student.getId()})}">delete</a></td>
+                </tr>
+            </th:block>
+        </table>
+        <th:block th:switch="${name}">
+            <div th:case="null">
+                    <a th:href="@{'/students/list'(page=${students.number - 1})}" th:if="${students.hasPrevious()}">Previous</a>
+                    <span th:text="${students.number + 1}"></span>/<span th:text="${students.totalPages}"></span>
+                    <a th:href="@{'/students/list'(page=${students.getNumber() + 1})}" th:if="${students.hasNext()}">Next</a>
+            </div>
+
+            <div th:case="*">
+                    <a th:href="@{'/students/list'(page=${students.number - 1})}" th:if="${students.hasPrevious()}">Previous</a>
+                    <span th:text="${students.number + 1}"></span>/<span th:text="${students.totalPages}"></span>
+                    <a th:href="@{'/students/list'(page=${students.getNumber() + 1})}" th:if="${students.hasNext()}">Next</a>
+            </div>
         </th:block>
-    </table>
+    </th:block>
+</div>
 </form>
 </body>
 </html>

@@ -1,40 +1,45 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{fragments/main_layout}">
 <head>
     <meta charset="UTF-8">
     <title>View Student</title>
 </head>
 <body>
-<h3>view Blog</h3>
-<p>
-    <a href="/students/list">Back to list student</a>
-</p>
-<div>
+<div layout:fragment="content" class="container">
+    <div class="w3-card-4">
+        <div class="w3-container">
+            <a href="/">Home Page</a><hr>
+        </div>
+        <div class="w3-container">
+            <a href="/students/list">Back to list student</a><hr>
+        </div>
     <div>
-        <label>Name:</label>
+        <label  class="w3-text-green">Name:</label>
         <label th:text="${students.getName()}"></label>
     </div >
     <div>
-        <label>Birthday:</label>
+        <label  class="w3-text-green">Birthday:</label>
         <label th:text="${students.birthday}"></label>
     </div>
     <div>
-        <label>Gender:</label>
+        <label  class="w3-text-green">Gender:</label>
         <label th:text="${students.gender}"></label>
     </div>
     <div>
-        <label>Email: </label>
+        <label  class="w3-text-green">Email: </label>
         <label th:text="${students.email}"></label>
     </div>
     <div>
-        <label>Phone Number: </label>
+        <label  class="w3-text-green">Phone Number: </label>
         <label th:text="${students.phoneNumber}"></label>
     </div>
     <div>
-        <label>Class</label>
+        <label  class="w3-text-green">Class</label>
         <label th:text="${students.classRoom.getName()}"></label>
     </div>
 </div>
-
+</div>
 </body>
 </html>

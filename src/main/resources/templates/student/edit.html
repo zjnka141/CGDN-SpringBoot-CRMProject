@@ -1,58 +1,71 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{fragments/main_layout}">
 <head>
     <meta charset="UTF-8">
     <title>Edit Student</title>
 </head>
 <body>
-<a href="/">Home Page</a><hr>
-<h1>Edit Student</h1>
-<p><a href="/students/list">Back to list of students</a></p>
-<form action="/students/update" method="post" th:object="${students}">
-    <input type="hidden" th:field="*{id}">
-    <table>
-        <tr>
-            <td>Name:</td>
-            <td><input type="text" th:field="*{name}"></td>
-        </tr>
-        <tr>
-            <td>Birth day:</td>
-            <td><input type="date" th:value="${birthday}" th:field="*{birthday}"></td>
-        </tr>
-        <tr>
-            <td>Email:</td>
-            <td><input type="text" th:field="*{email}"></td>
-        </tr>
-        <tr>
-            <td>Phone Number:</td>
-            <td><input type="text" th:field="*{phoneNumber}"></td>
-        </tr>
-        <tr>
-            <td>Gender:</td>
-            <td>
-                <select th:field="*{gender}">
-                    <option value="male">male</option>
-                    <option value="female">female</option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td>Class:</td>
-            <td>
-                <select th:name="classRoom">
-                    <option th:each="c:${classes}"
-                    th:value="${c.id}"
-                    th:text="${c.getName()}"
-                    th:selected="(${c.id}==*{classRoom.getId()})"></option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td></td>
-            <td><input type="submit" value="Update student"></td>
-        </tr>
+<div layout:fragment="content" class="container">
 
-    </table>
-</form>
+    <div class="w3-card-4">
+        <div class="w3-container">
+            <a href="/">Home Page</a><hr>
+        </div>
+        <div class="w3-container">
+            <a href="/students/list">Back to list student</a><hr>
+        </div>
+        <div class="w3-container w3-green">
+            <h1>Create Student</h1>
+        </div>
+
+        <form class="w3-container" action="/students/update" method="post" th:object="${students}">
+            <p>
+                <input type="hidden" th:field="*{id}">
+            </p>
+            <p>
+                <label class="w3-text-green"><b>Name</b></label>
+                <input class="w3-input w3-border w3-sand" type="text" th:field="*{name}">
+            </p>
+            <p>
+                <label class="w3-text-green"><b>Birth day</b></label>
+                <input class="w3-input w3-border w3-sand" type="date" th:field="*{birthday}">
+            </p>
+            <p>
+                <label class="w3-text-green"><b>Gender</b></label>
+
+            <td >
+                <select class="selected w3-blue-grey" th:field="*{gender}">
+                    <option class="w3-blue-grey" value="male">male</option>
+                    <option class="w3-blue-grey" value="female">female</option>
+                </select>
+            </td >
+            </p>
+            <p>
+                <label class="w3-text-green"><b>Email</b></label>
+            <td><input class="w3-input w3-border w3-sand" type="text" th:field="*{email}" ></td>
+            </p>
+            <tr>
+                <label class="w3-text-green"><b>PhoneNumber</b></label>
+                <input class="w3-input w3-border w3-sand" type="text" th:field="*{phoneNumber}">
+            </tr>
+            <tr>
+                <label class="w3-text-green"><b>Class</b></label>
+                <td >
+                    <select class="selected w3-blue-grey" th:field="*{classRoom}">
+                        <option class="w3-blue-grey" th:each ="p:${classes}"
+                                th:value="${p.id}"
+                                th:text="${p.name}">
+                        </option>
+                    </select>
+                </td>
+            </tr>
+            <p>
+                <button class="w3-btn w3-green" type="submit">Edit student</button>
+            </p>
+        </form>
+    </div>
+</div>
 </body>
 </html>

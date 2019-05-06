@@ -11,6 +11,7 @@ import java.util.List;
 
 public interface StudentService {
     Page<Student> findAllByDeletedIsFalseAndClassRoom(String classId, Pageable pageable);
+
     Page<Student> findAllByDeletedIsFalse(Pageable pageable);
 
     List<Student> findAllByDeletedIsFalse();
