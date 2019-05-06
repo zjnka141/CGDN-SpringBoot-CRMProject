@@ -9,7 +9,7 @@ import javax.validation.constraints.Pattern;
 public class LeadDTO {
     private String id;
     @NotBlank(message = "Lead name is not null")
-    @Pattern(regexp = "(^$|[a-zA-z ])*$", message = "Lead name is not valid")
+    @Pattern(regexp = "(^$|[A-Za-zÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚÝàáâãèéêìíòóôõùúýĂăĐđĨĩŨũƠơƯưẠ-ỹ ])*$", message = "Lead name is not valid")
     private String name;
 
     @NotBlank(message = "Phone number is not null")

@@ -1,61 +1,63 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{fragments/main_layout}">
 <head>
     <meta charset="UTF-8">
     <title>Edit Lead</title>
 </head>
 <body>
-<a href="/">Home Page</a>
-<hr>
-<h1>Edit Lead</h1>
-<p><a href="/leads/list">Back to list of leads</a></p>
-<form action="/leads/edit" method="post" th:object="${lead}">
-    <input type="hidden" th:field="*{id}">
-    <table>
-        <tr>
-            <td>Name:</td>
-            <td><input type="text" th:field="*{name}"></td>
-        </tr>
-        <tr>
-            <td>Email:</td>
-            <td><input type="text" th:field="*{email}"></td>
-        </tr>
-        <tr>
-            <td>Phone:</td>
-            <td><input type="text" th:field="*{phoneNumber}"></td>
-        </tr>
-        <tr>
-            <td>Source:</td>
-            <td><input type="text" th:field="*{source}"></td>
-        </tr>
-        <tr>
-            <td>Status:</td>
-            <td>
-                <select th:field="*{status}">
-                    <option value="G1">G1</option>
-                    <option value="G2">G2</option>
-                    <option value="G3">G3</option>
-                    <option value="G4">G4</option>
-                    <option value="G5">G5</option>
-                    <option value="G6">G6</option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td>Campaign:</td>
-            <td>
-                <select name="campaign">
-                    <option th:each="p : ${campaigns}"
-                            th:value="${p.id}"
-                            th:text="${p.name}"></option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td></td>
-            <td><input type="submit" value="Update lead"></td>
-        </tr>
-    </table>
-</form>
+<div layout:fragment="content" class="container">
+    <div class="w3-card-4">
+        <div class="w3-container w3-green">
+            <h1>Edit Lead</h1>
+        </div>
+        <p><a href="/leads/list">Back to list of leads</a></p>
+        <form class="w3-container" action="/leads/edit" method="post" th:object="${lead}">
+            <input type="hidden" th:field="*{id}">
+            <table>
+                <p>
+                    <label class="w3-text-green">Name:</label>
+                    <input class="w3-border w3-input w3-sand" type="text" th:field="*{name}">
+                </p>
+                <p>
+                    <label class="w3-text-green">Email:</label>
+                    <input class="w3-border w3-input w3-sand" type="text" th:field="*{email}">
+                <p>
+                    <label class="w3-text-green">Phone:</label>
+                    <input class="w3-border w3-input w3-sand" type="text" th:field="*{phoneNumber}">
+                </p>
+                <p>
+                    <label class="w3-text-green">Source:</label>
+                    <input class="w3-border w3-input w3-sand" type="text" th:field="*{source}">
+                </p>
+                <p>
+                    <label class="w3-text-green">Status:</label>
+                    <select th:field="*{status}">
+                        <option value="G1">G1</option>
+                        <option value="G2">G2</option>
+                        <option value="G3">G3</option>
+                        <option value="G4">G4</option>
+                        <option value="G5">G5</option>
+                        <option value="G6">G6</option>
+                    </select>
+                </p>
+                <p>
+                    <label class="w3-text-green">Campaign:</label>
+
+                    <select name="campaign">
+                        <option th:each="p : ${campaigns}"
+                                th:value="${p.id}"
+                                th:text="${p.name}"></option>
+                    </select>
+
+                </p>
+                <p>
+                <td><input class="w3-btn w3-green" type="submit" value="Update lead"></td>
+                </p>
+            </table>
+        </form>
+    </div>
+</div>
 </body>
 </html>
