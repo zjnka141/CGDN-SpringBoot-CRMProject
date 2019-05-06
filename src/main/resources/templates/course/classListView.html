@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{fragments/main_layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>List Of Classes</title>
+</head>
+<body>
+<div layout:fragment="content" class="container">
+<a href="/">Home Page</a><hr>
+<h1>Class List</h1>
+<table class="table">
+    <tr>
+        <th>Name</th>
+        <th>Course</th>
+    </tr>
+    <th:block th:each="class : ${classes}">
+        <tr>
+            <td><a th:href="@{/class/student/list/__${class.id}__}" th:text="${class.name}"></a></td>
+            <td th:text="${class.course.name}"></td>
+        </tr>
+    </th:block>
+</table>
+</div>
+</body>
+</html>
