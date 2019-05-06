@@ -25,7 +25,7 @@ public class ClassRoomController {
    @Autowired
     private CourseService courseService;
    @ModelAttribute("course")
-    public Page<Course> courses(Pageable pageable){
+    public Iterable<Course> courses(Pageable pageable){
      return courseService.findAllByDeletedIsFalse(pageable);
    }
 
@@ -38,7 +38,7 @@ public class ClassRoomController {
     }
 
     @PostMapping("/create")
-    public String saveClassRoom(@ModelAttribute("classes") ClassRoom classRoom, RedirectAttributes redirect) {
+    public String saveClassRoom(@ModelAttribute("classes") ClassRoomDTO classRoom, RedirectAttributes redirect) {
         classRoomService.save(classRoom);
         redirect.addFlashAttribute("message", "New Class created successfully!");
         return "redirect:/classes/list";

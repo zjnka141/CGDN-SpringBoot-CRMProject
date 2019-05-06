@@ -11,7 +11,9 @@ public interface LeadService {
     Page<Lead> findAllByDeletedIsFalse(Pageable pageable);
 
     Page<Lead> findAllByDeletedIsFalseAndStatusContaining(String status, Pageable pageable);
+
     Page<Lead> findAllByDeletedIsFalseAndNameContaining(String name, Pageable pageble);
+
     void create(LeadDTO leadDTO);
 
     void update(LeadDTO leadDTO);

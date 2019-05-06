@@ -5,9 +5,11 @@ import dn.codegym.crm.dto.CampaignDTO;
 import dn.codegym.crm.dto.LeadDTO;
 import dn.codegym.crm.dto.StudentDTO;
 import dn.codegym.crm.entity.Campaign;
+import dn.codegym.crm.entity.ClassRoom;
 import dn.codegym.crm.entity.Lead;
 import dn.codegym.crm.repository.CampaignRepository;
 import dn.codegym.crm.service.CampaignService;
+import dn.codegym.crm.service.ClassRoomService;
 import dn.codegym.crm.service.LeadService;
 import dn.codegym.crm.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,14 @@ public class CampaignController {
 
     @Autowired
     private StudentService studentService;
+
+    @Autowired
+    private ClassRoomService classRoomService;
+
+    @ModelAttribute("classes")
+    public Page<ClassRoom> classRooms(Pageable pageable) {
+        return classRoomService.findAllByDeletedIsFalse(pageable);
+    }
 
     @GetMapping("/list")
     public ModelAndView listCampaign(Pageable pageable) {
@@ -123,7 +133,8 @@ public class CampaignController {
 
     @GetMapping("/addLead/{campaignId}")
     public ModelAndView viewAddLeads(@PathVariable String campaignId, Model model, Pageable pageable) {
-        Page<Lead> leads = leadService.findAllByCampaignId(AppConsts.CAMPAIGN_ID_NULL, pageable);
+        Campaign campaign = campaignService.findAllByDeletedIsFalseAndNameIs(AppConsts.CAMPAIGN_NAME_NULL);
+        Page<Lead> leads = leadService.findAllByCampaignId(campaign.getId(), pageable);
         model.addAttribute("campaign", campaignService.findById(campaignId));
         return new ModelAndView("campaign/addLeads", "leads", leads);
     }
@@ -148,14 +159,24 @@ public class CampaignController {
     @GetMapping("/move/{lead_id}")
     public ModelAndView moveLeadToStudent(@PathVariable("lead_id") String leadId, Model model) {
         LeadDTO leadDTO = leadService.findById(leadId);
+        StudentDTO studentDTO;
         if (leadDTO == null) {
             return null;
         } else {
-            StudentDTO studentDTO = studentService.moveLeadToStudent(leadDTO);
+            studentDTO = studentService.moveLeadToStudent(leadDTO);
             model.addAttribute("lead", leadDTO);
             model.addAttribute("student", studentDTO);
             return new ModelAndView("campaign/move");
         }
+    }
 
+    @PostMapping("/move/{campaignId}")
+    public String moveLeadToStudent(@ModelAttribute("student") StudentDTO studentDTO,
+                                    @PathVariable("campaignId") String campaignId,
+                                    RedirectAttributes redirect) {
+        System.out.println(studentDTO.getId());
+        studentService.save(studentDTO);
+        leadService.delete(studentDTO.getId());
+        return "redirect:/campaigns/viewLeads/{campaignId}";
     }
 }

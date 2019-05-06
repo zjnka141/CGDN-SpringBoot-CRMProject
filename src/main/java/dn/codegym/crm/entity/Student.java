@@ -84,8 +84,8 @@ public class Student extends BaseEntity {
         return classRoom;
     }
 
-    public void setClassRoom(ClassRoom idClass) {
-        this.classRoom = idClass;
+    public void setClassRoom(ClassRoom classRoom) {
+        this.classRoom = classRoom;
     }
 
     public Boolean getDeleted() {

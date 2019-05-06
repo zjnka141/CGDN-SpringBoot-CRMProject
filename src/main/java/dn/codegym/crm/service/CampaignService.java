@@ -13,6 +13,7 @@ public interface CampaignService {
 
     List<Campaign> findAllByDeletedIsFalse();
 
+    Campaign findAllByDeletedIsFalseAndNameIs(String name);
 
     Page<Campaign> searchName(String name,Pageable pageable);
 

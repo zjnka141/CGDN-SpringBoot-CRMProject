@@ -24,11 +24,10 @@ public class ClassRoomServiceImpl implements ClassRoomService {
     private CourseRepository courseRepository;
 
     @Override
-    public void save(ClassRoom classRoom) {
+    public void save(ClassRoomDTO classRoom) {
         ClassRoom classes = new ClassRoom();
         classes.setName(classRoom.getName());
-        System.out.println(classRoom.getCourse().getName());
-        classes.setCourse(classRoom.getCourse());
+        classes.setCourse(classRoom.getId_course());
         classes.setDeleted(Boolean.FALSE);
         classRoomRepository.save(classes);
     }
