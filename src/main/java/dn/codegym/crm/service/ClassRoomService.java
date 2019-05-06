@@ -6,13 +6,15 @@ import dn.codegym.crm.entity.Course;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 
 public interface ClassRoomService {
     Page<ClassRoom> findAllByDeletedIsFalse(Pageable pageable);
 
-    Page<ClassRoom> findAllByNameContaining(String name, Pageable pageable);
+    Page<ClassRoom> findAllByDeletedIsFalseAndNameContaining(String name, Pageable pageable);
 
-    void save(ClassRoomDTO classRoom);
+    void save(ClassRoomDTO classRoomDTO);
 
     void update(ClassRoomDTO classRoomDTO);
 
@@ -20,7 +22,7 @@ public interface ClassRoomService {
 
     void delete(String id);
 
-    Iterable<ClassRoom> findAll();
+    List<ClassRoom> findAllByDeletedIsFalse();
 
     Page<ClassRoom> findAllByDeletedIsFalseAndIdCourse(Course course, Pageable pageable);
 }

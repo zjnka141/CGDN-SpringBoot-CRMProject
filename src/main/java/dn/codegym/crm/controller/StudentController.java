@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("students")
 public class StudentController {
@@ -25,8 +27,8 @@ public class StudentController {
     private ClassRoomService classRoomService;
 
     @ModelAttribute("classes")
-    public Page<ClassRoom> classRooms(Pageable pageable) {
-        return classRoomService.findAllByDeletedIsFalse(pageable);
+    public List<ClassRoom> classRooms() {
+        return classRoomService.findAllByDeletedIsFalse();
     }
     @GetMapping("/create")
     public ModelAndView createStudent() {

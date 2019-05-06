@@ -4,7 +4,9 @@ import dn.codegym.crm.constants.AppConsts;
 
 import dn.codegym.crm.dto.LeadDTO;
 import dn.codegym.crm.dto.StudentDTO;
+import dn.codegym.crm.entity.ClassRoom;
 import dn.codegym.crm.entity.Student;
+import dn.codegym.crm.repository.ClassRoomRepository;
 import dn.codegym.crm.repository.StudentRepository;
 import dn.codegym.crm.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,8 @@ import java.util.List;
 public class StudentServiceImpl implements StudentService {
     @Autowired
     private StudentRepository studentRepository;
+    @Autowired
+    private ClassRoomRepository classRoomRepository;
 
     @Override
     public void save(StudentDTO studentDTO) {
@@ -37,6 +41,13 @@ public class StudentServiceImpl implements StudentService {
         student.setEmail(studentDTO.getEmail());
         student.setPhoneNumber(studentDTO.getPhoneNumber());
         studentRepository.save(student);
+    }
+
+    @Override
+    public Page<Student> findAllByDeletedIsFalseAndClassRoom(String classId, Pageable pageable) {
+        pageable = PageRequest.of(0, 10, Sort.by("name"));
+        ClassRoom classRoom=classRoomRepository.findById(classId).orElse(null);
+        return studentRepository.findAllByDeletedIsFalseAndClassRoom(classRoom,pageable);
     }
 
     @Override

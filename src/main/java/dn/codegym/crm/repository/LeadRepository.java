@@ -10,12 +10,8 @@ import java.util.List;
 
 public interface LeadRepository extends JpaRepository<Lead, String> {
     Page<Lead> findAllByDeletedIsFalse(Pageable pageable);
-
     Page<Lead> findAllByDeletedIsFalseAndStatusContaining(String status, Pageable pageable);
-
     Page<Lead> findAllByDeletedIsFalseAndNameContaining(String name, Pageable pageble);
 
-    Page<Lead> findAllByCampaignAndDeletedIsFalse(Campaign campaign, Pageable pageable);
-
-
+    Page<Lead> findAllByCampaignAndDeletedIsFalse(Campaign campaign,Pageable pageable);
 }

@@ -13,6 +13,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 import static java.lang.Boolean.TRUE;
 
 @Service
@@ -59,6 +61,12 @@ public class ClassRoomServiceImpl implements ClassRoomService {
         classRoom.setDeleted(TRUE);
         classRoomRepository.save(classRoom);
     }
+
+    @Override
+    public List<ClassRoom> findAllByDeletedIsFalse() {
+        return classRoomRepository.findAllByDeletedIsFalse();
+    }
+
     @Override
     public Page<ClassRoom> findAllByDeletedIsFalse(Pageable pageable) {
         pageable = PageRequest.of(pageable.getPageNumber(), 10, Sort.by("name"));
@@ -71,10 +79,6 @@ public class ClassRoomServiceImpl implements ClassRoomService {
         return classRoomRepository.findAllByNameContaining(name,pageable);
     }
 
-    @Override
-    public Iterable<ClassRoom> findAll() {
-        return classRoomRepository.findAll();
-    }
 
     @Override
     public Page<ClassRoom> findAllByDeletedIsFalseAndIdCourse(Course course, Pageable pageable) {
