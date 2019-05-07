@@ -80,10 +80,14 @@ public class LeadController {
     }
 
     @PostMapping("/edit")
-    public String updateLead(@ModelAttribute("lead") LeadDTO leadDTO, RedirectAttributes redirect) {
-        leadService.update(leadDTO);
-        redirect.addFlashAttribute("message", "Lead updated successfully!");
-        return "redirect:/leads/list";
+    public String updateLead(@Valid @ModelAttribute("lead") LeadDTO leadDTO,BindingResult bindingResult ,RedirectAttributes redirect) {
+        if(bindingResult.hasErrors()) {
+            return "lead/edit";
+        } else {
+            leadService.update(leadDTO);
+            redirect.addFlashAttribute("message", "Lead updated successfully!");
+            return "redirect:/leads/list";
+        }
     }
 
     @GetMapping("/delete/{id}")

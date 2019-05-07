@@ -5,29 +5,78 @@ import dn.codegym.crm.entity.Campaign;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import java.time.LocalDate;
 
 public class LeadDTO {
     private String id;
+    private String product;
+    private String status;
+    private String lastUpdateStatusDate;
     @NotBlank(message = "Lead name is not null")
     @Pattern(regexp = "(^$|[A-Za-zÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚÝàáâãèéêìíòóôõùúýĂăĐđĨĩŨũƠơƯưẠ-ỹ ])*$", message = "Lead name is not valid")
     private String name;
 
+    private String gender;
+
     @NotBlank(message = "Phone number is not null")
-    @Pattern(regexp = "(^$|[0-9]{10})*$", message = "must has 10 numbers")
+    @Pattern(regexp = "(^$|0[0-9]{9})*$", message = "phone number is not valid")
     private String phoneNumber;
 
-    @NotBlank(message = "Email is not null")
+    private String job;
+
+
     @Email(message = "Email is not valid")
     private String email;
 
     @NotBlank(message = "Source is not valid")
     private String source;
-    private String status;
+
+    private String admissionDate;
     private boolean deleted;
     private Campaign campaign;
 
     public Campaign getCampaign() {
         return campaign;
+    }
+
+    public String getProduct() {
+        return product;
+    }
+
+    public void setProduct(String product) {
+        this.product = product;
+    }
+
+    public String getLastUpdateStatusDate() {
+        return lastUpdateStatusDate;
+    }
+
+    public void setLastUpdateStatusDate(String lastUpdateStatusDate) {
+        this.lastUpdateStatusDate = lastUpdateStatusDate;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getJob() {
+        return job;
+    }
+
+    public void setJob(String job) {
+        this.job = job;
+    }
+
+    public String getAdmissionDate() {
+        return admissionDate;
+    }
+
+    public void setAdmissionDate(String admissionDate) {
+        this.admissionDate = admissionDate;
     }
 
     public void setCampaign(Campaign campaign) {

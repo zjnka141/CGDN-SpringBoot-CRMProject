@@ -48,12 +48,20 @@ public class LeadServiceImpl implements LeadService {
 
     @Override
     public void create(LeadDTO leadDTO) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(AppConsts.STRING_TO_DATE_FORMAT);
+        LocalDate lastUpdateStatusDate = LocalDate.parse(leadDTO.getLastUpdateStatusDate(), formatter);
+        LocalDate admissionDate = LocalDate.parse(leadDTO.getAdmissionDate(), formatter);
         Lead lead = new Lead();
         lead.setName(leadDTO.getName());
         lead.setEmail(leadDTO.getEmail());
         lead.setPhoneNumber(leadDTO.getPhoneNumber());
         lead.setSource(leadDTO.getSource());
         lead.setStatus(leadDTO.getStatus());
+        lead.setGender(leadDTO.getGender());
+        lead.setJob(leadDTO.getJob());
+        lead.setAdmissionDate(admissionDate);
+        lead.setLastUpdateStatusDate(lastUpdateStatusDate);
+        lead.setProduct(leadDTO.getProduct());
         lead.setDeleted(Boolean.FALSE);
         lead.setCampaign(leadDTO.getCampaign());
         leadRepository.save(lead);
@@ -62,11 +70,19 @@ public class LeadServiceImpl implements LeadService {
     @Override
     public void update(LeadDTO leadDTO) {
         Lead lead = leadRepository.findById(leadDTO.getId()).orElse(null);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(AppConsts.STRING_TO_DATE_FORMAT);
+        LocalDate lastUpdateStatusDate = LocalDate.parse(leadDTO.getLastUpdateStatusDate(), formatter);
+        LocalDate admissionDate = LocalDate.parse(leadDTO.getAdmissionDate(), formatter);
         lead.setName(leadDTO.getName());
         lead.setEmail(leadDTO.getEmail());
         lead.setPhoneNumber(leadDTO.getPhoneNumber());
         lead.setSource(leadDTO.getSource());
         lead.setStatus(leadDTO.getStatus());
+        lead.setGender(leadDTO.getGender());
+        lead.setJob(leadDTO.getJob());
+        lead.setAdmissionDate(admissionDate);
+        lead.setLastUpdateStatusDate(lastUpdateStatusDate);
+        lead.setProduct(leadDTO.getProduct());
         lead.setCampaign(leadDTO.getCampaign());
         leadRepository.save(lead);
     }
@@ -75,7 +91,9 @@ public class LeadServiceImpl implements LeadService {
     public LeadDTO findById(String id) {
         Lead lead = leadRepository.findById(id).orElse(null);
         if (lead != null) {
-
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(AppConsts.STRING_TO_DATE_FORMAT);
+            String lastUpdateStatusDate = lead.getLastUpdateStatusDate().format(formatter);
+            String admissionDate = lead.getAdmissionDate().format(formatter);
             LeadDTO leadDTO = new LeadDTO();
             leadDTO.setId(lead.getId());
             leadDTO.setName(lead.getName());
@@ -83,6 +101,11 @@ public class LeadServiceImpl implements LeadService {
             leadDTO.setPhoneNumber(lead.getPhoneNumber());
             leadDTO.setSource(lead.getSource());
             leadDTO.setStatus(lead.getStatus());
+            leadDTO.setGender(lead.getGender());
+            leadDTO.setJob(lead.getJob());
+            leadDTO.setAdmissionDate(admissionDate);
+            leadDTO.setLastUpdateStatusDate(lastUpdateStatusDate);
+            leadDTO.setProduct(lead.getProduct());
             leadDTO.setCampaign(lead.getCampaign());
             leadDTO.setDeleted(lead.isDeleted());
 

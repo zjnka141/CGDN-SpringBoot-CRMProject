@@ -18,18 +18,26 @@
             <table>
                 <p>
                     <label class="w3-text-green">Name:</label>
-                    <input class="w3-border w3-input w3-sand" type="text" th:field="*{name}">
+                    <input class="w3-input w3-border w3-sand" type="text" th:field="*{name}">
+                    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
                 </p>
                 <p>
-                    <label class="w3-text-green">Email:</label>
-                    <input class="w3-border w3-input w3-sand" type="text" th:field="*{email}">
-                <p>
-                    <label class="w3-text-green">Phone:</label>
-                    <input class="w3-border w3-input w3-sand" type="text" th:field="*{phoneNumber}">
+                    <label class="w3-text-green">Gender:</label>
+                    <select th:field="*{gender}">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
                 </p>
                 <p>
-                    <label class="w3-text-green">Source:</label>
-                    <input class="w3-border w3-input w3-sand" type="text" th:field="*{source}">
+                    <label class="w3-text-green">Product:</label>
+                    <select th:field="*{product}">
+                        <option value="BootcampJavaFulltime">Bootcamp Java Fulltime</option>
+                        <option value="BootcampPHPFulltime">Bootcamp PHP Fulltime</option>
+                        <option value="BootcampJavaPartime">Bootcamp Java Partime</option>
+                        <option value="BootcampPHPPartime">Bootcamp PHP Partime</option>
+                        <option value="AcceleratorJava">Accelerator Java</option>
+                        <option value="AcceleratorPHP">Accelerator PHP</option>
+                    </select>
                 </p>
                 <p>
                     <label class="w3-text-green">Status:</label>
@@ -43,17 +51,38 @@
                     </select>
                 </p>
                 <p>
-                    <label class="w3-text-green">Campaign:</label>
-
-                    <select name="campaign">
-                        <option th:each="p : ${campaigns}"
-                                th:value="${p.id}"
-                                th:text="${p.name}"></option>
-                    </select>
-
+                    <label class="w3-text-green">Last Update Satus Date:</label>
+                    <input class="w3-input w3-border w3-sand" type="date" th:field="*{lastUpdateStatusDate}">
+                    <span th:if="${#fields.hasErrors('lastUpdateStatusDate')}" th:errors="*{lastUpdateStatusDate}"></span>
                 </p>
                 <p>
-                <td><input class="w3-btn w3-green" type="submit" value="Update lead"></td>
+                    <label class="w3-text-green">Email:</label>
+                    <input class="w3-input w3-border w3-sand" type="text" th:field="*{email}">
+                    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                </p>
+                <p>
+                    <label class="w3-text-green">Phone Number:</label>
+                    <input class="w3-input w3-border w3-sand" type="text" th:field="*{phoneNumber}">
+                    <span th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></span>
+                </p>
+                <p>
+                    <label class="w3-text-green">Job:</label>
+                    <input class="w3-input w3-border w3-sand" type="text" th:field="*{job}">
+                    <span></span>
+                </p>
+                <p>
+                    <label class="w3-text-green">Source:</label>
+                    <input class="w3-input w3-border w3-sand" type="text" th:field="*{source}">
+                    <span></span>
+                </p>
+                <p>
+                    <label class="w3-text-green">Admission Date:</label>
+                    <input class="w3-input w3-border w3-sand" type="date" th:field="*{admissionDate}">
+                    <span th:if="${#fields.hasErrors('lastUpdateStatusDate')}" th:errors="*{lastUpdateStatusDate}"></span>
+                </p>
+
+                <p>
+                    <input class="w3-btn w3-green" type="submit" value="Update lead">
                 </p>
             </table>
         </form>
