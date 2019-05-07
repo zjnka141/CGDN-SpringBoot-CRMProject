@@ -5,6 +5,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
@@ -12,12 +13,16 @@ import java.util.UUID;
 public class Lead extends BaseEntity {
     @Id
     private String id = UUID.randomUUID().toString();
+    private String product;
+    private String status;
+    private LocalDate lastUpdateStatusDate;
     private String name;
-
+    private String gender;
     private String phoneNumber;
     private String email;
+    private String job;
     private String source;
-    private String status;
+    private LocalDate admissionDate;
     private boolean deleted;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -28,6 +33,55 @@ public class Lead extends BaseEntity {
 
     public Campaign getCampaign() {
         return campaign;
+    }
+
+    public String getProduct() {
+        return product;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public LocalDate getLastUpdateStatusDate() {
+        return lastUpdateStatusDate;
+    }
+
+    public void setLastUpdateStatusDate(LocalDate lastUpdateStatusDate) {
+        this.lastUpdateStatusDate = lastUpdateStatusDate;
+    }
+
+    public void setProduct(String product) {
+        this.product = product;
+    }
+
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getJob() {
+        return job;
+    }
+
+    public void setJob(String job) {
+        this.job = job;
+    }
+
+    public LocalDate getAdmissionDate() {
+        return admissionDate;
+    }
+
+    public void setAdmissionDate(LocalDate admissionDate) {
+        this.admissionDate = admissionDate;
     }
 
     public void setCampaign(Campaign campaign) {
@@ -66,13 +120,6 @@ public class Lead extends BaseEntity {
         this.phoneNumber = phone_number;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     public String getSource() {
         return source;
