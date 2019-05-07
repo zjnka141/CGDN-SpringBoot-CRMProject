@@ -1,21 +1,25 @@
 package dn.codegym.crm.controller;
 
 import dn.codegym.crm.dto.LeadDTO;
+import dn.codegym.crm.dto.StudentDTO;
 import dn.codegym.crm.entity.Campaign;
+import dn.codegym.crm.entity.ClassRoom;
 import dn.codegym.crm.entity.Lead;
 import dn.codegym.crm.service.CampaignService;
+import dn.codegym.crm.service.ClassRoomService;
 import dn.codegym.crm.service.LeadService;
+import dn.codegym.crm.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -27,8 +31,20 @@ public class LeadController {
     @Autowired
     private CampaignService campaignService;
 
+    @Autowired
+    private StudentService studentService;
+
+    @Autowired
+    private ClassRoomService classRoomService;
+
+
+    @ModelAttribute("classes")
+    public Page<ClassRoom> classRooms(Pageable pageable) {
+        return classRoomService.findAllByDeletedIsFalse(pageable);
+    }
+
     @ModelAttribute("campaigns")
-    public Iterable<Campaign> campaigns(){
+    public Iterable<Campaign> campaigns() {
         return campaignService.findAllByDeletedIsFalse();
     }
 
@@ -42,7 +58,7 @@ public class LeadController {
     @PostMapping("/create")
     public String saveLead(@Valid @ModelAttribute("lead") LeadDTO lead, BindingResult bindingResult, RedirectAttributes redirect) {
         if (bindingResult.hasErrors()) {
-                return "/lead/create";
+            return "/lead/create";
         } else {
             leadService.create(lead);
             redirect.addFlashAttribute("message", "New lead created successfully!");
@@ -114,5 +130,28 @@ public class LeadController {
         ModelAndView modelAndView = new ModelAndView("lead/list");
         modelAndView.addObject("leads", leadService.findAllByDeletedIsFalseAndStatusContaining(status, pageable));
         return modelAndView;
+    }
+
+    @GetMapping("/move/{lead_id}")
+    public ModelAndView moveLeadToStudent(@PathVariable("lead_id") String leadId, Model model) {
+        LeadDTO leadDTO = leadService.findById(leadId);
+        StudentDTO studentDTO;
+        if (leadDTO == null) {
+            return null;
+        } else {
+            studentDTO = studentService.moveLeadToStudent(leadDTO);
+            model.addAttribute("lead", leadDTO);
+            model.addAttribute("student", studentDTO);
+            return new ModelAndView("lead/move");
+        }
+    }
+
+    @PostMapping("/move")
+    public String moveLeadToStudent(@ModelAttribute("student") StudentDTO studentDTO,
+                                    RedirectAttributes redirect) {
+        System.out.println(studentDTO.getId());
+        studentService.save(studentDTO);
+        leadService.delete(studentDTO.getId());
+        return "redirect:/leads/list";
     }
 }

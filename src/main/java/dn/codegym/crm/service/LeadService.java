@@ -1,6 +1,7 @@
 package dn.codegym.crm.service;
 
 import dn.codegym.crm.dto.LeadDTO;
+import dn.codegym.crm.entity.Campaign;
 import dn.codegym.crm.entity.Lead;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,7 +13,7 @@ public interface LeadService {
 
     Page<Lead> findAllByDeletedIsFalseAndStatusContaining(String status, Pageable pageable);
 
-    Page<Lead> findAllByDeletedIsFalseAndNameContaining(String name, Pageable pageble);
+    Page<Lead> findAllByDeletedIsFalseAndNameContaining(String name, Pageable pageable);
 
     void create(LeadDTO leadDTO);
 
@@ -21,6 +22,8 @@ public interface LeadService {
     LeadDTO findById(String id);
 
     void delete(String id);
+
+    Page<Lead> findAllByDeletedIsFalseAndCampaignNull(Pageable pageable);
 
     Page<Lead> findAllByCampaignId(String campaignId, Pageable pageable);
 }

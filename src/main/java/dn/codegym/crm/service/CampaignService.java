@@ -17,8 +17,6 @@ public interface CampaignService {
 
     Page<Campaign> searchName(String name,Pageable pageable);
 
-    Page<Campaign> findAllByDeletedIsFalseAndNameIsNot(String name, Pageable pageable);
-
     void create(CampaignDTO campaignDTO);
 
     void update(CampaignDTO campaignDTO);
