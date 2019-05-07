@@ -11,19 +11,18 @@
 
     <div class="w3-card-4">
         <div class="w3-container">
-            <a href="/">Home Page</a><hr>
-        </div>
-        <div class="w3-container">
-            <a href="/students/list">Back to list student</a><hr>
+            <a href="/students/list">Back to list student</a>
+            <hr>
         </div>
         <div class="w3-container w3-green">
             <h1>Create Student</h1>
         </div>
 
-        <form class="w3-container" action="/students/create" method="post" th:object="${students}">
+        <form class="w3-container" action="/students/create" method="post" th:object="${student}">
             <p>
                 <label class="w3-text-green"><b>Name</b></label>
                 <input class="w3-input w3-border w3-sand" type="text" th:field="*{name}">
+                <span class="w3-text-red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
             </p>
             <p>
                 <label class="w3-text-green"><b>Birth day</b></label>
@@ -32,39 +31,45 @@
             <p>
                 <label class="w3-text-green"><b>Gender</b></label>
 
-                <td >
-                    <select class="selected w3-blue-grey" th:field="*{gender}">
+            <td>
+                <select class="selected w3-blue-grey" th:field="*{gender}">
                     <option class="w3-blue-grey" value="male">male</option>
                     <option class="w3-blue-grey" value="female">female</option>
-                    </select>
-                </td >
+                </select>
+            </td>
             </p>
             <p>
                 <label class="w3-text-green"><b>Email</b></label>
-                <td><input class="w3-input w3-border w3-sand" type="text" th:field="*{email}" ></td>
+                <td><input class="w3-input w3-border w3-sand" type="text" th:field="*{email}"></td>
+                <span class="w3-text-red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
             </p>
+            <p>
             <tr>
                 <label class="w3-text-green"><b>PhoneNumber</b></label>
                 <input class="w3-input w3-border w3-sand" type="text" th:field="*{phoneNumber}">
+                <span class="w3-text-red" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></span>
             </tr>
+            </p>
+            <p>
             <tr>
                 <label class="w3-text-green"><b>Class</b></label>
-                <td >
+                <td>
                     <select class="selected w3-blue-grey" th:field="*{classRoom}">
-                        <option class="w3-blue-grey" th:each ="p:${classes}"
+                        <option class="w3-blue-grey" th:each="p:${classes}"
                                 th:value="${p.id}"
                                 th:text="${p.name}">
                         </option>
                     </select>
                 </td>
             </tr>
+            </p>
             <p>
                 <button class="w3-btn w3-green" type="submit">Create student</button>
             </p>
         </form>
     </div>
 
-</form>
+    </form>
 </div>
 </body>
 </html>

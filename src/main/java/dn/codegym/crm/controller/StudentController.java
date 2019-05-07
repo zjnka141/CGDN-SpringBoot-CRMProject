@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("students")
@@ -33,35 +35,41 @@ public class StudentController {
     @GetMapping("/create")
     public ModelAndView createStudent() {
         ModelAndView modelAndView = new ModelAndView("student/create");
-        modelAndView.addObject("students",new StudentDTO());
+        modelAndView.addObject("student",new StudentDTO());
         return modelAndView;
+    }
+
+    @PostMapping("/create")
+    public String saveStudent(@Valid @ModelAttribute("student") StudentDTO studentDTO, BindingResult bindingResult, RedirectAttributes redirect) {
+        if(bindingResult.hasFieldErrors()) {
+            return  "/student/create";
+        }else {
+            studentService.save(studentDTO);
+            redirect.addFlashAttribute("message", "New student created successfully!");
+            return "redirect:/students/list";
+        }
     }
     @GetMapping("/list")
-    public ModelAndView listStudentsPage(@ModelAttribute("student") String name, Pageable pageable) {
+    public ModelAndView listCourses(@RequestParam("name") Optional<String> name, Pageable pageable) {
         Page<Student> students;
         ModelAndView modelAndView = new ModelAndView("student/list");
-        if (!name.isEmpty()) {
-            students = studentService.findAllByNameContaining(name,pageable);
-            modelAndView.addObject("students", students);
+        if (name.isPresent()) {
+            students = studentService.findAllByDeletedIsFalseAndNameContaining(name.get(), pageable);
+            modelAndView.addObject("name", name.get());
+            if (students.getTotalElements() == 0) {
+                modelAndView.addObject("message", "Student name not found!");
+            }
         } else {
-            modelAndView.addObject("students", studentService.findAllByDeletedIsFalse(pageable));
+            students = studentService.findAllByDeletedIsFalse(pageable);
         }
+        modelAndView.addObject("students", students);
         return modelAndView;
     }
-    @PostMapping("/create")
-    public String saveStudent(@Validated @ModelAttribute("student") StudentDTO studentDTO, BindingResult bindingResult, RedirectAttributes redirect) {
-        if(bindingResult.hasFieldErrors()) {
-            redirect.addFlashAttribute("message","Have something wrong!!");
-            return  "redirect:/students/create";
-        }
-        studentService.save(studentDTO);
-        redirect.addFlashAttribute("message", "New student created successfully!");
-        return "redirect:/students/list";
-    }
+
     @GetMapping("/{id}/view")
     public ModelAndView viewStudentPage(@PathVariable String id) {
         ModelAndView modelAndView = new ModelAndView("student/view");
-        modelAndView.addObject("students",studentService.findById(id));
+        modelAndView.addObject("student",studentService.findById(id));
         return modelAndView;
 
     }

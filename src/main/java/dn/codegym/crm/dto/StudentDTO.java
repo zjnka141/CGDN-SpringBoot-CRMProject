@@ -2,16 +2,26 @@ package dn.codegym.crm.dto;
 
 import dn.codegym.crm.entity.ClassRoom;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
 public class StudentDTO implements Serializable {
     private String id;
+    @NotBlank(message = "Lead name is not null")
+    @Pattern(regexp = "(^$|[A-Za-zÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚÝàáâãèéêìíòóôõùúýĂăĐđĨĩŨũƠơƯưẠ-ỹ ])*$", message = "Lead name is not valid")
     private String name;
     private String birthday;
     private String gender;
     private ClassRoom classRoom;
     private Boolean deleted;
+    @NotBlank(message = "Email is not null")
+    @Email(message = "Email is not valid")
     private String email;
+
+    @NotBlank(message = "Phone number is not null")
+    @Pattern(regexp = "(^$|[0-9]{10})*$", message = "must has 10 numbers")
     private String phoneNumber;
 
     public String getEmail() {

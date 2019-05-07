@@ -10,9 +10,6 @@
 <div layout:fragment="content" class="container">
     <div class="w3-card-4">
         <div class="w3-container">
-            <a href="/">Home Page</a><hr>
-        </div>
-        <div class="w3-container">
             <a href="/students/list">Back to list student</a><hr>
         </div>
         <div class="w3-container w3-green">
@@ -38,7 +35,7 @@
             </p>
             <p>
                 <label class="w3-text-green"><b>Class room</b></label>
-                <span class="w3-input w3-border w3-sand" th:text="*{classRoom}"></span>
+                <span class="w3-input w3-border w3-sand" th:text="*{classRoom.name}"></span>
             </p>
 
             <p>

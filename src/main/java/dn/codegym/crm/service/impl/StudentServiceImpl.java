@@ -57,6 +57,13 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public Page<Student> findAllByDeletedIsFalseAndNameContaining(String name, Pageable pageable) {
+       pageable = PageRequest.of(pageable.getPageNumber(),10,Sort.by("name").ascending());
+       return studentRepository.findAllByDeletedIsFalseAndNameContaining(name,pageable);
+
+    }
+
+    @Override
     public List<Student> findAllByDeletedIsFalse() {
         return studentRepository.findAllByDeletedIsFalse();
     }
@@ -105,17 +112,6 @@ public class StudentServiceImpl implements StudentService {
         studentRepository.save(student);
     }
 
-    @Override
-    public Page<Student> findAll(Pageable pageable) {
-        pageable = PageRequest.of(0, 10, Sort.by("name"));
-        return studentRepository.findAll(pageable);
-    }
-
-    @Override
-    public Page<Student> findAllByNameContaining(String name, Pageable pageable) {
-        studentRepository.findAllByDeletedIsFalse(pageable);
-        return studentRepository.findAllByDeletedIsFalseAndNameContaining(name, pageable);
-    }
 
     @Override
     public StudentDTO moveLeadToStudent(LeadDTO leadDTO) {

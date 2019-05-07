@@ -13,6 +13,7 @@ public interface StudentService {
     Page<Student> findAllByDeletedIsFalseAndClassRoom(String classId, Pageable pageable);
 
     Page<Student> findAllByDeletedIsFalse(Pageable pageable);
+    Page<Student> findAllByDeletedIsFalseAndNameContaining(String name,Pageable pageable);
 
     List<Student> findAllByDeletedIsFalse();
 
@@ -23,10 +24,6 @@ public interface StudentService {
     void update(StudentDTO studentDTO);
 
     void delete(String id);
-
-    Page<Student> findAll(Pageable pageable);
-
-    Page<Student> findAllByNameContaining(String name, Pageable pageable);
 
     StudentDTO moveLeadToStudent(LeadDTO leadDTO);
 }
