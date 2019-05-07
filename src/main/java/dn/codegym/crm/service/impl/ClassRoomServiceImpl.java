@@ -13,6 +13,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 import static java.lang.Boolean.TRUE;
 
 @Service
@@ -43,7 +45,7 @@ public class ClassRoomServiceImpl implements ClassRoomService {
     @Override
     public ClassRoomDTO findById(String id) {
         ClassRoom classRoom = classRoomRepository.findById(id).orElse(null);
-        if(classRoom != null){
+        if (classRoom != null) {
             ClassRoomDTO classRoomDTO = new ClassRoomDTO();
             classRoomDTO.setId(classRoom.getId());
             classRoomDTO.setCourse(classRoom.getCourse());
@@ -59,6 +61,12 @@ public class ClassRoomServiceImpl implements ClassRoomService {
         classRoom.setDeleted(TRUE);
         classRoomRepository.save(classRoom);
     }
+
+    @Override
+    public List<ClassRoom> findAllByDeletedIsFalse() {
+        return classRoomRepository.findAllByDeletedIsFalse();
+    }
+
     @Override
     public Page<ClassRoom> findAllByDeletedIsFalse(Pageable pageable) {
         pageable = PageRequest.of(pageable.getPageNumber(), 10, Sort.by("name"));
@@ -66,14 +74,9 @@ public class ClassRoomServiceImpl implements ClassRoomService {
     }
 
     @Override
-    public Page<ClassRoom> findAllByNameContaining(String name, Pageable pageable) {
+    public Page<ClassRoom> findAllByDeletedIsFalseAndNameContaining(String name, Pageable pageable) {
         pageable = PageRequest.of(pageable.getPageNumber(), 10, Sort.by("name"));
-        return classRoomRepository.findAllByDeletedIsFalseAndNameContaining(name,pageable);
-    }
-
-    @Override
-    public Iterable<ClassRoom> findAll() {
-        return classRoomRepository.findAll();
+        return classRoomRepository.findAllByDeletedIsFalseAndNameContaining(name, pageable);
     }
 
     @Override
