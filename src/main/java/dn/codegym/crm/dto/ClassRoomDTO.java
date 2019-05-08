@@ -2,10 +2,12 @@ package dn.codegym.crm.dto;
 
 import dn.codegym.crm.entity.Course;
 
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 public class ClassRoomDTO implements Serializable {
     private String id;
+    @NotBlank(message = " Class name is not available!")
     private String name;
     private Course course;
     private Boolean deleted;

@@ -1,42 +1,53 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{fragments/main_layout}">
 <head>
     <meta charset="UTF-8">
     <title>List Of Classes</title>
 </head>
 <body>
-<div>
-<a href="/">Home Page</a>
-<hr>
-<a href="/classes/create">Create new class</a>
-<h1>Classes</h1>
 <form>
-    <input name="name" type="text" placeholder="Enter_name_Class" th:value="${name}">
-    <input type="submit" value="Search">
-</form>
-<table border="1">
-    <div>
-        <a th:href="@{'/classes/list'(page=${classes.number - 1})}" th:if="${classes.hasPrevious()}">Previous</a>
-        <span th:text="${classes.number + 1}"></span>/<span th:text="${classes.totalPages}"></span>
-        <a th:href="@{'/classes/list'(page=${classes.getNumber() + 1})}" th:if="${classes.hasNext()}">Next</a>
+    <a href="/">Home Page</a>
+    <hr>
+    <div layout:fragment="content" class="container">
+        <a href="/classes/create">Create new class</a>
+        <h1>Classes</h1>
+        <form>
+            <input name="name" type="text" placeholder="Enter_name_Class" th:value="${name}">
+            <input type="submit" value="Search">
+        </form>
+        <table border="1" class="table">
+            <tr>
+                <th>Name</th>
+                <th>Course</th>
+                <th>Edit</th>
+                <th>Delete</th>
+                <th>View</th>
+            </tr>
+            <th:block th:each="class : ${classes}">
+                <tr>
+                    <td><a th:href="@{/classes/__${class.id}__/students}" th:text="${class.name}"></a></td>
+                    <td th:text="${class.course.name}"></td>
+                    <td><a th:href="@{/classes/edit/__${class.id}__}">Edit</a></td>
+                    <td><a th:href="@{/classes/delete/__${class.id}__}">Delete</a></td>
+                    <td><a th:href="@{/classes/view/__${class.id}__}">View</a></td>
+                </tr>
+            </th:block>
+        </table>
+        <th:block th:switch="${name}">
+            <div th:case="null">
+                <a th:href="@{'/class/list'(page=${classes.number - 1})}" th:if="${classes.hasPrevious()}">Previous</a>
+                <span th:text="${classes.number + 1}"></span>/<span th:text="${classes.totalPages}"></span>
+                <a th:href="@{'/students/list'(page=${classes.getNumber() + 1})}" th:if="${classes.hasNext()}">Next</a>
+            </div>
+
+            <div th:case="*">
+                <a th:href="@{'/students/list'(page=${classes.number - 1})}" th:if="${classes.hasPrevious()}">Previous</a>
+                <span th:text="${classes.number + 1}"></span>/<span th:text="${classes.totalPages}"></span>
+                <a th:href="@{'/students/list'(page=${classes.getNumber() + 1})}" th:if="${classes.hasNext()}">Next</a>
+            </div>
+        </th:block>
     </div>
-    <tr>
-        <th>Name</th>
-        <th>Course</th>
-        <th>Edit</th>
-        <th>Delete</th>
-        <th>View</th>
-    </tr>
-    <th:block th:each="class : ${classes}">
-        <tr>
-            <td ><a th:href="@{/classes/__${class.id}__/students}" th:text="${class.name}"></a></td>
-            <td th:text="${class.course.name}"></td>
-            <td><a th:href="@{/classes/edit/__${class.id}__}">Edit</a></td>
-            <td><a th:href="@{/classes/delete/__${class.id}__}">Delete</a></td>
-            <td><a th:href="@{/classes/view/__${class.id}__}">View</a></td>
-        </tr>
-    </th:block>
-</table>
-</div>
 </body>
 </html>

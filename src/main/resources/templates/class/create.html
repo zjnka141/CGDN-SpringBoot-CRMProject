@@ -1,36 +1,49 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{fragments/main_layout}">
 <head>
     <meta charset="UTF-8">
-    <title>Create Class</title>
+    <title>Create Student</title>
 </head>
 <body>
-<a href="/">Home Page</a><hr>
-<h1>Create Class</h1>
-<p><a href="/classes/list">Back to list of classes</a></p>
-<form action="/classes/create" method="post" th:object="${classes}">
-    <table>
-        <tr>
-            <td>Name:</td>
-            <td><input type="text" th:field="*{name}"></td>
-        </tr>
-        <tr>
-            <td>Course:</td>
-            <td>
-                <select th:field="*{course}">
-                    <option th:each="c: ${course}"
-                            th:value="${c.id}"
-                            th:text="${c.name}">
+<div layout:fragment="content" class="container">
 
-                    </option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td></td>
-            <td><input type="submit" value="Create class"></td>
-        </tr>
-    </table>
-</form>
+    <div class="w3-card-4">
+        <div class="w3-container">
+            <a href="/">Home Page</a>
+            <hr>
+        </div>
+        <div class="w3-container">
+            <a href="/classes/list">Back to list student</a>
+            <hr>
+        </div>
+        <div class="w3-container w3-green">
+            <h1>Create Student</h1>
+        </div>
+
+        <form class="w3-container" action="/classes/create" method="post" th:object="${classes}">
+            <p>
+                <label class="w3-text-green"><b>Name</b></label>
+                <input class="w3-input w3-border w3-sand" type="text" th:field="*{name}">
+            </p>
+            <tr>
+                <label class="w3-text-green"><b>Course</b></label>
+                <td>
+                    <select class="selected w3-blue-grey" th:field="*{course}">
+                        <option class="w3-blue-grey" th:each="c:${course}"
+                                th:value="${c.id}"
+                                th:text="${c.name}">
+                        </option>
+                    </select>
+                </td>
+            </tr>
+            <p>
+                <button class="w3-btn w3-green" type="submit">Create class</button>
+            </p>
+        </form>
+    </div>
+    </form>
+</div>
 </body>
 </html>

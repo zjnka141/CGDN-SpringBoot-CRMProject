@@ -1,32 +1,42 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{fragments/main_layout}">
 <head>
     <meta charset="UTF-8">
     <title>Delete Class</title>
 </head>
 <body>
-<a href="/">Home Page</a><hr>
-<h1>Delete Class</h1>
-<h2>Are you sure?</h2>
-<p>
-    <a href="/classes/list">Back to list of classes</a>
-</p>
-<form action="/classes/delete" method="post" th:object="${classes}">
-    <input type="hidden" th:field="*{id}">
-    <table>
-        <tr>
-            <td>Name:</td>
-            <td th:text="${classes.name}"></td>
-        </tr>
-        <tr>
-            <td>Course:</td>
-            <td th:text="${classes.course.name}"></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td><input type="submit" value="Delete class"></td>
-        </tr>
-    </table>
-</form>
+<div layout:fragment="content" class="container">
+    <div class="w3-card-4">
+        <div class="w3-container">
+            <a href="/">Home Page</a>
+            <hr>
+        </div>
+        <div class="w3-container">
+            <a href="/classes/list">Back to list class</a>
+            <hr>
+        </div>
+        <div class="w3-container w3-green">
+            <h1>Delete Class</h1>
+        </div>
+        <form class="w3-container" action="/classes/delete" method="post" th:object="${classes}">
+            <input type="hidden" th:field="*{id}">
+            <p>
+                <label class="w3-text-green"><b>Name</b></label>
+                <span class="w3-input w3-border w3-sand" th:text="*{name}"></span>
+            </p>
+            <p>
+                <label class="w3-text-green"><b>Course</b></label>
+                <span class="w3-input w3-border w3-sand" th:text="${classes.course.name}"></span>
+            </p>
+            <p>
+                <button class="w3-btn w3-green" type="submit">Delete class</button>
+            </p>
+            <p>
+                <label class="w3-text-green"><b>ARE YOU SURE!</b></label>
+            </p>
+        </form>
+    </div>
 </body>
 </html>

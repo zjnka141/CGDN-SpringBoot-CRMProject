@@ -37,6 +37,7 @@ public class ClassRoomServiceImpl implements ClassRoomService {
     @Override
     public void update(ClassRoomDTO classRoomDTO) {
         ClassRoom classRoom = classRoomRepository.findById(classRoomDTO.getId()).orElse(null);
+        System.out.println(classRoomDTO.getId());
         classRoom.setName(classRoomDTO.getName());
         classRoom.setCourse(classRoomDTO.getCourse());
         classRoomRepository.save(classRoom);

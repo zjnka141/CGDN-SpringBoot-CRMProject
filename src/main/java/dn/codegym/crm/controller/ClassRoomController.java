@@ -110,7 +110,7 @@ public class ClassRoomController {
     @GetMapping("/{id}/students")
     public ModelAndView viewStudentOfClass(@PathVariable("id") String id,Pageable pageable) {
         Page<Student> students=studentService.findAllByDeletedIsFalseAndClassRoom(id,pageable);
-        return new ModelAndView("class/class-students","studens",students);
+        return new ModelAndView("class/class-students","students",students);
     }
 
 }
