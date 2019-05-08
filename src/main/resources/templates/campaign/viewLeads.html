@@ -20,7 +20,6 @@
                 <th>Phone</th>
                 <th>Source</th>
                 <th>Status</th>
-                <th></th>
             </tr>
             <th:block th:each="lead : ${leads}">
                 <tr>
@@ -29,7 +28,6 @@
                     <td th:text="${lead.phoneNumber}"></td>
                     <td th:text="${lead.source}"></td>
                     <td th:text="${lead.status}"></td>
-                    <td><a th:href="@{/campaigns/move/__${lead.id}__}">Move</a></td>
                 </tr>
             </th:block>
         </table>

@@ -14,7 +14,8 @@ public interface CampaignRepository extends JpaRepository<Campaign, String> {
 
     Campaign findAllByDeletedIsFalseAndNameIs(String name);
 
-    Page<Campaign> findAllByDeletedIsFalseAndNameContainingAndNameIsNot(String name,String nameNull, Pageable pageable);
+    Page<Campaign> findAllByDeletedIsFalseAndNameContaining(String name, Pageable pageable);
 
-    Page<Campaign> findAllByDeletedIsFalseAndNameIsNot(String name, Pageable pageable);
+
+
 }

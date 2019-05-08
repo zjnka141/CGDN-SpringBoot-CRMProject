@@ -34,21 +34,10 @@ public class CampaignController {
     @Autowired
     private LeadService leadService;
 
-    @Autowired
-    private StudentService studentService;
-
-    @Autowired
-    private ClassRoomService classRoomService;
-
-    @ModelAttribute("classes")
-    public Page<ClassRoom> classRooms(Pageable pageable) {
-        return classRoomService.findAllByDeletedIsFalse(pageable);
-    }
-
     @GetMapping("/list")
     public ModelAndView listCampaign(Pageable pageable) {
         ModelAndView modelAndView = new ModelAndView("campaign/list");
-        Page<Campaign> campaigns = campaignService.findAllByDeletedIsFalseAndNameIsNot(AppConsts.CAMPAIGN_NAME_NULL, pageable);
+        Page<Campaign> campaigns = campaignService.findAllByDeletedIsFalse(pageable);
         modelAndView.addObject("campaigns", campaigns);
         return modelAndView;
     }
@@ -133,8 +122,7 @@ public class CampaignController {
 
     @GetMapping("/addLead/{campaignId}")
     public ModelAndView viewAddLeads(@PathVariable String campaignId, Model model, Pageable pageable) {
-        Campaign campaign = campaignService.findAllByDeletedIsFalseAndNameIs(AppConsts.CAMPAIGN_NAME_NULL);
-        Page<Lead> leads = leadService.findAllByCampaignId(campaign.getId(), pageable);
+        Page<Lead> leads = leadService.findAllByDeletedIsFalseAndCampaignNull(pageable);
         model.addAttribute("campaign", campaignService.findById(campaignId));
         return new ModelAndView("campaign/addLeads", "leads", leads);
     }
@@ -154,29 +142,5 @@ public class CampaignController {
         Page<Lead> leads = leadService.findAllByCampaignId(campaignId, pageable);
         model.addAttribute("campaign", campaignService.findById(campaignId));
         return new ModelAndView("campaign/viewLeads", "leads", leads);
-    }
-
-    @GetMapping("/move/{lead_id}")
-    public ModelAndView moveLeadToStudent(@PathVariable("lead_id") String leadId, Model model) {
-        LeadDTO leadDTO = leadService.findById(leadId);
-        StudentDTO studentDTO;
-        if (leadDTO == null) {
-            return null;
-        } else {
-            studentDTO = studentService.moveLeadToStudent(leadDTO);
-            model.addAttribute("lead", leadDTO);
-            model.addAttribute("student", studentDTO);
-            return new ModelAndView("campaign/move");
-        }
-    }
-
-    @PostMapping("/move/{campaignId}")
-    public String moveLeadToStudent(@ModelAttribute("student") StudentDTO studentDTO,
-                                    @PathVariable("campaignId") String campaignId,
-                                    RedirectAttributes redirect) {
-        System.out.println(studentDTO.getId());
-        studentService.save(studentDTO);
-        leadService.delete(studentDTO.getId());
-        return "redirect:/campaigns/viewLeads/{campaignId}";
     }
 }

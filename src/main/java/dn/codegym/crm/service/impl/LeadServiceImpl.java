@@ -120,6 +120,12 @@ public class LeadServiceImpl implements LeadService {
         lead.setDeleted(true);
         leadRepository.save(lead);
     }
+
+    @Override
+    public Page<Lead> findAllByDeletedIsFalseAndCampaignNull(Pageable pageable) {
+        return leadRepository.findAllByDeletedIsFalseAndCampaignNull(pageable);
+    }
+
     @Override
     public Page<Lead> findAllByCampaignId(String campaignId, Pageable pageable) {
         Campaign campaign=campaignRepository.findById(campaignId).orElse(null);
