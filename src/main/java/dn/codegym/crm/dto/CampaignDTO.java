@@ -15,11 +15,11 @@ public class CampaignDTO implements Serializable {
     private String name;
     private String description;
     @NotEmpty(message = "Start day is not valid")
-    private String start_day;
+    private String startDay;
     @NotEmpty(message = "End day is not valid")
-    private String end_day;
+    private String endDay;
     @Pattern(regexp = "^((0)[0-9]{9})$", message = "Phone numbers start at 0 and have 10 numbers")
-    private String phone_number;
+    private String phoneNumber;
     private boolean deleted;
     private List<Lead> leads;
 
@@ -47,28 +47,28 @@ public class CampaignDTO implements Serializable {
         this.id = id;
     }
 
-    public String getStart_day() {
-        return start_day;
+    public String getStartDay() {
+        return startDay;
     }
 
-    public void setStart_day(String start_day) {
-        this.start_day = start_day;
+    public void setStartDay(String startDay) {
+        this.startDay = startDay;
     }
 
-    public String getEnd_day() {
-        return end_day;
+    public String getEndDay() {
+        return endDay;
     }
 
-    public void setEnd_day(String end_day) {
-        this.end_day = end_day;
+    public void setEndDay(String endDay) {
+        this.endDay = endDay;
     }
 
-    public String getPhone_number() {
-        return phone_number;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getName() {

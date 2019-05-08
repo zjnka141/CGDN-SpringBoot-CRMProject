@@ -24,18 +24,18 @@
             </p>
             <p>
                 <label class="w3-text-green">Phone Number</label>
-                <input class="w3-input w3-border w3-sand" type="text" th:field="*{phone_number}">
-                <span class="w3-text-red" th:if="${#fields.hasErrors('phone_number')}" th:errors="*{phone_number}"></span>
+                <input class="w3-input w3-border w3-sand" type="text" th:field="*{phoneNumber}">
+                <span class="w3-text-red" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></span>
             </p>
             <p>
                 <label class="w3-text-green">Start day:</label>
-                <input class="w3-input w3-border w3-sand" type="date" th:field="*{start_day}">
-                <span class="w3-text-red" th:if="${#fields.hasErrors('start_day')}" th:errors="*{start_day}"></span>
+                <input class="w3-input w3-border w3-sand" type="date" th:field="*{startDay}">
+                <span class="w3-text-red" th:if="${#fields.hasErrors('startDay')}" th:errors="*{startDay}"></span>
             </p>
             <p>
                 <label class="w3-text-green">End day:</label>
-                <input class="w3-input w3-border w3-sand" type="date" th:field="*{end_day}">
-                <span class="w3-text-red" th:if="${#fields.hasErrors('end_day')}" th:errors="*{end_day}"></span>
+                <input class="w3-input w3-border w3-sand" type="date" th:field="*{endDay}">
+                <span class="w3-text-red" th:if="${#fields.hasErrors('endDay')}" th:errors="*{endDay}"></span>
             </p>
             <p>
                 <input class="w3-btn w3-green" type="submit" value="Create campaign">

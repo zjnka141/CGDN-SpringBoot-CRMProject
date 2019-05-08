@@ -53,14 +53,14 @@ public class CampaignServiceImpl implements CampaignService {
     @Override
     public void create(CampaignDTO campaignDTO) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(AppConsts.STRING_TO_DATE_FORMAT);
-        LocalDate startDay = LocalDate.parse(campaignDTO.getStart_day(), formatter);
-        LocalDate endDay = LocalDate.parse(campaignDTO.getEnd_day(), formatter);
+        LocalDate startDay = LocalDate.parse(campaignDTO.getStartDay(), formatter);
+        LocalDate endDay = LocalDate.parse(campaignDTO.getEndDay(), formatter);
         Campaign campaign = new Campaign();
         campaign.setName(campaignDTO.getName());
         campaign.setDescription(campaignDTO.getDescription());
-        campaign.setEnd_day(endDay);
-        campaign.setStart_day(startDay);
-        campaign.setPhone_number(campaignDTO.getPhone_number());
+        campaign.setEndDay(endDay);
+        campaign.setStartDay(startDay);
+        campaign.setPhoneNumber(campaignDTO.getPhoneNumber());
         campaign.setDeleted(Boolean.FALSE);
 
         campaignRepository.save(campaign);
@@ -69,15 +69,15 @@ public class CampaignServiceImpl implements CampaignService {
     @Override
     public void update(CampaignDTO campaignDTO) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(AppConsts.STRING_TO_DATE_FORMAT);
-        LocalDate startDay = LocalDate.parse(campaignDTO.getStart_day(), formatter);
-        LocalDate endDay = LocalDate.parse(campaignDTO.getEnd_day(), formatter);
+        LocalDate startDay = LocalDate.parse(campaignDTO.getStartDay(), formatter);
+        LocalDate endDay = LocalDate.parse(campaignDTO.getEndDay(), formatter);
 
         Campaign campaign = campaignRepository.findById(campaignDTO.getId()).orElse(null);
         campaign.setName(campaignDTO.getName());
-        campaign.setPhone_number(campaignDTO.getPhone_number());
+        campaign.setPhoneNumber(campaignDTO.getPhoneNumber());
         campaign.setDescription(campaignDTO.getDescription());
-        campaign.setStart_day(startDay);
-        campaign.setEnd_day(endDay);
+        campaign.setStartDay(startDay);
+        campaign.setEndDay(endDay);
 
         campaignRepository.save(campaign);
     }
@@ -99,15 +99,15 @@ public class CampaignServiceImpl implements CampaignService {
         Campaign campaign = campaignRepository.findById(id).orElse(null);
         if (campaign != null) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(AppConsts.STRING_TO_DATE_FORMAT);
-            String startDay = campaign.getStart_day().format(formatter);
-            String endDay = campaign.getEnd_day().format(formatter);
+            String startDay = campaign.getStartDay().format(formatter);
+            String endDay = campaign.getEndDay().format(formatter);
 
             CampaignDTO campaignDTO = new CampaignDTO();
             campaignDTO.setId(campaign.getId());
             campaignDTO.setName(campaign.getName());
-            campaignDTO.setStart_day(startDay);
-            campaignDTO.setEnd_day(endDay);
-            campaignDTO.setPhone_number(campaign.getPhone_number());
+            campaignDTO.setStartDay(startDay);
+            campaignDTO.setEndDay(endDay);
+            campaignDTO.setPhoneNumber(campaign.getPhoneNumber());
             campaignDTO.setDescription(campaign.getDescription());
             campaignDTO.setDeleted(campaign.isDeleted());
 
