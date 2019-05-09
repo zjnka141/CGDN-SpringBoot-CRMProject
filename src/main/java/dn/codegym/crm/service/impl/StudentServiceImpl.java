@@ -40,6 +40,7 @@ public class StudentServiceImpl implements StudentService {
         student.setDeleted(Boolean.FALSE);
         student.setEmail(studentDTO.getEmail());
         student.setPhoneNumber(studentDTO.getPhoneNumber());
+        student.setStudentStatus(studentDTO.getStudentStatus());
         studentRepository.save(student);
     }
 
@@ -86,6 +87,7 @@ public class StudentServiceImpl implements StudentService {
             studentDTO.setDeleted(student.isDeleted());
             studentDTO.setEmail(student.getEmail());
             studentDTO.setPhoneNumber(student.getPhoneNumber());
+            studentDTO.setStudentStatus(student.getStudentStatus());
             return studentDTO;
         }
         return null;
@@ -102,6 +104,7 @@ public class StudentServiceImpl implements StudentService {
         student.setClassRoom(studentDTO.getClassRoom());
         student.setEmail(studentDTO.getEmail());
         student.setPhoneNumber(studentDTO.getPhoneNumber());
+        student.setStudentStatus(studentDTO.getStudentStatus());
         studentRepository.save(student);
     }
 
@@ -129,4 +132,5 @@ public class StudentServiceImpl implements StudentService {
         }
 
     }
+
 }

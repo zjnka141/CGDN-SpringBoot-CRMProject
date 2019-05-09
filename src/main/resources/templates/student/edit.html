@@ -14,7 +14,7 @@
             <a href="/students/list">Back to list student</a><hr>
         </div>
         <div class="w3-container w3-green">
-            <h1>Create Student</h1>
+            <h1>Edit Student</h1>
         </div>
 
         <form class="w3-container" action="/students/update" method="post" th:object="${students}">
@@ -24,10 +24,12 @@
             <p>
                 <label class="w3-text-green"><b>Name</b></label>
                 <input class="w3-input w3-border w3-sand" type="text" th:field="*{name}">
+                <span class="w3-text-red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
             </p>
             <p>
                 <label class="w3-text-green"><b>Birth day</b></label>
                 <input class="w3-input w3-border w3-sand" type="date" th:field="*{birthday}">
+                <span class="w3-text-red" th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}"></span>
             </p>
             <p>
                 <label class="w3-text-green"><b>Gender</b></label>
@@ -41,11 +43,13 @@
             </p>
             <p>
                 <label class="w3-text-green"><b>Email</b></label>
-            <td><input class="w3-input w3-border w3-sand" type="text" th:field="*{email}" ></td>
+                <input class="w3-input w3-border w3-sand" type="text" th:field="*{email}" >
+                <span class="w3-text-red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
             </p>
             <tr>
                 <label class="w3-text-green"><b>PhoneNumber</b></label>
                 <input class="w3-input w3-border w3-sand" type="text" th:field="*{phoneNumber}">
+                <span class="w3-text-red" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{name}"></span>
             </tr>
             <tr>
                 <label class="w3-text-green"><b>Class</b></label>
@@ -58,6 +62,17 @@
                     </select>
                 </td>
             </tr>
+            <p>
+                <label class="w3-text-green"><b>Status</b></label>
+            <td>
+                <select class="selected w3-blue-grey" th:field="*{studentStatus}">
+                    <option class="w3-blue-grey" value="studying">Đang học</option>
+                    <option class="w3-blue-grey" value="stop">Thôi học</option>
+                    <option class="w3-blue-grey" value="reserve">Bảo lưu</option>
+                    <option class="w3-blue-grey" value="graduating">Tốt nghiệp</option>
+                </select>
+            </td>
+            </p>
             <p>
                 <button class="w3-btn w3-green" type="submit">Edit student</button>
             </p>

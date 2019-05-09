@@ -1,6 +1,7 @@
 package dn.codegym.crm.dto;
 
 import dn.codegym.crm.entity.ClassRoom;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -9,9 +10,11 @@ import java.io.Serializable;
 
 public class StudentDTO implements Serializable {
     private String id;
-    @NotBlank(message = "Lead name is not null")
-    @Pattern(regexp = "(^$|[A-Za-zÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚÝàáâãèéêìíòóôõùúýĂăĐđĨĩŨũƠơƯưẠ-ỹ ])*$", message = "Lead name is not valid")
+    @NotBlank(message = "Student name is not null")
+    @Pattern(regexp = "(^$|[A-Za-zÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚÝàáâãèéêìíòóôõùúýĂăĐđĨĩŨũƠơƯưẠ-ỹ ])*$", message = "Student name is not valid")
     private String name;
+    @NotBlank(message = "birth day is not null")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private String birthday;
     private String gender;
     private ClassRoom classRoom;
@@ -19,9 +22,10 @@ public class StudentDTO implements Serializable {
     @NotBlank(message = "Email is not null")
     @Email(message = "Email is not valid")
     private String email;
+    private String studentStatus;
 
     @NotBlank(message = "Phone number is not null")
-    @Pattern(regexp = "(^$|[0-9]{10})*$", message = "must has 10 numbers")
+    @Pattern(regexp = "(^$|[0-9]{10,11})*$", message = "must has 10 or 11 numbers")
     private String phoneNumber;
 
     public String getEmail() {
@@ -91,4 +95,14 @@ public class StudentDTO implements Serializable {
     public Boolean getDeleted() {
         return deleted;
     }
+
+    public String getStudentStatus() {
+        return studentStatus;
+    }
+
+    public void setStudentStatus(String studentStatus) {
+        this.studentStatus = studentStatus;
+    }
+
+
 }

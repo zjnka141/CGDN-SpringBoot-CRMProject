@@ -14,9 +14,9 @@ public class Campaign extends BaseEntity {
     private String name;
     private String description;
     private boolean deleted;
-    private LocalDate start_day;
-    private LocalDate end_day;
-    private String phone_number;
+    private LocalDate startDay;
+    private LocalDate endDay;
+    private String phoneNumber;
 
     @OneToMany(mappedBy = "campaign", cascade = CascadeType.ALL)
     private List<Lead> leads;
@@ -29,28 +29,28 @@ public class Campaign extends BaseEntity {
         this.leads = leads;
     }
 
-    public LocalDate getStart_day() {
-        return start_day;
+    public LocalDate getStartDay() {
+        return startDay;
     }
 
-    public void setStart_day(LocalDate start_day) {
-        this.start_day = start_day;
+    public void setStartDay(LocalDate startDay) {
+        this.startDay = startDay;
     }
 
-    public LocalDate getEnd_day() {
-        return end_day;
+    public LocalDate getEndDay() {
+        return endDay;
     }
 
-    public void setEnd_day(LocalDate end_day) {
-        this.end_day = end_day;
+    public void setEndDay(LocalDate endDay) {
+        this.endDay = endDay;
     }
 
-    public String getPhone_number() {
-        return phone_number;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getId() {

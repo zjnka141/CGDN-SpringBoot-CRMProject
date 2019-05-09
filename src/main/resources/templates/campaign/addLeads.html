@@ -20,20 +20,30 @@
             <table class="table">
                 <tr>
                     <th>Name</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Source</th>
+                    <th>Gender</th>
+                    <th>Product</th>
                     <th>Status</th>
-                    <th></th>
+                    <th>Last Update Status Date</th>
+                    <th>Email</th>
+                    <th>PhoneNumber</th>
+                    <th>Job</th>
+                    <th>Source</th>
+                    <th>Admission Date</th>
+                    <th>  ADD  </th>
                 </tr>
                 <th:block th:each="lead : ${leads}">
                     <tr>
                         <td th:text="${lead.name}"></td>
+                        <td th:text="${lead.gender}"></td>
+                        <td th:text="${lead.product}"></td>
+                        <td th:text="${lead.status}"></td>
+                        <td th:text="${lead.lastUpdateStatusDate}"></td>
                         <td th:text="${lead.email}"></td>
                         <td th:text="${lead.phoneNumber}"></td>
+                        <td th:text="${lead.job}"></td>
                         <td th:text="${lead.source}"></td>
-                        <td th:text="${lead.status}"></td>
-                        <td><a th:href="@{/campaigns/addLeads/__${campaign.id}__/__${lead.id}__}">ADD</a></td>
+                        <td th:text="${lead.admissionDate}"></td>
+                        <td><a th:href="@{/campaigns/addLeads/__${campaign.id}__/__${lead.id}__}"><i class="fa fa-plus-circle"></i></a></td>
                     </tr>
                 </th:block>
             </table>

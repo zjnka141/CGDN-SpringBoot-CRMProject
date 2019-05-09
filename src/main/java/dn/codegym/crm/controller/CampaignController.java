@@ -39,19 +39,8 @@ public class CampaignController {
         ModelAndView modelAndView = new ModelAndView("campaign/list");
         Page<Campaign> campaigns = campaignService.findAllByDeletedIsFalse(pageable);
         modelAndView.addObject("campaigns", campaigns);
+        modelAndView.addObject("campaign", new CampaignDTO());
         return modelAndView;
-    }
-
-    @GetMapping("/view/{id}")
-    public ModelAndView viewCampaign(@PathVariable String id) {
-        CampaignDTO campaignDTO = campaignService.findById(id);
-        if (campaignDTO != null) {
-            ModelAndView modelAndView = new ModelAndView("campaign/view");
-            modelAndView.addObject("campaign", campaignDTO);
-            return modelAndView;
-        } else {
-            return new ModelAndView("error404");
-        }
     }
 
     @GetMapping("/create")
@@ -102,19 +91,8 @@ public class CampaignController {
     }
 
     @GetMapping("/delete/{id}")
-    public ModelAndView showDeleteForm(@PathVariable String id) {
+    public String deleteCourse(@PathVariable String id, RedirectAttributes redirect, Pageable pageable) {
         CampaignDTO campaignDTO = campaignService.findById(id);
-        if (campaignDTO != null) {
-            ModelAndView modelAndView = new ModelAndView("campaign/delete");
-            modelAndView.addObject("campaign", campaignDTO);
-            return modelAndView;
-        } else {
-            return new ModelAndView("error404");
-        }
-    }
-
-    @PostMapping("/delete")
-    public String deleteCourse(@ModelAttribute("campaign") CampaignDTO campaignDTO, RedirectAttributes redirect, Pageable pageable) {
         campaignService.delete(campaignDTO.getId(), pageable);
         redirect.addFlashAttribute("message", "Campaign deleted successfully!");
         return "redirect:/campaigns/list";
