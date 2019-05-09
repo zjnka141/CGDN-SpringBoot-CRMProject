@@ -23,6 +23,15 @@ public class Student extends BaseEntity {
     private Boolean deleted;
     private String email;
     private String phoneNumber;
+    private String studentStatus;
+
+    public String getStudentStatus() {
+        return studentStatus;
+    }
+
+    public void setStudentStatus(String studentStatus) {
+        this.studentStatus = studentStatus;
+    }
 
     public String getEmail() {
         return email;

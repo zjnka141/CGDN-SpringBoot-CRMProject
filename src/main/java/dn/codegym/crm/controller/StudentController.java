@@ -81,10 +81,14 @@ public class StudentController {
         return modelAndView;
     }
     @PostMapping("/update")
-    public String editStudent(@ModelAttribute("students") StudentDTO studentDTO,RedirectAttributes redirect) {
-        studentService.update(studentDTO);
-        redirect.addFlashAttribute("message","updated succesfully!!");
-        return "redirect:/students/list";
+    public String editStudent(@Valid @ModelAttribute("students") StudentDTO studentDTO,BindingResult bindingResult,RedirectAttributes redirect) {
+        if (bindingResult.hasErrors()) {
+            return "/student/edit";
+        } else {
+            studentService.update(studentDTO);
+            redirect.addFlashAttribute("message", "updated succesfully!!");
+            return "redirect:/students/list";
+        }
     }
     @GetMapping("/{id}/delete")
     public ModelAndView showDeleteStudentPage(@PathVariable String id) {

@@ -26,4 +26,5 @@ public interface StudentService {
     void delete(String id);
 
     StudentDTO moveLeadToStudent(LeadDTO leadDTO);
+
 }

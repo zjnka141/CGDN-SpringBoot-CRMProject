@@ -22,24 +22,29 @@
     <th:block th:if="${students.getTotalElements() > 0}">
         <table class="table">
             <tr>
+                <th>#</th>
                 <th>Name</th>
                 <th>Birth day</th>
                 <th>Gender</th>
                 <th>Email</th>
                 <th>Phone number</th>
                 <th>Class</th>
+                <th>Status</th>
                 <th>View</th>
                 <th>Edit</th>
                 <th>Delete</th>
             </tr>
-            <th:block th:each="student : ${students}">
+
+            <th:block th:each="student, iterStat : ${students}">
                 <tr>
+                    <td th:text="${iterStat.count}"></td>
                     <td th:text="${student.name}"></td>
                     <td th:text="${student.birthday}"></td>
                     <td th:text="${student.gender}"></td>
                     <td th:text="${student.email}"></td>
                     <td th:text="${student.phoneNumber}"></td>
                     <td th:text="${student.classRoom.name}"></td>
+                    <td th:text="${student.studentStatus}"></td>
                     <td><a th:href="@{/students/{id}/view(id=${student.getId()})}">view</a></td>
                     <td><a th:href="@{/students/{id}/edit(id=${student.getId()})}">edit</a></td>
                     <td><a th:href="@{/students/{id}/delete(id=${student.getId()})}">delete</a></td>

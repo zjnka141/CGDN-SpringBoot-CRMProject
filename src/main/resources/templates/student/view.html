@@ -10,38 +10,38 @@
 <div layout:fragment="content" class="container">
     <div class="w3-card-4">
         <div class="w3-container">
-            <a href="/students/list">Back to list student</a><hr>
+            <a href="/students/list">Back to list student</a>
+            <hr>
         </div>
-    <div>
-        <label  class="w3-text-green">Name:</label>
-        <label th:text="${student.name}"></label>
-    </div >
-    <div>
-        <label  class="w3-text-green">Birthday:</label>
-        <label th:text="${student.birthday}"></label>
-    </div>
-    <div>
-        <label  class="w3-text-green">Gender:</label>
-        <label th:text="${student.gender}"></label>
-    </div>
-    <div>
-        <label  class="w3-text-green">Email: </label>
-        <label th:text="${student.email}"></label>
-    </div>
-    <div>
-        <label  class="w3-text-green">Phone Number: </label>
-        <label th:text="${student.phoneNumber}"></label>
-    </div>
-    <div>
-        <label  class="w3-text-green">Class</label>
-        <label th:text="${student.classRoom.getName()}"></label>
-    </div>
         <div>
-            <p>
-
-            </p>
+            <label class="w3-text-green">Name:</label>
+            <label th:text="${student.name}"></label>
         </div>
-</div>
+        <div>
+            <label class="w3-text-green">Birthday:</label>
+            <label th:text="${student.birthday}"></label>
+        </div>
+        <div>
+            <label class="w3-text-green">Gender:</label>
+            <label th:text="${student.gender}"></label>
+        </div>
+        <div>
+            <label class="w3-text-green">Email: </label>
+            <label th:text="${student.email}"></label>
+        </div>
+        <div>
+            <label class="w3-text-green">Phone Number: </label>
+            <label th:text="${student.phoneNumber}"></label>
+        </div>
+        <div>
+            <label class="w3-text-green">Class</label>
+            <label th:text="${student.classRoom.getName()}"></label>
+        </div>
+        <div>
+            <label class="w3-text-green">status student: </label>
+            <label th:text="${student.studentStatus}"></label>
+        </div>
+    </div>
 </div>
 </body>
 </html>

@@ -21,16 +21,20 @@
         <a th:href="@{'/classes/list'(page=${classes.getNumber() + 1})}" th:if="${classes.hasNext()}">Next</a>
     </div>
     <tr>
+        <th>#</th>
         <th>Name</th>
         <th>Course</th>
+        <th>total student</th>
         <th>Edit</th>
         <th>Delete</th>
         <th>View</th>
     </tr>
-    <th:block th:each="class : ${classes}">
+    <th:block th:each="class,interStat : ${classes}">
         <tr>
+            <td th:text="${interStat.count}"></td>
             <td ><a th:href="@{/classes/__${class.id}__/students}" th:text="${class.name}"></a></td>
             <td th:text="${class.course.name}"></td>
+            <td th:text="${total}"></td>
             <td><a th:href="@{/classes/edit/__${class.id}__}">Edit</a></td>
             <td><a th:href="@{/classes/delete/__${class.id}__}">Delete</a></td>
             <td><a th:href="@{/classes/view/__${class.id}__}">View</a></td>
