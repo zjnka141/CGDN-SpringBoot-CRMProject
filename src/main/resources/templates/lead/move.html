@@ -24,11 +24,11 @@
                         <td th:text="*{name}"></td>
                     </tr>
                     <tr>
-                        <td>Gender: </td>
+                        <td>Gender:</td>
                         <td th:text="*{gender}"></td>
                     </tr>
                     <tr>
-                        <td>Product: </td>
+                        <td>Product:</td>
                         <td th:text="*{product}"></td>
                     </tr>
                     <tr>
@@ -40,19 +40,17 @@
                         <td th:text="*{email}"></td>
                     </tr>
                     <tr>
-                        <td>Phone Number: </td>
+                        <td>Phone Number:</td>
                         <td th:text="*{phoneNumber}"></td>
                     </tr>
                     <tr>
-                        <td>Job: </td>
+                        <td>Job:</td>
                         <td th:text="*{job}"></td>
                     </tr>
                     <tr>
-                        <td>Source: </td>
+                        <td>Source:</td>
                         <td th:text="*{source}"></td>
                     </tr>
-
-
                 </table>
             </td>
             <td>
@@ -86,7 +84,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>Phone Number: </td>
+                            <td>Phone Number:</td>
                             <td><input type="text" th:field="*{phoneNumber}"></td>
                         </tr>
                         <tr>
@@ -101,6 +99,17 @@
                                             th:value="${p.id}"
                                             th:text="${p.name}">
                                     </option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>status</td>
+                            <td>
+                                <select th:field="*{studentStatus}">
+                                    <option value="studying">Đang học</option>
+                                    <option value="stop">Thôi học</option>
+                                    <option value="reserve">Bảo lưu</option>
+                                    <option value="graduating">Tốt nghiệp</option>
                                 </select>
                             </td>
                         </tr>
