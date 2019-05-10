@@ -9,9 +9,13 @@
     padding: 8px;
 }
 
-.table tr:nth-child(even){background-color: #f2f2f2;}
+.table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
 
-.table tr:hover {background-color: #ddd;}
+.table tr:hover {
+    background-color: #ddd;
+}
 
 .table th {
     padding-top: 12px;
@@ -19,4 +23,38 @@
     text-align: left;
     background-color: #4CAF50;
     color: white;
+}
+
+.has-search, .form-control {
+    text-align: right;
+}
+
+.has-search, .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 2.375rem;
+    height: 2.375rem;
+    line-height: 2.375rem;
+    text-align: right;
+    pointer-events: none;
+    color: #aaa;
+}
+
+.btn-circle {
+
+    width: 49px;
+
+    height: 49px;
+
+    text-align: center;
+
+    padding: 5px 0;
+
+    font-size: 20px;
+
+    line-height: 2.00;
+
+    border-radius: 30px;
+
 }
