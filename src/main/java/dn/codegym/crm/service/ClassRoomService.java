@@ -3,6 +3,7 @@ package dn.codegym.crm.service;
 import dn.codegym.crm.dto.ClassRoomDTO;
 import dn.codegym.crm.entity.ClassRoom;
 import dn.codegym.crm.entity.Course;
+import dn.codegym.crm.entity.Student;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -25,4 +26,5 @@ public interface ClassRoomService {
     List<ClassRoom> findAllByDeletedIsFalse();
 
     Page<ClassRoom> findAllByDeletedIsFalseAndIdCourse(Course course, Pageable pageable);
+
 }

@@ -1,6 +1,9 @@
 package dn.codegym.crm.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
@@ -13,6 +16,35 @@ public class ClassRoom extends BaseEntity{
     @JoinColumn(name = "courses_id")
     private Course course;
     private Boolean deleted;
+    private LocalDate startDay;
+    private LocalDate endDay;
+    private String learningStatus;
+    @Transient
+    private int totalStudent;
+
+    public int getTotalStudent() {
+        return totalStudent;
+    }
+
+    public void setTotalStudent(int totalStudent) {
+        this.totalStudent = totalStudent;
+    }
+
+    public String getLearningStatus() {
+        return learningStatus;
+    }
+
+    public void setLearningStatus(String learningStatus) {
+        this.learningStatus = learningStatus;
+    }
+
+    public LocalDate getStartDay() { return startDay; }
+
+    public void setStartDay(LocalDate startDay) { this.startDay = startDay; }
+
+    public LocalDate getEndDay() { return endDay; }
+
+    public void setEndDay(LocalDate endDay) { this.endDay = endDay; }
 
     public Course getCourse() { return course; }
 

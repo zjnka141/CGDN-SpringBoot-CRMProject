@@ -9,12 +9,6 @@
 <body>
 <div layout:fragment="content" class="container">
     <div class="w3-card-4">
-        <div class="w3-container">
-            <a href="/">Home Page</a><hr>
-        </div>
-        <div class="w3-container">
-            <a href="/classes/list">Back to list class</a><hr>
-        </div>
         <div>
             <label  class="w3-text-green">Name:</label>
             <label th:text="${classes.getName()}"></label>
@@ -22,6 +16,18 @@
         <div>
             <label  class="w3-text-green">Course</label>
             <label th:text="${classes.course.getName()}"></label>
+        </div>
+        <div>
+            <label class="w3-text-green">Start Day</label>
+            <label th:text="${classes.getStartDay()}"></label>
+        </div>
+        <div>
+            <label class="w3-text-green">End Day</label>
+            <label th:text="${classes.getEndDay()}"></label>
+        </div>
+        <div>
+            <label class="w3-text-green">Learning Status</label>
+            <label th:text="${classes.getLearningStatus()}"></label>
         </div>
     </div>
 </div>

@@ -18,4 +18,5 @@ public interface StudentRepository extends JpaRepository<Student, String> {
 
     List<Student> findAllByDeletedIsFalse();
 
+    Long countByClassRoom(ClassRoom classRoom);
 }

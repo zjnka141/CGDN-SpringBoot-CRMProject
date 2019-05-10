@@ -2,15 +2,42 @@ package dn.codegym.crm.dto;
 
 import dn.codegym.crm.entity.Course;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
 public class ClassRoomDTO implements Serializable {
     private String id;
-    @NotBlank(message = " Class name is not available!")
+    @NotEmpty(message = "Class name is not valid")
     private String name;
+    @NotEmpty(message = "Start day is not valid!")
+    private String startDay;
+    @NotEmpty(message = "End day is not valid!")
+    private String endDay;
     private Course course;
     private Boolean deleted;
+    private String learningStatus;
+    private int totalStudent;
+
+    public int getTotalStudent() {
+        return totalStudent;
+    }
+
+    public void setTotalStudent(int totalStudent) {
+        this.totalStudent = totalStudent;
+    }
+
+    public String getLearningStatus() { return learningStatus; }
+
+    public void setLearningStatus(String learningStatus) { this.learningStatus = learningStatus; }
+
+    public String getStartDay() { return startDay; }
+
+    public void setStartDay(String startDay) { this.startDay = startDay; }
+
+    public String getEndDay() { return endDay; }
+
+    public void setEndDay(String endDay) { this.endDay = endDay; }
 
     public Course getCourse() { return course; }
 
@@ -18,28 +45,16 @@ public class ClassRoomDTO implements Serializable {
 
     public Boolean getDeleted() { return deleted; }
 
-    public String getId() {
-        return id;
-    }
+    public String getId() { return id; }
 
-    public void setId(String id) {
-        this.id = id;
-    }
+    public void setId(String id) { this.id = id; }
 
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name;}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public void setName(String name) { this.name = name; }
 
 
-    public Boolean isDeleted() {
-        return deleted;
-    }
+    public Boolean isDeleted() { return deleted; }
 
-    public void setDeleted(Boolean deleted) {
-        this.deleted = deleted;
-    }
+    public void setDeleted(Boolean deleted) { this.deleted = deleted; }
 }
