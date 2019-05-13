@@ -6,6 +6,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -30,6 +31,17 @@ public class Lead extends BaseEntity {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private Campaign campaign;
+
+    @OneToMany(mappedBy = "lead", cascade = CascadeType.ALL)
+    private List<LeadDetail> leadDetails;
+
+    public List<LeadDetail> getLeadDetails() {
+        return leadDetails;
+    }
+
+    public void setLeadDetails(List<LeadDetail> leadDetails) {
+        this.leadDetails = leadDetails;
+    }
 
     public Campaign getCampaign() {
         return campaign;

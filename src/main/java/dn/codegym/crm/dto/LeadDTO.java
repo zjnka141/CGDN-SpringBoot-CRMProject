@@ -1,13 +1,16 @@
 package dn.codegym.crm.dto;
 
 import dn.codegym.crm.entity.Campaign;
+import dn.codegym.crm.entity.LeadDetail;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
-public class LeadDTO {
+public class LeadDTO implements Serializable {
     private String id;
     private String product;
     private String status;
@@ -21,7 +24,7 @@ public class LeadDTO {
     @NotBlank(message = "Phone number is not null")
     @Pattern(regexp = "(^$|0[0-9]{9})*$", message = "phone number is not valid")
     private String phoneNumber;
-
+    private List<LeadDetail> leadDetails;
     private String job;
 
 
@@ -34,6 +37,14 @@ public class LeadDTO {
     private String admissionDate;
     private boolean deleted;
     private Campaign campaign;
+
+    public List<LeadDetail> getLeadDetails() {
+        return leadDetails;
+    }
+
+    public void setLeadDetails(List<LeadDetail> leadDetails) {
+        this.leadDetails = leadDetails;
+    }
 
     public Campaign getCampaign() {
         return campaign;
