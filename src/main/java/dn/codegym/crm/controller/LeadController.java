@@ -1,18 +1,17 @@
 package dn.codegym.crm.controller;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import dn.codegym.crm.dto.LeadDTO;
 import dn.codegym.crm.dto.LeadDetailDTO;
+import dn.codegym.crm.dto.StudentDTO;
 import dn.codegym.crm.entity.Campaign;
+import dn.codegym.crm.entity.ClassRoom;
 import dn.codegym.crm.entity.Lead;
-import dn.codegym.crm.repository.LeadRepository;
-import dn.codegym.crm.service.CampaignService;
-import dn.codegym.crm.service.LeadDetailService;
-import dn.codegym.crm.service.LeadService;
+import dn.codegym.crm.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,12 +25,24 @@ import java.util.Optional;
 public class LeadController {
     @Autowired
     private LeadService leadService;
-    @Autowired
-    private LeadDetailService leadDetailService;
+
     @Autowired
     private CampaignService campaignService;
+
     @Autowired
-    private LeadRepository leadRepository;
+    private StudentService studentService;
+
+    @Autowired
+    private ClassRoomService classRoomService;
+
+    @Autowired
+    private LeadDetailService leadDetailService;
+
+
+    @ModelAttribute("classes")
+    public Page<ClassRoom> classRooms(Pageable pageable) {
+        return classRoomService.findAllByDeletedIsFalse(pageable);
+    }
 
     @ModelAttribute("campaigns")
     public Iterable<Campaign> campaigns() {
@@ -139,8 +150,8 @@ public class LeadController {
     }
 
     @PostMapping("/consulting/create/{leadId}")
-    public String saveConsulting(@PathVariable String leadId,@ModelAttribute("leadDetail") LeadDetailDTO leadDetail, RedirectAttributes redirect) {
-        leadDetailService.create(leadDetail,leadId);
+    public String saveConsulting(@PathVariable String leadId, @ModelAttribute("leadDetail") LeadDetailDTO leadDetail, RedirectAttributes redirect) {
+        leadDetailService.create(leadDetail, leadId);
         return "redirect:/leads/consulting/{leadId}";
     }
 
@@ -155,9 +166,32 @@ public class LeadController {
             return new ModelAndView("error 404");
         }
     }
-    @PostMapping("/edit/lead-detail")
-    public String updateLeadDetail(@ModelAttribute("leadDetail") LeadDetailDTO leadDetailDTO, RedirectAttributes redirect){
-        leadDetailService.update(leadDetailDTO);
-        return "redirect:/leads/list";
+
+    @GetMapping("/move/{lead_id}")
+    public ModelAndView moveLeadToStudent(@PathVariable("lead_id") String leadId, Model model) {
+        LeadDTO leadDTO = leadService.findById(leadId);
+        StudentDTO studentDTO;
+        if (leadDTO == null) {
+            return null;
+        } else {
+            studentDTO = studentService.moveLeadToStudent(leadDTO);
+            model.addAttribute("lead", leadDTO);
+            model.addAttribute("student", studentDTO);
+            return new ModelAndView("lead/move");
+        }
+    }
+    @PostMapping("/move")
+    public String moveLeadToStudent(@Valid @ModelAttribute("student") StudentDTO studentDTO, BindingResult bindingResult,
+                                    RedirectAttributes redirect, Model model) {
+        if (bindingResult.hasFieldErrors()) {
+            LeadDTO leadDTO = leadService.findById(studentDTO.getId());
+            model.addAttribute("lead", leadDTO);
+            model.addAttribute("student", studentDTO);
+            return "/lead/move";
+        } else {
+            studentService.save(studentDTO);
+            leadService.delete(studentDTO.getId());
+            return "redirect:/leads/list";
+        }
     }
 }

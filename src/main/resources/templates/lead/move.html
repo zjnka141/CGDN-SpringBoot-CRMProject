@@ -58,19 +58,21 @@
             </td>
             <th></th>
             <td>
-                <form th:action="@{/leads/move}" method="post">
+                <form action="/leads/move" method="post" th:object="${student}">
                     <h2>Student: </h2>
-                    <table th:object="${student}">
+                    <table>
                         <tr>
                             <td><input type="hidden" th:field="*{id}"></td>
                         </tr>
                         <tr>
                             <td>Name:</td>
                             <td><input type="text" th:field="*{name}"></td>
+                            <td><span class="w3-text-red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span></td>
                         </tr>
                         <tr>
                             <td>Birth day:</td>
                             <td><input type="date" th:value="*{birthday}" th:field="*{birthday}"></td>
+                            <td><span class="w3-text-red" th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}"></span></td>
 
                         </tr>
                         <tr>
@@ -86,10 +88,12 @@
                         <tr>
                             <td>Phone Number:</td>
                             <td><input type="text" th:field="*{phoneNumber}"></td>
+                            <td><span class="w3-text-red" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></span></td>
                         </tr>
                         <tr>
                             <td>Email:</td>
                             <td><input type="text" th:field="*{email}"></td>
+                            <td><span class="w3-text-red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span></td>
                         </tr>
                         <tr>
                             <td>Class</td>

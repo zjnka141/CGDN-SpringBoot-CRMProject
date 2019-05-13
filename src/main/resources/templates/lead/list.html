@@ -39,6 +39,7 @@
             <th></th>
             <th></th>
             <th></th>
+            <th></th>
         </tr>
         <th:block th:each="lead : ${leads}">
             <tr>
@@ -55,6 +56,7 @@
                 <td><a th:href="@{/leads/edit/__${lead.id}__}">Edit</a></td>
                 <td><a th:href="@{/leads/delete/__${lead.id}__}">Delete</a></td>
                 <td><a th:href="@{/leads/consulting/__${lead.id}__}">Consulting Process</a></td>
+                <td><a th:href="@{/leads/move/__${lead.id}__}">Move</a> </td>
 
             </tr>
         </th:block>
