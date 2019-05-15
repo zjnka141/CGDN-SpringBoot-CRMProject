@@ -27,7 +27,7 @@
             <p>
                 <label class="w3-text-green"><b>Birth day</b></label>
                 <input class="w3-input w3-border w3-sand" type="date" th:field="*{birthday}">
-                <span class="w3-text-red" th:if="${#fields.hasErrors('name')}" th:errors="*{birthday}"></span>
+                <span class="w3-text-red" th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}"></span>
             </p>
             <p>
                 <label class="w3-text-green"><b>Gender</b></label>

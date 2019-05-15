@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{fragments/main_layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>View Lead</title>
+</head>
+<body>
+<div layout:fragment="content" class="container">
+    <h1>Consulting Process</h1>
+    <div>
+        Name: <p th:text="${lead.name}"></p>
+    </div>
+    <table border="1" class="table">
+        <tr>
+            <th>Consultation times</th>
+            <th>Status</th>
+            <th>Last Updated Date</th>
+            <th>Content</th>
+            <th>Sale</th>
+            <th></th>
+            <th></th>
+        </tr>
+        <th:block th:each="leadDetail, count : ${leadDetails}">
+            <tr>
+                <td th:text="${count.count}"></td>
+                <td th:text="${leadDetail.status}"></td>
+                <td th:text="${leadDetail.lastUpdateLeadDetailDate}"></td>
+                <td th:text="${leadDetail.content}"></td>
+                <td th:text="${leadDetail.createdBy}"></td>
+                <td><a th:href="@{/leads/consulting/edit/__${leadDetail.id}__}">Edit</a></td>
+                <td><a th:href="@{/leads/consulting/delete/__${leadDetail.id}__}">Delete</a></td>
+            </tr>
+        </th:block>
+    </table>
+
+    <a th:href="@{/leads/consulting/create/__${lead.id}__}">Edit the consulting process</a></td>
+
+</div>
+</body>
+</html>

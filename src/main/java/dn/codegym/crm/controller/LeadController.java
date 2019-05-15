@@ -1,14 +1,12 @@
 package dn.codegym.crm.controller;
 
 import dn.codegym.crm.dto.LeadDTO;
+import dn.codegym.crm.dto.LeadDetailDTO;
 import dn.codegym.crm.dto.StudentDTO;
 import dn.codegym.crm.entity.Campaign;
 import dn.codegym.crm.entity.ClassRoom;
 import dn.codegym.crm.entity.Lead;
-import dn.codegym.crm.service.CampaignService;
-import dn.codegym.crm.service.ClassRoomService;
-import dn.codegym.crm.service.LeadService;
-import dn.codegym.crm.service.StudentService;
+import dn.codegym.crm.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -36,6 +34,9 @@ public class LeadController {
 
     @Autowired
     private ClassRoomService classRoomService;
+
+    @Autowired
+    private LeadDetailService leadDetailService;
 
 
     @ModelAttribute("classes")
@@ -96,8 +97,8 @@ public class LeadController {
     }
 
     @PostMapping("/edit")
-    public String updateLead(@Valid @ModelAttribute("lead") LeadDTO leadDTO,BindingResult bindingResult ,RedirectAttributes redirect) {
-        if(bindingResult.hasErrors()) {
+    public String updateLead(@Valid @ModelAttribute("lead") LeadDTO leadDTO, BindingResult bindingResult, RedirectAttributes redirect) {
+        if (bindingResult.hasErrors()) {
             return "lead/edit";
         } else {
             leadService.update(leadDTO);
@@ -132,6 +133,40 @@ public class LeadController {
         return modelAndView;
     }
 
+    @GetMapping("/consulting/{leadId}")
+    public ModelAndView leadDetail(@PathVariable String leadId, Pageable pageable) {
+        ModelAndView modelAndView = new ModelAndView("lead/consulting");
+        modelAndView.addObject("leadDetails", leadDetailService.findAllByLeadId(leadId, pageable));
+        modelAndView.addObject("lead", leadService.findById(leadId));
+        return modelAndView;
+    }
+
+    @GetMapping("consulting/create/{leadId}")
+    public ModelAndView createConsulting(@PathVariable String leadId) {
+        ModelAndView modelAndView = new ModelAndView("lead/create-lead-detail");
+        modelAndView.addObject("leadDetail", new LeadDetailDTO());
+        modelAndView.addObject("lead", leadService.findById(leadId));
+        return modelAndView;
+    }
+
+    @PostMapping("/consulting/create/{leadId}")
+    public String saveConsulting(@PathVariable String leadId, @ModelAttribute("leadDetail") LeadDetailDTO leadDetail, RedirectAttributes redirect) {
+        leadDetailService.create(leadDetail, leadId);
+        return "redirect:/leads/consulting/{leadId}";
+    }
+
+    @GetMapping("/consulting/edit/{leadDetailId}")
+    public ModelAndView showEditLeadDetailForm(@PathVariable String leadDetailId) {
+        LeadDetailDTO leadDetailDTO = leadDetailService.findById(leadDetailId);
+        if (leadDetailDTO != null) {
+            ModelAndView modelAndView = new ModelAndView("lead/edit-lead-detail");
+            modelAndView.addObject("leadDetail", leadDetailDTO);
+            return modelAndView;
+        } else {
+            return new ModelAndView("error 404");
+        }
+    }
+
     @GetMapping("/move/{lead_id}")
     public ModelAndView moveLeadToStudent(@PathVariable("lead_id") String leadId, Model model) {
         LeadDTO leadDTO = leadService.findById(leadId);
@@ -145,13 +180,18 @@ public class LeadController {
             return new ModelAndView("lead/move");
         }
     }
-
     @PostMapping("/move")
-    public String moveLeadToStudent(@ModelAttribute("student") StudentDTO studentDTO,
-                                    RedirectAttributes redirect) {
-        System.out.println(studentDTO.getId());
-        studentService.save(studentDTO);
-        leadService.delete(studentDTO.getId());
-        return "redirect:/leads/list";
+    public String moveLeadToStudent(@Valid @ModelAttribute("student") StudentDTO studentDTO, BindingResult bindingResult,
+                                    RedirectAttributes redirect, Model model) {
+        if (bindingResult.hasFieldErrors()) {
+            LeadDTO leadDTO = leadService.findById(studentDTO.getId());
+            model.addAttribute("lead", leadDTO);
+            model.addAttribute("student", studentDTO);
+            return "/lead/move";
+        } else {
+            studentService.save(studentDTO);
+            leadService.delete(studentDTO.getId());
+            return "redirect:/leads/list";
+        }
     }
 }

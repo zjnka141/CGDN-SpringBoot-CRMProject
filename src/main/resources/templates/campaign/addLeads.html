@@ -29,7 +29,7 @@
                     <th>Job</th>
                     <th>Source</th>
                     <th>Admission Date</th>
-                    <th width="75px" >ADD</th>
+                    <th width="75px" ></th>
                 </tr>
                 <th:block th:each="lead : ${leads}">
                     <tr>
@@ -43,7 +43,7 @@
                         <td th:text="${lead.job}"></td>
                         <td th:text="${lead.source}"></td>
                         <td th:text="${lead.admissionDate}"></td>
-                        <td><a th:href="@{/campaigns/addLeads/__${campaign.id}__/__${lead.id}__}"><i class="fa fa-plus-circle"></i>Add</a></td>
+                        <td><a th:href="@{/campaigns/addLeads/__${campaign.id}__/__${lead.id}__}" title="ADD"><i class="fa fa-plus-circle"></i>Add</a></td>
                     </tr>
                 </th:block>
             </table>

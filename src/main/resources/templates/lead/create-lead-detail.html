@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{fragments/main_layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Consulting Process</title>
+</head>
+<body>
+<div layout:fragment="content" class="container">
+    <div class="w3-card-4">
+        <div class="w3-container w3-green">
+            <h1>Edit Consulting Process</h1>
+        </div>
+
+        <p><a href="/leads/list">Back to list of leads</a></p>
+
+        <form class="w3-container" th:action="@{/leads/consulting/create/__${lead.id}__}" method="post" th:object="${leadDetail}">
+            <table>
+                <p>
+                    <label class="w3-text-green">Status:</label>
+                    <select th:field="*{status}">
+                        <option value="G1">G1</option>
+                        <option value="G2">G2</option>
+                        <option value="G3">G3</option>
+                        <option value="G4">G4</option>
+                        <option value="G5">G5</option>
+                        <option value="G6">G6</option>
+                    </select>
+                </p>
+                <p>
+                    <label class="w3-text-green">Last Updated Date:</label>
+                    <input class="w3-input w3-border w3-sand" type="date" th:field="*{lastUpdateLeadDetailDate}">
+
+                </p>
+                <p>
+                    <label class="w3-text-green">Content:</label>
+                    <input class="w3-input w3-border w3-sand" type="text" th:field="*{content}">
+
+                </p>
+                <p>
+                    <label class="w3-text-green">Sale:</label>
+                    <input class="w3-input w3-border w3-sand" type="text" th:field="*{createBy}">
+
+                </p>
+
+                <p>
+                    <input class="w3-btn w3-green" type="submit" value="Edit Consulting">
+                </p>
+            </table>
+        </form>
+
+    </div>
+</div>
+</body>
+</html>
