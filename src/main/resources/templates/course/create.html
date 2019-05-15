@@ -7,30 +7,27 @@
     <title>Create Course</title>
 </head>
 <body>
-<div layout:fragment="content" class="container">
-    <div class="w3-card-4">
-        <div class="w3-container w3-green">
-            <h1>Create Course</h1>
-        </div>
-        <form class="w3-container" action="/courses/create" method="post" th:object="${course}">
-            <p>
-                <label class="w3-text-green"><b>Name</b></label>
-                <input class="w3-input w3-border w3-sand" type="text" th:field="*{name}">
-                <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
-            </p>
-            <p>
-                <label class="w3-text-green"><b>Start day</b></label>
-                <input class="w3-input w3-border w3-sand" type="date" th:field="*{startDay}">
-                <span th:if="${#fields.hasErrors('startDay')}" th:errors="*{startDay}"></span>
-            </p>
-            <p>
-                <label class="w3-text-green"><b>End day</b></label>
-                <input class="w3-input w3-border w3-sand" type="date" th:field="*{endDay}">
-                <span th:if="${#fields.hasErrors('endDay')}" th:errors="*{endDay}"></span>
-            </p>
-            <p>
-                <button class="w3-btn w3-green" type="submit">Create course</button>
-            </p>
+<div layout:fragment="content">
+        <h3 class="box-title">Create Course</h3>
+        <form class="form-horizontal" action="/courses/create" method="post" th:object="${course}">
+            <label for="inputName" class="col-sm-2 control-label">Name</label>
+
+            <input type="text" th:field="*{name}" class="form-control" id="inputName" placeholder="Name">
+            <span th:if="${#fields.hasErrors('name')}"><i class="fa fa-times-circle-o" th:errors="*{name}"></i></span>
+
+            <label for="inputStartDay" class="col-sm-2 control-label">Start day</label>
+
+            <input type="date" th:field="*{startDay}" class="form-control" id="inputStartDay" placeholder="Start day">
+            <span th:if="${#fields.hasErrors('startDay')}"><i class="fa fa-times-circle-o" th:errors="*{startDay}"></i></span>
+
+            <label for="inputEndDay" class="col-sm-2 control-label">End day</label>
+
+            <input type="date" th:field="*{endDay}" class="form-control" id="inputEndDay" placeholder="End day">
+            <span th:if="${#fields.hasErrors('endDay')}"><i class="fa fa-times-circle-o" th:errors="*{endDay}"></i></span>
+
+
+            <button type="submit" class="btn btn-info pull-right">Create course</button>
+
         </form>
     </div>
 </div>

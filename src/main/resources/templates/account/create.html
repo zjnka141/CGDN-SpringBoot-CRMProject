@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{fragments/main_layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Account</title>
+</head>
+<body>
+<div layout:fragment="content" class="container">
+    <div class="w3-card-4">
+        <div class="w3-container w3-green">
+            <h1>Create Account</h1>
+        </div>
+        <form class="w3-container" action="/accounts/create" method="post" th:object="${account}">
+            <p>
+                <label class="w3-text-green"><b>User name</b></label>
+                <input class="w3-input w3-border w3-sand" type="text" th:field="*{username}">
+                <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+            </p>
+            <p>
+                <label class="w3-text-green"><b>Password</b></label>
+                <input class="w3-input w3-border w3-sand" type="password" th:field="*{password}">
+                <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+            </p>
+            <p>
+                <label class="w3-text-green"><b>Role</b></label>
+                <select th:field="*{role}">
+                    <option value="ADMIN">Admin</option>
+                    <option value="SALE">Sale</option>
+                    <option value="GIAO_VU">Giao vu</option>
+                </select>
+            </p>
+            <p>
+                <button class="w3-btn w3-green" type="submit">Create account</button>
+            </p>
+        </form>
+    </div>
+</div>
+</body>
+</html>

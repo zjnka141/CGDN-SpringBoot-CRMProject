@@ -9,28 +9,32 @@
 <body>
 
 <div layout:fragment="content" class="container">
-    <div class="w3-card-4">
-        <div class="w3-container w3-green">
-            <h1>Delete Course</h1>
+    <div class="col-md-6">
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <h3 class="box-title">Edit Course</h3>
+            </div>
+            <form class="form-horizontal" action="/courses/delete" method="post" th:object="${course}">
+                <input type="hidden" th:field="*{id}">
+                <div class="box-body">
+                    <div class="row">
+                        <label class="col-sm-2">Name:</label>
+                        <span th:text="*{name}" class="col-sm-10"/>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-2">Start day:</label>
+                        <span th:text="*{startDay}" class="col-sm-10"/>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-2">End day:</label>
+                        <span th:text="*{endDay}" class="col-sm-10"/>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Delete course</button>
+                </div>
+            </form>
         </div>
-        <form class="w3-container" action="/courses/delete" method="post" th:object="${course}">
-            <input type="hidden" th:field="*{id}">
-            <p>
-                <label class="w3-text-green"><b>Name</b></label>
-                <span class="w3-input w3-border w3-sand" th:text="*{name}"></span>
-            </p>
-            <p>
-                <label class="w3-text-green"><b>Start day</b></label>
-                <span class="w3-input w3-border w3-sand" th:text="*{startDay}"></span>
-            </p>
-            <p>
-                <label class="w3-text-green"><b>End day</b></label>
-                <span class="w3-input w3-border w3-sand" th:text="*{endDay}"></span>
-            </p>
-            <p>
-                <button class="w3-btn w3-green" type="submit">Delete course</button>
-            </p>
-        </form>
     </div>
 </div>
 </body>

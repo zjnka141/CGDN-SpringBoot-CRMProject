@@ -3,17 +3,18 @@ package dn.codegym.crm.controller;
 import dn.codegym.crm.dto.CourseDTO;
 import dn.codegym.crm.entity.ClassRoom;
 import dn.codegym.crm.entity.Course;
-import dn.codegym.crm.entity.Student;
 import dn.codegym.crm.repository.CourseRepository;
 import dn.codegym.crm.repository.StudentRepository;
 import dn.codegym.crm.service.ClassRoomService;
 import dn.codegym.crm.service.CourseService;
 import dn.codegym.crm.service.StudentService;
+import dn.codegym.crm.validator.CourseDTOValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -31,10 +32,20 @@ public class CourseController {
     private ClassRoomService classRoomService;
     @Autowired
     private CourseRepository courseRepository;
+
     @Autowired
-    private StudentService studentService;
-    @Autowired
-    private StudentRepository studentRepository;
+    private CourseDTOValidator courseDTOValidator;
+
+    @InitBinder
+    protected void initBinder(WebDataBinder dataBinder) {
+        Object target = dataBinder.getTarget();
+        if (target == null) {
+            return;
+        }
+        if (target.getClass() == CourseDTO.class) {
+            dataBinder.setValidator(courseDTOValidator);
+        }
+    }
 
     @GetMapping("/create")
     public ModelAndView showCreateForm() {

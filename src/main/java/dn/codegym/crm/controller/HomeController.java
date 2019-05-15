@@ -12,7 +12,6 @@ public class HomeController {
 
     @GetMapping("/locale")
     public String getLocalePage() {
-
         return "home";
     }
 }
