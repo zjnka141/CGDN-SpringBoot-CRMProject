@@ -3,12 +3,11 @@ package dn.codegym.crm.dto;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
-public class CourseDTO implements Serializable {
+public class ProductDTO implements Serializable {
 
     private String id;
     private String name;
-    private String startDay;
-    private String endDay;
+    private String description;
     private boolean deleted;
 
     public boolean isDeleted() {
@@ -35,19 +34,11 @@ public class CourseDTO implements Serializable {
         this.name = name;
     }
 
-    public String getStartDay() {
-        return startDay;
+    public String getDescription() {
+        return description;
     }
 
-    public void setStartDay(String startDay) {
-        this.startDay = startDay;
-    }
-
-    public String getEndDay() {
-        return endDay;
-    }
-
-    public void setEndDay(String endDay) {
-        this.endDay = endDay;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

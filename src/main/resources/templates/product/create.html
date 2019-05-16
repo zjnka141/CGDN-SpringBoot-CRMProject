@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{fragments/main_layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Product</title>
+</head>
+<body>
+<div layout:fragment="content">
+        <h3 class="box-title">Create Product</h3>
+        <form class="form-horizontal" action="/products/create" method="post" th:object="${product}">
+            <label for="inputName" class="col-sm-2 control-label">Name</label>
+
+            <input type="text" th:field="*{name}" class="form-control" id="inputName" placeholder="Name">
+            <span th:if="${#fields.hasErrors('name')}"><i class="fa fa-times-circle-o" th:errors="*{name}"></i></span>
+
+            <label for="inputDescription" class="col-sm-2 control-label">Description</label>
+
+            <textarea th:field="*{description}" class="form-control" id="inputDescription" placeholder="Description"/>
+            <span th:if="${#fields.hasErrors('description')}"><i class="fa fa-times-circle-o" th:errors="*{description}"></i></span>
+
+
+            <button type="submit" class="btn btn-info pull-right">Create product</button>
+
+        </form>
+    </div>
+</div>
+</body>
+</html>

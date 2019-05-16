@@ -1,8 +1,6 @@
 package dn.codegym.crm.entity;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -14,7 +12,7 @@ public class ClassRoom extends BaseEntity{
     private String name;
     @ManyToOne
     @JoinColumn(name = "courses_id")
-    private Course course;
+    private Product course;
     private Boolean deleted;
     private LocalDate startDay;
     private LocalDate endDay;
@@ -46,9 +44,9 @@ public class ClassRoom extends BaseEntity{
 
     public void setEndDay(LocalDate endDay) { this.endDay = endDay; }
 
-    public Course getCourse() { return course; }
+    public Product getCourse() { return course; }
 
-    public void setCourse(Course course) { this.course = course; }
+    public void setCourse(Product course) { this.course = course; }
 
     public Boolean getDeleted() { return deleted; }
 

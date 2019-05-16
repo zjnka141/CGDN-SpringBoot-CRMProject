@@ -5,14 +5,13 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
-@Table(name = "courses")
-public class Course extends BaseEntity{
+@Table(name = "products")
+public class Product extends BaseEntity{
 
     @Id
     private String id= UUID.randomUUID().toString();
     private String name;
-    private LocalDate startDay;
-    private LocalDate endDay;
+    private String description;
     private boolean deleted;
 
     public String getId() {
@@ -31,20 +30,12 @@ public class Course extends BaseEntity{
         this.name = name;
     }
 
-    public LocalDate getStartDay() {
-        return startDay;
+    public String getDescription() {
+        return description;
     }
 
-    public void setStartDay(LocalDate startDay) {
-        this.startDay = startDay;
-    }
-
-    public LocalDate getEndDay() {
-        return endDay;
-    }
-
-    public void setEndDay(LocalDate endDay) {
-        this.endDay = endDay;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public boolean isDeleted() {

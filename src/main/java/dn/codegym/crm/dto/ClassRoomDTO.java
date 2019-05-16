@@ -1,9 +1,8 @@
 package dn.codegym.crm.dto;
 
-import dn.codegym.crm.entity.Course;
+import dn.codegym.crm.entity.Product;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
 public class ClassRoomDTO implements Serializable {
@@ -14,7 +13,7 @@ public class ClassRoomDTO implements Serializable {
     private String startDay;
     @NotEmpty(message = "End day is not valid!")
     private String endDay;
-    private Course course;
+    private Product course;
     private Boolean deleted;
     private String learningStatus;
     private int totalStudent;
@@ -39,9 +38,9 @@ public class ClassRoomDTO implements Serializable {
 
     public void setEndDay(String endDay) { this.endDay = endDay; }
 
-    public Course getCourse() { return course; }
+    public Product getCourse() { return course; }
 
-    public void setCourse(Course course) { this.course = course; }
+    public void setCourse(Product course) { this.course = course; }
 
     public Boolean getDeleted() { return deleted; }
 

@@ -110,7 +110,7 @@ public class StudentController {
     public ModelAndView showStudentFromClassList(@PathVariable String id, Pageable pageable) {
         Page<Student> students = null;//studentService.findAllByDeletedIsFalseAndIdClass(,pageable);
         if (students != null) {
-            ModelAndView modelAndView = new ModelAndView("course/studentListView");
+            ModelAndView modelAndView = new ModelAndView("product/studentListView");
             modelAndView.addObject("students", students);
             return modelAndView;
         } else {

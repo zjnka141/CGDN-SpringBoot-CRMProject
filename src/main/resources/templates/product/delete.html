@@ -4,7 +4,7 @@
                 layout:decorate="~{fragments/main_layout}">
 <head>
     <meta charset="UTF-8">
-    <title>Delete Course</title>
+    <title>Delete Product</title>
 </head>
 <body>
 
@@ -12,9 +12,9 @@
     <div class="col-md-6">
         <div class="box box-info">
             <div class="box-header with-border">
-                <h3 class="box-title">Edit Course</h3>
+                <h3 class="box-title">Edit Product</h3>
             </div>
-            <form class="form-horizontal" action="/courses/delete" method="post" th:object="${course}">
+            <form class="form-horizontal" action="/products/delete" method="post" th:object="${product}">
                 <input type="hidden" th:field="*{id}">
                 <div class="box-body">
                     <div class="row">
@@ -22,16 +22,12 @@
                         <span th:text="*{name}" class="col-sm-10"/>
                     </div>
                     <div class="row">
-                        <label class="col-sm-2">Start day:</label>
-                        <span th:text="*{startDay}" class="col-sm-10"/>
-                    </div>
-                    <div class="row">
-                        <label class="col-sm-2">End day:</label>
-                        <span th:text="*{endDay}" class="col-sm-10"/>
+                        <label class="col-sm-2">Description:</label>
+                        <span th:text="*{description}" class="col-sm-10"/>
                     </div>
                 </div>
                 <div class="box-footer">
-                    <button type="submit" class="btn btn-primary">Delete course</button>
+                    <button type="submit" class="btn btn-primary">Delete product</button>
                 </div>
             </form>
         </div>

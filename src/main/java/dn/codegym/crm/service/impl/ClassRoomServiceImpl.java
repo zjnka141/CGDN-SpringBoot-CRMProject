@@ -3,10 +3,9 @@ package dn.codegym.crm.service.impl;
 import dn.codegym.crm.constants.AppConsts;
 import dn.codegym.crm.dto.ClassRoomDTO;
 import dn.codegym.crm.entity.ClassRoom;
-import dn.codegym.crm.entity.Course;
-import dn.codegym.crm.entity.Student;
+import dn.codegym.crm.entity.Product;
 import dn.codegym.crm.repository.ClassRoomRepository;
-import dn.codegym.crm.repository.CourseRepository;
+import dn.codegym.crm.repository.ProductRepository;
 import dn.codegym.crm.repository.StudentRepository;
 import dn.codegym.crm.service.ClassRoomService;
 import dn.codegym.crm.service.StudentService;
@@ -31,7 +30,7 @@ public class ClassRoomServiceImpl implements ClassRoomService {
     private StudentService studentService;
 
     @Autowired
-    private CourseRepository courseRepository;
+    private ProductRepository productRepository;
     @Autowired
     private StudentRepository studentRepository;
 
@@ -126,7 +125,7 @@ public class ClassRoomServiceImpl implements ClassRoomService {
     }
 
     @Override
-    public Page<ClassRoom> findAllByDeletedIsFalseAndIdCourse(Course course, Pageable pageable) {
+    public Page<ClassRoom> findAllByDeletedIsFalseAndIdCourse(Product course, Pageable pageable) {
         return classRoomRepository.findAllByDeletedIsFalseAndCourse(course, pageable);
     }
 }

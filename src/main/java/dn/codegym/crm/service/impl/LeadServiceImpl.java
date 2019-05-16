@@ -1,10 +1,8 @@
 package dn.codegym.crm.service.impl;
 
 import dn.codegym.crm.constants.AppConsts;
-import dn.codegym.crm.dto.CourseDTO;
 import dn.codegym.crm.dto.LeadDTO;
 import dn.codegym.crm.entity.Campaign;
-import dn.codegym.crm.entity.Course;
 import dn.codegym.crm.entity.Lead;
 import dn.codegym.crm.repository.CampaignRepository;
 import dn.codegym.crm.repository.LeadRepository;
@@ -18,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 @Service("leadService")
 public class LeadServiceImpl implements LeadService {

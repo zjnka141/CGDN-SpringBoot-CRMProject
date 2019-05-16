@@ -1,12 +1,11 @@
 package dn.codegym.crm.controller;
 
 import dn.codegym.crm.dto.ClassRoomDTO;
-import dn.codegym.crm.dto.StudentDTO;
 import dn.codegym.crm.entity.ClassRoom;
-import dn.codegym.crm.entity.Course;
+import dn.codegym.crm.entity.Product;
 import dn.codegym.crm.entity.Student;
 import dn.codegym.crm.service.ClassRoomService;
-import dn.codegym.crm.service.CourseService;
+import dn.codegym.crm.service.ProductService;
 import dn.codegym.crm.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,14 +27,14 @@ public class ClassRoomController {
     private ClassRoomService classRoomService;
 
     @Autowired
-    private CourseService courseService;
+    private ProductService productService;
 
     @Autowired
     private StudentService studentService;
 
     @ModelAttribute("course")
-    public Page<Course> courses(Pageable pageable) {
-        return courseService.findAllByDeletedIsFalse(pageable);
+    public Page<Product> courses(Pageable pageable) {
+        return productService.findAllByDeletedIsFalse(pageable);
     }
 
     @GetMapping("/create")
