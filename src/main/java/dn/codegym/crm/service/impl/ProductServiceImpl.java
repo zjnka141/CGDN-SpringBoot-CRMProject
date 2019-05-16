@@ -1,6 +1,5 @@
 package dn.codegym.crm.service.impl;
 
-import dn.codegym.crm.constants.AppConsts;
 import dn.codegym.crm.dto.ProductDTO;
 import dn.codegym.crm.entity.Product;
 import dn.codegym.crm.repository.ProductRepository;
@@ -11,9 +10,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -59,6 +55,11 @@ public class ProductServiceImpl implements ProductService {
         Product product = productRepository.findById(id).orElse(null);
         product.setDeleted(true);
         productRepository.save(product);
+    }
+
+    @Override
+    public Iterable<Product> findAllByDeletedIsFalse() {
+        return productRepository.findAllByDeletedIsFalse();
     }
 
     @Override

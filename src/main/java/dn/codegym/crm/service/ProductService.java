@@ -12,4 +12,5 @@ public interface ProductService {
     void update(ProductDTO productDTO);
     ProductDTO findById(String id);
     void delete(String id);
+    Iterable<Product> findAllByDeletedIsFalse();
 }
