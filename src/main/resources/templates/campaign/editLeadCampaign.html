@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{fragments/main_layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Lead of Campaign</title>
+</head>
+<body>
+<div layout:fragment="content" class="container">
+    <div class="col-md-8">
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <h3 class="box-title">Edit Lead of Campaign</h3>
+            </div>
+            <form class="form-horizontal" th:action="@{/campaigns/viewLeads/__${lead.campaign.id}__/edit}" method="post" th:object="${lead}">
+                <input type="hidden" th:field="*{id}">
+                <div class="box-body">
+                    <div class="form-group">
+                        <label for="inputName" class="col-sm-2 control-label">Name</label>
+                        <div class="col-sm-10">
+                            <input type="text" th:field="*{name}" class="form-control" id="inputName"
+                                   placeholder="Name">
+                            <span th:if="${#fields.hasErrors('name')}"><i class="fa fa-times-circle-o"
+                                                                          th:errors="*{name}"></i></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Gender:</label>
+                        <select th:field="*{gender}">
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Product:</label>
+                        <select th:field="*{product}">
+                            <option value="BootcampJavaFulltime">Bootcamp Java Fulltime</option>
+                            <option value="BootcampPHPFulltime">Bootcamp PHP Fulltime</option>
+                            <option value="BootcampJavaPartime">Bootcamp Java Partime</option>
+                            <option value="BootcampPHPPartime">Bootcamp PHP Partime</option>
+                            <option value="AcceleratorJava">Accelerator Java</option>
+                            <option value="AcceleratorPHP">Accelerator PHP</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputEmail" class="col-sm-2 control-label">Email: </label>
+                        <div class="col-sm-10">
+                            <input type="text" th:field="*{email}" class="form-control" id="inputEmail"
+                                   placeholder="Email">
+                            <span th:if="${#fields.hasErrors('email')}"><i class="fa fa-times-circle-o"
+                                                                           th:errors="*{email}"></i></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPhone" class="col-sm-2 control-label">Phone: </label>
+                        <div class="col-sm-10">
+                            <input type="text" th:field="*{phoneNumber}" class="form-control" id="inputPhone"
+                                   placeholder="Phone Number">
+                            <span th:if="${#fields.hasErrors('phoneNumber')}"><i class="fa fa-times-circle-o"
+                                                                                 th:errors="*{phoneNumber}"></i></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputJob" class="col-sm-2 control-label">Job: </label>
+                        <div class="col-sm-10">
+                            <input type="text" th:field="*{job}" class="form-control" id="inputJob"
+                                   placeholder="Job">
+                            <span th:if="${#fields.hasErrors('job')}"><i class="fa fa-times-circle-o"
+                                                                         th:errors="*{job}"></i></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputSource" class="col-sm-2 control-label">Source</label>
+                        <div class="col-sm-10">
+                            <input type="text" th:field="*{source}" class="form-control" id="inputSource"
+                                   placeholder="Source">
+                            <span th:if="${#fields.hasErrors('source')}"><i class="fa fa-times-circle-o"
+                                                                            th:errors="*{source}"></i></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputAdmission" class="col-sm-2 control-label">Admission Date: </label>
+                        <div class="col-sm-10">
+                            <input type="date" th:field="*{admissionDate}" class="form-control" id="inputAdmission">
+                            <span th:if="${#fields.hasErrors('admissionDate')}"><i class="fa fa-times-circle-o"
+                                                                                   th:errors="*{admissionDate}"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-info pull-right">Update lead</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

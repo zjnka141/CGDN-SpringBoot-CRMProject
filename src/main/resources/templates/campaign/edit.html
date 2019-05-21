@@ -8,41 +8,58 @@
 </head>
 <body>
 <div layout:fragment="content" class="container">
-    <div class="w3-card-4">
-        <div class="w3-container w3-green">
-            <h1>Edit Course</h1>
+    <div class="col-md-8">
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <h3 class="box-title">Edit Campaign</h3>
+            </div>
+            <form class="form-horizontal" action="/campaigns/edit" method="post" th:object="${campaign}">
+                <input type="hidden" th:field="*{id}">
+                <div class="form-group">
+                    <label for="inputName" class="col-sm-2 control-label">Name:</label>
+                    <div class="col-sm-10">
+                        <input class="form-control" id="inputName" placeholder="Name" type="text" th:field="*{name}">
+                        <span class="w3-text-red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="inputDescription">Description:</label>
+                    <div class="col-sm-10">
+                    <textarea class="form-control" id="inputDescription" placeholder="Description"
+                              th:field="*{description}"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="inputPhone">Phone Number</label>
+                    <div class="col-sm-10">
+                        <input class="form-control " id="inputPhone" placeholder="Phone Number" type="text"
+                               th:field="*{phoneNumber}">
+                        <span class="w3-text-red" th:if="${#fields.hasErrors('phoneNumber')}"
+                              th:errors="*{phoneNumber}"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="inputStartDay">Start day:</label>
+                    <div class="col-sm-10">
+                        <input class="form-control" id="inputStartDay" type="date" th:field="*{startDay}">
+                        <span class="w3-text-red" th:if="${#fields.hasErrors('startDay')}"
+                              th:errors="*{startDay}"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="inputEndDay">End day:</label>
+                    <div class="col-sm-10">
+                        <input class="form-control" id="inputEndDay" type="date" th:field="*{endDay}">
+                        <span class="w3-text-red" th:if="${#fields.hasErrors('endDay')}" th:errors="*{endDay}"></span>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <button class="btn btn-info pull-right" type="submit" title="Update">Update campaign</button>
+                </div>
+            </form>
         </div>
-        <form class="w3-container" action="/campaigns/edit" method="post" th:object="${campaign}">
-            <input type="hidden" th:field="*{id}">
-            <p>
-                <label class="w3-text-green">Name:</label>
-                <input class="w3-input w3-border w3-sand" type="text" th:field="*{name}">
-                <span class="w3-text-red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
-            </p>
-            <p>
-                <label class="w3-text-green">Description:</label>
-                <textarea class="w3-input w3-border w3-sand" rows="4" cols="50" th:field="*{description}"></textarea>
-            </p>
-            <p>
-                <label class="w3-text-green">Phone Number</label>
-                <input class="w3-input w3-border w3-sand" type="text" th:field="*{phoneNumber}">
-                <span class="w3-text-red" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></span>
-            </p>
-            <p>
-                <label class="w3-text-green">Start day:</label>
-                <input class="w3-input w3-border w3-sand" type="date" th:field="*{startDay}">
-                <span class="w3-text-red" th:if="${#fields.hasErrors('startDay')}" th:errors="*{startDay}"></span>
-            </p>
-            <p>
-                <label class="w3-text-green">End day:</label>
-                <input class="w3-input w3-border w3-sand" type="date" th:field="*{endDay}">
-                <span class="w3-text-red" th:if="${#fields.hasErrors('endDay')}" th:errors="*{endDay}"></span>
-            </p>
-            <p>
-                <input class="w3-btn w3-green" type="submit" title="Update" value="Update campaign">
-            </p>
-        </form>
     </div>
 </div>
+</body>
 </body>
 </html>

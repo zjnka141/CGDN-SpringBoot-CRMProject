@@ -8,138 +8,150 @@
     <title>List Of Campaigns</title>
 </head>
 <body>
-<div layout:fragment="content" class="container">
-    <a href="/campaigns/create">Create new campaign</a></td>
-    <form action="#" th:action="@{/campaigns/searchName}" method="get">
-        <table>
-            <tr>
-                <td>
-                    <input type="text" name="name" class="form-control" placeholder="Search name">
-                </td>
-                <td>
-                    <button class="btn btn-secondary" type="submit" title="Search"><i class="fa fa-search"></i>
-                    </button>
-                </td>
-            </tr>
-        </table>
-    </form>
-    <hr>
-    <h1>Campaigns</h1>
-    <p>
-        <th:block th:if="${message}">
-    <p th:text="${message}"></p>
-    </th:block>
-    </p>
-    <th:block th:if="${campaigns.getTotalElements() > 0}">
-        <table class="table">
-            <tr>
-                <th>#</th>
-                <th>Name</th>
-                <th>Start Day</th>
-                <th>End Day</th>
-                <th></th>
-                <th></th>
-                <th></th>
-            </tr>
-            <th:block th:each="campaign,iterStat : ${campaigns}">
-                <tr>
-                    <td th:text="${iterStat.count}"></td>
-                    <td>
-                        <a href="#myModal" data-toggle="modal" th:text="${campaign.name}" title="View Campaign"></a>
+<div layout:fragment="content">
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="page-header">
+                <a href="/campaigns/create">Create new campaign</a></td>
+                <form action="#" th:action="@{/campaigns/searchName}" method="get">
+                    <table>
+                        <tr>
+                            <td>
+                                <input type="text" name="name"
+                                       class="form-control form-control-lg form-control-borderless"
+                                       placeholder="Search name">
+                            </td>
+                            <td>
+                                <button class="btn btn-info btn-secondary" type="submit" title="Search"><i
+                                        class="fa fa-search"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+                <p>
+                    <th:block th:if="${message}">
+                <p th:text="${message}"></p>
+                </th:block>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="card">
+            <h5 class="card-header">Campaigns</h5>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <th:block th:if="${campaigns.getTotalElements() > 0}">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Name</th>
+                                <th>Start Day</th>
+                                <th>End Day</th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <th:block th:each="campaign,iterStat : ${campaigns}">
+                                <tr>
+                                    <td th:text="${iterStat.count}"></td>
+                                    <td>
+                                        <a href="#myModal" data-toggle="modal" th:text="${campaign.name}"
+                                           class="text-info"
+                                           title="View Campaign"></a>
 
-                        <!-- Modal HTML -->
-                        <div id="myModal" class="modal fade" tabindex="-1">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <div class="w3-container w3-green">
-                                            <h5 class="modal-title">View of Campaign</h5>
-                                            <button type="button" th:size="50px" class="close" data-dismiss="modal">
-                                                &times;
-                                            </button>
+                                        <!-- Modal HTML -->
+                                        <div id="myModal" class="modal fade" tabindex="-1">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header d-flex justify-content-between">
+                                                        <h5 class="modal-title">View of Campaign</h5>
+                                                        <button type="button" th:size="50px" data-dismiss="modal">
+                                                            <i class="fas fa-sign-out-alt"></i>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <table class="table" th:object="${campaign}">
+                                                            <tr>
+                                                                <td>Name:</td>
+                                                                <td th:text="${campaign.name}"></a></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Phone Number:</td>
+                                                                <td th:text="${campaign.phoneNumber}"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Description</td>
+                                                                <td><textarea disabled th:text="${campaign.description}"
+                                                                              rows="5"
+                                                                              cols="50"></textarea>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Start Day:</td>
+                                                                <td th:text="${campaign.startDay}"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>End Day:</td>
+                                                                <td th:text="${campaign.endDay}"></td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="modal-body">
-                                        <table class="table" th:object="${campaign}">
-                                            <tr>
-                                                <td>Name:</td>
-                                                <td th:text="${campaign.name}"></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Phone Number:</td>
-                                                <td th:text="${campaign.phoneNumber}"></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Description</td>
-                                                <td><textarea disabled th:text="${campaign.description}" rows="5"
-                                                              cols="50"></textarea>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Start Day:</td>
-                                                <td th:text="${campaign.startDay}"></td>
-                                            </tr>
-                                            <tr>
-                                                <td>End Day:</td>
-                                                <td th:text="${campaign.endDay}"></td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                    <div class="modal-footer">
-                                    </div>
-                                </div>
+                                    </td>
+                                    <td th:text="${campaign.startDay}"></td>
+                                    <td th:text="${campaign.endDay}"></td>
+                                    <td>
+                                        <a th:href="@{/campaigns/viewLeads/__${campaign.id}__}" class="text-info"
+                                           title="View Lead"><i
+                                                class="fa fa-eye"></i> View</a>
+                                    </td>
+                                    <td>
+                                        <a class="text-info" th:href="@{/campaigns/edit/__${campaign.id}__}"
+                                           title="Edit Campaign"><i
+                                                class="fa fa-edit"></i>Edit</a>
+                                    </td>
+                                    <td>
+                                        <a class="text-info" th:href="@{/campaigns/delete/__${campaign.id}__}"
+                                           onclick="return confirm('Bạn có muốn xoá campaign này hay không')"
+                                           title="Remove Campaign"><i
+                                                class="fa fa-trash"></i> Remove</a>
+                                    </td>
+                                </tr>
+                            </th:block>
+                        </table>
+                        <th:block th:switch="${name}">
+                            <div th:case="null">
+                                <a th:href="@{'/campaigns/list'(page=${campaigns.number - 1})}"
+                                   th:if="${campaigns.hasPrevious()}">Previous</a>
+                                <span th:text="${campaigns.number+1}"></span>/<span
+                                    th:text="${campaigns.totalPages}"></span>
+                                <a th:href="@{'/campaigns/list'(page=${campaigns.number + 1})}"
+                                   th:if="${campaigns.hasNext()}">Next</a>
                             </div>
-                        </div>
-                    </td>
-                    <td th:text="${campaign.startDay}"></td>
-                    <td th:text="${campaign.endDay}"></td>
-                    <td>
-                        <a th:href="@{/campaigns/addLead/__${campaign.id}__}" class="w3-text-blue" title="Add Lead"><i
-                                class="fa fa-plus-circle"></i> Add</a>
-                    </td>
-                    <td>
-                        <a th:href="@{/campaigns/viewLeads/__${campaign.id}__}" class="w3-text-blue" title="View Lead"><i
-                                class="fa fa-eye"></i> View</a>
-                    </td>
-                    <td>
-                        <div class="dropdown" title="Function">
-                            <button type="button" class="btn btn-xs btn-info dropdown-toggle"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Function <i
-                                    class="fa fa-chevron-circle-down"></i>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <a class="dropdown-item" href="#"
-                                   th:href="@{/campaigns/edit/__${campaign.id}__}"><i
-                                        class="fa fa-pencil"></i>Edit</a>
-                                <br>
-                                <a class="dropdown-item" href="#" th:href="@{/campaigns/delete/__${campaign.id}__}"
-                                   onclick="return confirm('Bạn có muốn xoá campaign này hay không')"><i
-                                        class="fa fa-trash"></i> Remove</a>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            </th:block>
-        </table>
-        <th:block th:switch="${name}">
-            <div th:case="null">
-                <a th:href="@{'/campaigns/list'(page=${campaigns.number - 1})}"
-                   th:if="${campaigns.hasPrevious()}">Previous</a>
-                <span th:text="${campaigns.number+1}"></span>/<span th:text="${campaigns.totalPages}"></span>
-                <a th:href="@{'/campaigns/list'(page=${campaigns.number + 1})}"
-                   th:if="${campaigns.hasNext()}">Next</a>
-            </div>
 
-            <div th:case="*">
-                <a th:href="@{'/campaigns/list'(page=${campaigns.number - 1}, name=${name})}"
-                   th:if="${campaigns.hasPrevious()}">Previous</a>
-                <span th:text="${campaigns.number+1}"></span>/<span th:text="${campaigns.totalPages}"></span>
-                <a th:href="@{'/courses/list'(page=${campaigns.number + 1}, name=${name})}"
-                   th:if="${campaigns.hasNext()}">Next</a>
+                            <div th:case="*">
+                                <a th:href="@{'/campaigns/list'(page=${campaigns.number - 1}, name=${name})}"
+                                   th:if="${campaigns.hasPrevious()}">Previous</a>
+                                <span th:text="${campaigns.number+1}"></span>/<span
+                                    th:text="${campaigns.totalPages}"></span>
+                                <a th:href="@{'/courses/list'(page=${campaigns.number + 1}, name=${name})}"
+                                   th:if="${campaigns.hasNext()}">Next</a>
+                            </div>
+                        </th:block>
+                    </th:block>
+                    </form>
+                </div>
             </div>
-        </th:block>
-    </th:block>
-    </form>
+        </div>
+    </div>
 </div>
 </body>
 </html>

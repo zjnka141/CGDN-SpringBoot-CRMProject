@@ -13,7 +13,9 @@ public interface LeadRepository extends JpaRepository<Lead, String> {
 
     Page<Lead> findAllByDeletedIsFalseAndStatusContaining(String status, Pageable pageable);
 
-    Page<Lead> findAllByDeletedIsFalseAndNameContaining(String name, Pageable pageble);
+    Page<Lead> findAllByDeletedIsFalseAndNameContainingAndCampaignNull(String name, Pageable pageable);
+
+    Page<Lead> findAllByDeletedIsFalseAndNameContainingAndCampaignNotNull(String name, Pageable pageable);
 
     Page<Lead> findAllByCampaignAndDeletedIsFalse(Campaign campaign, Pageable pageable);
 

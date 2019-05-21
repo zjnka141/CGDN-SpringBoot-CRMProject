@@ -27,19 +27,26 @@ public class LeadServiceImpl implements LeadService {
 
     @Override
     public Page<Lead> findAllByDeletedIsFalse(Pageable pageable) {
-        pageable= PageRequest.of(pageable.getPageNumber(),10, Sort.by("name").ascending());
+        pageable = PageRequest.of(pageable.getPageNumber(), 10, Sort.by("name").ascending());
+        System.out.printf("");
         return leadRepository.findAllByDeletedIsFalse(pageable);
     }
 
     @Override
-    public Page<Lead> findAllByDeletedIsFalseAndNameContaining(String name, Pageable pageble) {
-        pageble= PageRequest.of(pageble.getPageNumber(),10, Sort.by("name").ascending());
-        return leadRepository.findAllByDeletedIsFalseAndNameContaining(name, pageble);
+    public Page<Lead> findAllByDeletedIsFalseAndNameContainingAndCampaignNull(String name, Pageable pageable) {
+        pageable = PageRequest.of(pageable.getPageNumber(), 10, Sort.by("name").ascending());
+        return leadRepository.findAllByDeletedIsFalseAndNameContainingAndCampaignNull(name, pageable);
+    }
+
+    @Override
+    public Page<Lead> findAllByDeletedIsFalseAndNameContainingAndCampaignNotNull(String name, Pageable pageable) {
+        pageable = PageRequest.of(pageable.getPageNumber(), 10, Sort.by("name").ascending());
+        return leadRepository.findAllByDeletedIsFalseAndNameContainingAndCampaignNotNull(name, pageable);
     }
 
     @Override
     public Page<Lead> findAllByDeletedIsFalseAndStatusContaining(String status, Pageable pageable) {
-        pageable= PageRequest.of(pageable.getPageNumber(),10, Sort.by("name").ascending());
+        pageable = PageRequest.of(pageable.getPageNumber(), 10, Sort.by("name").ascending());
         return leadRepository.findAllByDeletedIsFalseAndStatusContaining(status, pageable);
     }
 
@@ -65,6 +72,15 @@ public class LeadServiceImpl implements LeadService {
     }
 
     @Override
+    public void createLeadOfCampaign(LeadDTO leadDTO, String campaignId) {
+        leadDTO.setCampaign(campaignRepository.findById(campaignId).orElse(null));
+        leadDTO.setStatus("G0");
+        System.out.println(leadDTO.getAdmissionDate());
+        create(leadDTO);
+
+    }
+
+    @Override
     public void update(LeadDTO leadDTO) {
         Lead lead = leadRepository.findById(leadDTO.getId()).orElse(null);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(AppConsts.STRING_TO_DATE_FORMAT);
@@ -82,6 +98,20 @@ public class LeadServiceImpl implements LeadService {
         lead.setProduct(leadDTO.getProduct());
         lead.setCampaign(leadDTO.getCampaign());
         leadRepository.save(lead);
+    }
+
+    @Override
+    public void updateLeadOfCampaign(LeadDTO leadDTO) {
+        LeadDTO leadDTOOfCampaign = findById(leadDTO.getId());
+        leadDTOOfCampaign.setName(leadDTO.getName());
+        leadDTOOfCampaign.setGender(leadDTO.getGender());
+        leadDTOOfCampaign.setProduct(leadDTO.getProduct());
+        leadDTOOfCampaign.setEmail(leadDTO.getEmail());
+        leadDTOOfCampaign.setPhoneNumber(leadDTO.getPhoneNumber());
+        leadDTOOfCampaign.setJob(leadDTO.getJob());
+        leadDTOOfCampaign.setSource(leadDTO.getSource());
+        leadDTOOfCampaign.setAdmissionDate(leadDTOOfCampaign.getAdmissionDate());
+        update(leadDTOOfCampaign);
     }
 
     @Override
@@ -125,10 +155,20 @@ public class LeadServiceImpl implements LeadService {
 
     @Override
     public Page<Lead> findAllByCampaignId(String campaignId, Pageable pageable) {
-        Campaign campaign=campaignRepository.findById(campaignId).orElse(null);
+        Campaign campaign = campaignRepository.findById(campaignId).orElse(null);
         pageable = PageRequest.of(pageable.getPageNumber(), 10, Sort.by("name"));
-        Page<Lead> leads =leadRepository.findAllByCampaignAndDeletedIsFalse(campaign,pageable);
+        Page<Lead> leads = leadRepository.findAllByCampaignAndDeletedIsFalse(campaign, pageable);
         return leads;
+    }
+
+    @Override
+    public void moveLeadCampaignToLeadCenter(String leadId) {
+        Lead lead = leadRepository.findById(leadId).orElse(null);
+        lead.setSource(lead.getCampaign().getName());
+        lead.setCampaign(null);
+        lead.setStatus("G1");
+        lead.setLastUpdateStatusDate(LocalDate.now());
+        leadRepository.save(lead);
     }
 
 }

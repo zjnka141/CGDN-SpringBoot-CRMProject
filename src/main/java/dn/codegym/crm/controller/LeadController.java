@@ -72,13 +72,13 @@ public class LeadController {
         Page<Lead> leads;
         ModelAndView modelAndView = new ModelAndView("lead/list");
         if (name.isPresent()) {
-            leads = leadService.findAllByDeletedIsFalseAndNameContaining(name.get(), pageable);
+            leads = leadService.findAllByDeletedIsFalseAndNameContainingAndCampaignNull(name.get(), pageable);
             modelAndView.addObject("name", name.get());
             if (leads.getTotalElements() == 0) {
                 modelAndView.addObject("message", "Lead name not found!");
             }
         } else {
-            leads = leadService.findAllByDeletedIsFalse(pageable);
+            leads = leadService.findAllByDeletedIsFalseAndCampaignNull(pageable);
         }
         modelAndView.addObject("leads", leads);
         return modelAndView;
@@ -180,6 +180,7 @@ public class LeadController {
             return new ModelAndView("lead/move");
         }
     }
+
     @PostMapping("/move")
     public String moveLeadToStudent(@Valid @ModelAttribute("student") StudentDTO studentDTO, BindingResult bindingResult,
                                     RedirectAttributes redirect, Model model) {

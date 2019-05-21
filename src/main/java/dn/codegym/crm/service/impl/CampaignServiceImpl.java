@@ -39,10 +39,6 @@ public class CampaignServiceImpl implements CampaignService {
         return campaignRepository.findAllByDeletedIsFalse();
     }
 
-    @Override
-    public Campaign findAllByDeletedIsFalseAndNameIs(String name) {
-        return campaignRepository.findAllByDeletedIsFalseAndNameIs(name);
-    }
 
     @Override
     public Page<Campaign> searchName(String name, Pageable pageable) {
@@ -116,13 +112,4 @@ public class CampaignServiceImpl implements CampaignService {
         return null;
     }
 
-    @Override
-    public Campaign findByCampaignId(String id) {
-        Campaign campaign = campaignRepository.findById(id).orElse(null);
-        if(campaign!=null) {
-            return campaign;
-        } else {
-            return null;
-        }
-    }
 }

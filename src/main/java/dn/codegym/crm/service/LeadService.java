@@ -13,11 +13,17 @@ public interface LeadService {
 
     Page<Lead> findAllByDeletedIsFalseAndStatusContaining(String status, Pageable pageable);
 
-    Page<Lead> findAllByDeletedIsFalseAndNameContaining(String name, Pageable pageable);
+    Page<Lead> findAllByDeletedIsFalseAndNameContainingAndCampaignNull(String name, Pageable pageable);
+
+    Page<Lead> findAllByDeletedIsFalseAndNameContainingAndCampaignNotNull(String name, Pageable pageable);
 
     void create(LeadDTO leadDTO);
 
+    void createLeadOfCampaign(LeadDTO leadDTO,String campaignId);
+
     void update(LeadDTO leadDTO);
+
+    void updateLeadOfCampaign(LeadDTO leadDTO);
 
     LeadDTO findById(String id);
 
@@ -26,4 +32,6 @@ public interface LeadService {
     Page<Lead> findAllByDeletedIsFalseAndCampaignNull(Pageable pageable);
 
     Page<Lead> findAllByCampaignId(String campaignId, Pageable pageable);
+
+    void moveLeadCampaignToLeadCenter(String leadId);
 }
