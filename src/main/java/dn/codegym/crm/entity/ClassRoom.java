@@ -11,7 +11,7 @@ public class ClassRoom extends BaseEntity{
     private String id= UUID.randomUUID().toString();
     private String name;
     @ManyToOne
-    @JoinColumn(name = "courses_id")
+    @JoinColumn(name = "product_id")
     private Product course;
     private Boolean deleted;
     private LocalDate startDay;
