@@ -8,4 +8,5 @@ Import the latest_version.sql in src/main/database folder into mysql
 3. Add configuration > (Click) + button > Spring boot > (Choose) Main class
 4. Config datasource(url, username, password) in application.properties 
 5. Run project
+6. Login with username: admin, password: 1
 
