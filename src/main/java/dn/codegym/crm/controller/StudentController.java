@@ -108,6 +108,7 @@ public class StudentController {
     }
     @GetMapping("/{id}/classes/student")
     public ModelAndView showStudentFromClassList(@PathVariable String id, Pageable pageable) {
+        //Test commit
         Page<Student> students = null;//studentService.findAllByDeletedIsFalseAndIdClass(,pageable);
         if (students != null) {
             ModelAndView modelAndView = new ModelAndView("product/studentListView");

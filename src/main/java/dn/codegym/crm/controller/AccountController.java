@@ -31,7 +31,7 @@ public class AccountController {
             dataBinder.setValidator(accountDTOValidator);
         }
     }
-
+    // update account
     @GetMapping("/create")
     public ModelAndView showFormCreate() {
         ModelAndView modelAndView = new ModelAndView("account/create");
