@@ -15,6 +15,7 @@
             </div>
             <form class="form-horizontal" th:action="@{/campaigns/viewLeads/__${lead.campaign.id}__/edit}" method="post" th:object="${lead}">
                 <input type="hidden" th:field="*{id}">
+                <input type="hidden" th:field="*{campaign}">
                 <div class="box-body">
                     <div class="form-group">
                         <label for="inputName" class="col-sm-2 control-label">Name</label>
