@@ -66,7 +66,7 @@ public class StudentController {
         modelAndView.addObject("students", students);
         return modelAndView;
     }
-
+   //handle to view students
     @GetMapping("/{id}/view")
     public ModelAndView viewStudentPage(@PathVariable String id) {
         ModelAndView modelAndView = new ModelAndView("student/view");
