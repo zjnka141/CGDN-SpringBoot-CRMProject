@@ -44,6 +44,7 @@ public class StudentController {
         if(bindingResult.hasFieldErrors()) {
             return  "/student/create";
         }else {
+            //change code
             studentService.save(studentDTO);
             redirect.addFlashAttribute("message", "New student created successfully!");
             return "redirect:/students/list";
