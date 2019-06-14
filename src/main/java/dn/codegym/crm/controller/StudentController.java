@@ -38,7 +38,7 @@ public class StudentController {
         modelAndView.addObject("student",new StudentDTO());
         return modelAndView;
     }
-
+    //Nhut test
     @PostMapping("/create")
     public String saveStudent(@Valid @ModelAttribute("student") StudentDTO studentDTO, BindingResult bindingResult, RedirectAttributes redirect) {
         if(bindingResult.hasFieldErrors()) {
