@@ -26,7 +26,8 @@ public class ProductDTOValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "product.name");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "description", "product.description");
 
-        String regex = "[a-zA-Z\\s]*";
+        //Sửa validate tên có thể chứa số
+        String regex = "[a-zA-Z0-9\\s]*";
         if (!productDTO.getName().matches(regex)) {
             errors.rejectValue("name", "product.name.pattern");
         } else {
