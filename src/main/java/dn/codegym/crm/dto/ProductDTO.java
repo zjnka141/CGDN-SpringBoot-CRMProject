@@ -1,11 +1,16 @@
 package dn.codegym.crm.dto;
 
+import dn.codegym.crm.validator.validatorName.UniqueName;
+
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
 public class ProductDTO implements Serializable {
 
     private String id;
+    @UniqueName
+    @Pattern(regexp = "^[a-zA-Z0-9 ]+")
     private String name;
     private String description;
     private boolean deleted;
