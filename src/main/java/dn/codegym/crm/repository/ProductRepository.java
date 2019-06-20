@@ -9,4 +9,5 @@ public interface ProductRepository extends JpaRepository<Product, String> {
     Page<Product> findAllByDeletedIsFalse(Pageable pageable);
     Page<Product> findAllByDeletedIsFalseAndNameContaining(String name, Pageable pageable);
     Iterable<Product> findAllByDeletedIsFalse();
+    Long countByName(String s);
 }
