@@ -7,7 +7,7 @@ import java.lang.annotation.*;
 @Constraint(validatedBy = CheckEmailValidator.class)
 @Target( { ElementType.METHOD, ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
-
+//annotation
 public @interface CheckEmail {
     String message() default "Please try again because your email  is exist!";
     Class<?>[] groups() default {};
