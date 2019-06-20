@@ -8,6 +8,11 @@
 </head>
 <body>
 <div layout:fragment="content">
+    <div>
+        <th:block th:if="${message}">
+            <p th:text="message"></p>
+        </th:block>
+    </div>
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="page-header">
@@ -33,11 +38,9 @@
                         </tr>
                     </table>
                 </form>
-                <p>
-                    <th:block th:if="${message}">
-                <p th:text="${message}"></p>
-                </th:block>
-                </p>
+
+
+
             </div>
         </div>
     </div>

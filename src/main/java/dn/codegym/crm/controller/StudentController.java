@@ -2,6 +2,7 @@ package dn.codegym.crm.controller;
 
 import dn.codegym.crm.dto.StudentDTO;
 import dn.codegym.crm.entity.ClassRoom;
+import dn.codegym.crm.entity.DateMonth;
 import dn.codegym.crm.entity.Student;
 import dn.codegym.crm.repository.StudentRepository;
 import dn.codegym.crm.service.ClassRoomService;
@@ -23,28 +24,37 @@ import java.util.Optional;
 @Controller
 @RequestMapping("students")
 public class StudentController {
+    DateMonth dateMonth = new DateMonth();
+    @ModelAttribute("dates")
+    public List<Integer> dates() { return dateMonth.getDates();}
+    @ModelAttribute("months")
+    public List<Integer> months(){return dateMonth.getMonths();}
+    @ModelAttribute("years")
+    public List<Integer> years() {
+        return dateMonth.getYears();
+    }
     @Autowired
     private StudentService studentService;
     @Autowired
     private ClassRoomService classRoomService;
-
+  //change code of page create
     @ModelAttribute("classes")
     public List<ClassRoom> classRooms() {
         return classRoomService.findAllByDeletedIsFalse();
     }
     @GetMapping("/create")
     public ModelAndView createStudent() {
-        ModelAndView modelAndView = new ModelAndView("student/create");
+        //change code
+        ModelAndView modelAndView = new ModelAndView("student/createStudents");
         modelAndView.addObject("student",new StudentDTO());
         return modelAndView;
     }
-    //Nhut test
     @PostMapping("/create")
     public String saveStudent(@Valid @ModelAttribute("student") StudentDTO studentDTO, BindingResult bindingResult, RedirectAttributes redirect) {
         if(bindingResult.hasFieldErrors()) {
-            return  "/student/create";
+            return  "/student/createStudents";
         }else {
-            //change code
+
             studentService.save(studentDTO);
             redirect.addFlashAttribute("message", "New student created successfully!");
             return "redirect:/students/list";
@@ -77,14 +87,19 @@ public class StudentController {
     @GetMapping("/{id}/edit")
     public ModelAndView showEditStudentPage(@PathVariable String id) {
         StudentDTO studentDTO = studentService.findById(id);
-        ModelAndView modelAndView = new ModelAndView("student/edit");
+        ModelAndView modelAndView = new ModelAndView("student/editStudent");
         modelAndView.addObject("students",studentDTO);
         return modelAndView;
     }
     @PostMapping("/update")
     public String editStudent(@Valid @ModelAttribute("students") StudentDTO studentDTO,BindingResult bindingResult,RedirectAttributes redirect) {
+        StudentDTO studentDto = studentService.findById(studentDTO.getId());
+        if(studentDto.getEmail().equals(studentDTO.getEmail())){
+            studentService.update(studentDTO);
+            return "redirect:/students/list";
+        }
         if (bindingResult.hasErrors()) {
-            return "/student/edit";
+            return "/student/editStudent";
         } else {
             studentService.update(studentDTO);
             redirect.addFlashAttribute("message", "updated succesfully!!");

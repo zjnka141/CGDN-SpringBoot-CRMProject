@@ -11,7 +11,8 @@ import java.util.List;
 
 public interface StudentRepository extends JpaRepository<Student, String> {
     Page<Student> findAllByDeletedIsFalse(Pageable pageable);
-
+    // change code
+    List<Student> findAllByEmail(String name);
     Page<Student> findAllByDeletedIsFalseAndNameContaining(String name, Pageable pageable);
 
     Page<Student> findAllByDeletedIsFalseAndClassRoom(ClassRoom classRoom, Pageable pageable);
