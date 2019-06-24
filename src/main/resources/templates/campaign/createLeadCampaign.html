@@ -17,7 +17,7 @@
         <p th:text="${message}"></p>
         </th:block>
         </p>
-        <form class="w3-container" th:action="@{/campaigns/__${campaignId}__/createLeadCampaign}" method="post" th:object="${lead}">
+        <form class="w3-container" th:action="@{/campaigns/createLeadCampaign}" method="post" th:object="${lead}">
             <table>
                 <p>
                     <label class="w3-text-green">Name:</label>

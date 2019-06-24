@@ -3,7 +3,7 @@ package dn.codegym.crm.entity;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.UUID;
-
+//products mean partTime java And fullTime java
 @Entity
 @Table(name = "products")
 public class Product extends BaseEntity{

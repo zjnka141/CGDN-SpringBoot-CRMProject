@@ -143,6 +143,7 @@ public class CampaignController {
 
     @PostMapping("/viewLeads/{campaignId}/edit")
     public String updateLead(@Valid @ModelAttribute("lead") LeadDTO leadDTO, BindingResult bindingResult, RedirectAttributes redirect) {
+        System.out.print("abc "+ leadDTO.getId()+"   "+leadDTO.getCampaign().getId());
         if (bindingResult.hasErrors()) {
             return "campaign/editLeadCampaign";
         } else {
