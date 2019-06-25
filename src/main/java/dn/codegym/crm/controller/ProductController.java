@@ -18,7 +18,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 
 @Controller
@@ -78,6 +81,8 @@ public class ProductController {
             products = productService.findAllByDeletedIsFalse(pageable);
         }
         modelAndView.addObject("products", products);
+        List<Integer> range = IntStream.rangeClosed(1,products.getTotalPages()).boxed().collect(Collectors.toList());
+        modelAndView.addObject("totalPage",range );
         return modelAndView;
     }
 

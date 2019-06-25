@@ -3,7 +3,6 @@ package dn.codegym.crm.controller;
 import dn.codegym.crm.dto.StudentDTO;
 import dn.codegym.crm.entity.ClassRoom;
 import dn.codegym.crm.entity.Student;
-import dn.codegym.crm.repository.StudentRepository;
 import dn.codegym.crm.service.ClassRoomService;
 import dn.codegym.crm.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -19,6 +17,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping("students")
@@ -63,6 +63,8 @@ public class StudentController {
             students = studentService.findAllByDeletedIsFalse(pageable);
         }
         modelAndView.addObject("students", students);
+        List<Integer> range = IntStream.rangeClosed(1,students.getTotalPages()).boxed().collect(Collectors.toList());
+        modelAndView.addObject("totalPage",range );
         return modelAndView;
     }
 

@@ -18,7 +18,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping("leads")
@@ -81,6 +84,8 @@ public class LeadController {
             leads = leadService.findAllByDeletedIsFalseAndCampaignNull(pageable);
         }
         modelAndView.addObject("leads", leads);
+        List<Integer> range = IntStream.rangeClosed(1,leads.getTotalPages()).boxed().collect(Collectors.toList());
+        modelAndView.addObject("totalPage",range );
         return modelAndView;
     }
 

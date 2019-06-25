@@ -17,7 +17,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping("classes")
@@ -68,10 +71,12 @@ public class ClassRoomController {
                 modelAndView.addObject("message", "Class is not found!");
             }
         } else {
-            classRooms = classRoomService.findAllByDeletedIsFalse(pageable);
+                classRooms = classRoomService.findAllByDeletedIsFalse(pageable);
         }
         // TODO: END
         modelAndView.addObject("classes", classRooms);
+        List<Integer> range = IntStream.rangeClosed(1,classRooms.getTotalPages()).boxed().collect(Collectors.toList());
+        modelAndView.addObject("totalPage",range );
         return modelAndView;
     }
 

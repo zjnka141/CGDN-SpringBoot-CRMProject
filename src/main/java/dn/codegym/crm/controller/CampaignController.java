@@ -4,7 +4,9 @@ import dn.codegym.crm.dto.CampaignDTO;
 import dn.codegym.crm.dto.LeadDTO;
 import dn.codegym.crm.entity.Campaign;
 import dn.codegym.crm.entity.Lead;
-import dn.codegym.crm.service.*;
+import dn.codegym.crm.service.CampaignService;
+import dn.codegym.crm.service.LeadService;
+import dn.codegym.crm.service.ReadFromExcelFileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,16 +14,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping("campaigns")
@@ -41,6 +42,8 @@ public class CampaignController {
         Page<Campaign> campaigns = campaignService.findAllByDeletedIsFalse(pageable);
         modelAndView.addObject("campaigns", campaigns);
         modelAndView.addObject("campaign", new CampaignDTO());
+        List<Integer> range = IntStream.rangeClosed(1,campaigns.getTotalPages()).boxed().collect(Collectors.toList());
+        modelAndView.addObject("totalPage",range );
         return modelAndView;
     }
 

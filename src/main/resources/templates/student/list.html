@@ -5,67 +5,131 @@
 <head>
     <meta charset="UTF-8">
     <title>List Of Students</title>
+    <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
-<body>
-<div layout:fragment="content" class="container">
-    <a href="/students/create">Create new student</a>
-    <h1>Students</h1>
-    <form>
-        <input name="name" type="text" placeholder="Input student name" th:value="${name}">
-        <input type="submit" value="Search">
-    </form>
-    <p>
-        <th:block th:if="${message}">
-    <p th:text="${message}"></p>
-    </th:block>
-    </p>
-    <th:block th:if="${students.getTotalElements() > 0}">
-        <table class="table">
-            <tr>
-                <th>#</th>
-                <th>Name</th>
-                <th>Birth day</th>
-                <th>Gender</th>
-                <th>Email</th>
-                <th>Phone number</th>
-                <th>Class</th>
-                <th>Status</th>
-                <th>View</th>
-                <th>Edit</th>
-                <th>Delete</th>
-            </tr>
-
-            <th:block th:each="student, iterStat : ${students}">
+<form>
+    <div layout:fragment="content" class="container">
+        <a href="/students/create">Create new student</a>
+        <h1>Students</h1>
+        <form>
+            <table>
                 <tr>
-                    <td th:text="${iterStat.count}"></td>
-                    <td th:text="${student.name}"></td>
-                    <td th:text="${student.birthday}"></td>
-                    <td th:text="${student.gender}"></td>
-                    <td th:text="${student.email}"></td>
-                    <td th:text="${student.phoneNumber}"></td>
-                    <td th:text="${student.classRoom.name}"></td>
-                    <td th:text="${student.studentStatus}"></td>
-                    <td><a th:href="@{/students/{id}/view(id=${student.getId()})}">view</a></td>
-                    <td><a th:href="@{/students/{id}/edit(id=${student.getId()})}">edit</a></td>
-                    <td><a th:href="@{/students/{id}/delete(id=${student.getId()})}">delete</a></td>
+                    <td>
+                        <input name="name" type="text" placeholder="Enter_name_Class" th:value="${name}"
+                               class="form-control form-control-lg form-control-borderless">
+                    </td>
+                    <td>
+                        <input type="submit" value="Search" class="btn btn-info btn-secondary fa fa-search">
+                    </td>
                 </tr>
-            </th:block>
-        </table>
+            </table>
+        </form>
+        <p>
+            <th:block th:if="${message}">
+        <p th:text="${message}"></p>
+        </th:block>
+        </p>
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="card">
+                <h5 class="card-header">Campaigns</h5>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <th:block th:if="${students.getTotalElements() > 0}">
+                            <table class="table">
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Name</th>
+                                    <th>Birth day</th>
+                                    <th>Gender</th>
+                                    <th>Email</th>
+                                    <th>Phone number</th>
+                                    <th>Class</th>
+                                    <th>Status</th>
+                                    <th>View</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                </tr>
+
+                                <th:block th:each="student, iterStat : ${students}">
+                                    <tr>
+                                        <td th:text="${(iterStat.count)+(students.getNumber()*10)}"></td>
+                                        <td th:text="${student.name}"></td>
+                                        <td th:text="${student.birthday}"></td>
+                                        <td th:text="${student.gender}"></td>
+                                        <td th:text="${student.email}"></td>
+                                        <td th:text="${student.phoneNumber}"></td>
+                                        <td th:text="${student.classRoom.name}"></td>
+                                        <td th:text="${student.studentStatus}"></td>
+                                        <td><a th:href="@{/students/{id}/view(id=${student.getId()})}">view</a></td>
+                                        <td><a th:href="@{/students/{id}/edit(id=${student.getId()})}">edit</a></td>
+                                        <td><a th:href="@{/students/{id}/delete(id=${student.getId()})}">delete</a></td>
+                                    </tr>
+                            </table>
+                        </th:block>
+                    </div>
+                </div>
+            </div>
+        </div>
         <th:block th:switch="${name}">
             <div th:case="null">
-                    <a th:href="@{'/students/list'(page=${students.number - 1})}" th:if="${students.hasPrevious()}">Previous</a>
-                    <span th:text="${students.number + 1}"></span>/<span th:text="${students.totalPages}"></span>
-                    <a th:href="@{'/students/list'(page=${students.getNumber() + 1})}" th:if="${students.hasNext()}">Next</a>
+                <nav>
+                    <ul class="pagination pg-blue">
+                        <li class="page-item">
+                            <a class="page-link" aria-label="Previous"
+                               th:href="@{'/students/list'(page=${students.number - 1})}"
+                               th:if="${students.hasPrevious()}">
+                                <span aria-hidden="true">&laquo;Previous</span>
+                                <span class="sr-only"></span>
+                            </a>
+                        </li>
+                        <li class="page-item" th:each="page : ${totalPage}">
+                            <a class="page-link" th:href="@{'/students/list'(page=${page -1})}" th:text="${page} "></a>
+                        </li>
+
+                        <li class="page-item">
+                            <a class="page-link" aria-label="Next"
+                               th:href="@{'/students/list'(page=${students.getNumber() + 1})}"
+                               th:if="${students.hasNext()}">
+                                <span aria-hidden="true">Next &raquo; </span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
 
             <div th:case="*">
-                    <a th:href="@{'/students/list'(page=${students.number - 1})}" th:if="${students.hasPrevious()}">Previous</a>
-                    <span th:text="${students.number + 1}"></span>/<span th:text="${students.totalPages}"></span>
-                    <a th:href="@{'/students/list'(page=${students.getNumber() + 1})}" th:if="${students.hasNext()}">Next</a>
+                <nav>
+                    <ul class="pagination pg-blue">
+                        <li class="page-item">
+                            <a class="page-link" aria-label="Previous"
+                               th:href="@{'/students/list'(page=${students.number - 1},name = ${name})}"
+                               th:if="${students.hasPrevious()}">
+                                <span aria-hidden="true">&laquo; Previous</span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                        </li>
+                        <li class="page-item" th:each="page : ${totalPage}">
+                            <a class="page-link" th:href="@{'/students/list'(page=${page - 1 },name = ${name})}"
+                               th:text="${page}"></a>
+                        </li>
+
+                        <li class="page-item">
+                            <a class="page-link" aria-label="Next"
+                               th:href="@{'/students/list'(page=${students.getNumber() + 1},name = ${name})}"
+                               th:if="${students.hasNext()}">
+                                <span aria-hidden="true"> Next &raquo;</span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </th:block>
-    </th:block>
-</div>
+        </th:block>
+
+    </div>
 </form>
+
 </body>
 </html>
