@@ -11,10 +11,9 @@ import java.util.List;
 
 public interface StudentService {
     Page<Student> findAllByDeletedIsFalseAndClassRoom(String classId, Pageable pageable);
-
     Page<Student> findAllByDeletedIsFalse(Pageable pageable);
     Page<Student> findAllByDeletedIsFalseAndNameContaining(String name,Pageable pageable);
-
+    List<Student> findAllByEmail(String name);
     List<Student> findAllByDeletedIsFalse();
 
     void save(StudentDTO studentDTO);

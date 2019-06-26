@@ -29,9 +29,10 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public void save(StudentDTO studentDTO) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(AppConsts.STRING_TO_DATE_FORMAT);
-        LocalDate birthday = LocalDate.parse(studentDTO.getBirthday(), formatter);
+      //  DateTimeFormatter formatter = DateTimeFormatter.ofPattern(AppConsts.STRING_TO_DATE_FORMAT);
 
+//        LocalDate birthday = LocalDate.parse(studentDTO.getBirthday(), formatter);
+        LocalDate birthday = LocalDate.of(studentDTO.getYear(),studentDTO.getMonth(),studentDTO.getDate());
         Student student = new Student();
         student.setName(studentDTO.getName());
         student.setBirthday(birthday);
@@ -65,6 +66,11 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public List<Student> findAllByEmail(String name) {
+        return studentRepository.findAllByEmail(name);
+    }
+
+    @Override
     public List<Student> findAllByDeletedIsFalse() {
         return studentRepository.findAllByDeletedIsFalse();
     }
@@ -75,13 +81,18 @@ public class StudentServiceImpl implements StudentService {
 
         Student student = studentRepository.findById(id).orElse(null);
         if (student != null) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(AppConsts.STRING_TO_DATE_FORMAT);
-            String birthday = student.getBirthday().format(formatter);
-
+           // DateTimeFormatter formatter = DateTimeFormatter.ofPattern(AppConsts.STRING_TO_DATE_FORMAT);
+            //String birthday = student.getBirthday().format(formatter);
+            int date = student.getBirthday().getDayOfMonth();
+            int month = student.getBirthday().getMonthValue();
+            int year = student.getBirthday().getYear();
             StudentDTO studentDTO = new StudentDTO();
             studentDTO.setId(student.getId());
             studentDTO.setName(student.getName());
-            studentDTO.setBirthday(birthday);
+//            studentDTO.setBirthday(birthday);
+            studentDTO.setDate(date);
+            studentDTO.setMonth(month);
+            studentDTO.setYear(year);
             studentDTO.setGender(student.getGender());
             studentDTO.setClassRoom(student.getClassRoom());
             studentDTO.setDeleted(student.isDeleted());
@@ -95,11 +106,13 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public void update(StudentDTO studentDTO) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(AppConsts.STRING_TO_DATE_FORMAT);
-        LocalDate birthday = LocalDate.parse(studentDTO.getBirthday(), formatter);
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(AppConsts.STRING_TO_DATE_FORMAT);
+//        LocalDate birthday = LocalDate.parse(studentDTO.getBirthday(), formatter);
+        LocalDate birthday = LocalDate.of(studentDTO.getYear(),studentDTO.getMonth(),studentDTO.getDate());
         Student student = studentRepository.findById(studentDTO.getId()).orElse(null);
         student.setName(studentDTO.getName());
         student.setGender(studentDTO.getGender());
+     //   student.setBirthday(birthday);
         student.setBirthday(birthday);
         student.setClassRoom(studentDTO.getClassRoom());
         student.setEmail(studentDTO.getEmail());

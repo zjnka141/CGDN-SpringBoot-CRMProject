@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.UUID;
-
+//account mean account of lead;
 @Entity
 @Table(name = "accounts")
 public class Account extends BaseEntity {

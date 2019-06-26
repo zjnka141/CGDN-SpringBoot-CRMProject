@@ -1,6 +1,7 @@
 package dn.codegym.crm.dto;
 
 import dn.codegym.crm.entity.ClassRoom;
+import dn.codegym.crm.validator.CheckEmail;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Email;
@@ -13,17 +14,22 @@ public class StudentDTO implements Serializable {
     @NotBlank(message = "Student name is not null")
     @Pattern(regexp = "(^$|[A-Za-zÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚÝàáâãèéêìíòóôõùúýĂăĐđĨĩŨũƠơƯưẠ-ỹ ])*$", message = "Student name is not valid")
     private String name;
-    @NotBlank(message = "birth day is not null")
+//    @NotBlank(message = "birth day is not null")
+    /* change property
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private String birthday;
+  */
+    private int date;
+    private int month;
+    private int year;
     private String gender;
     private ClassRoom classRoom;
     private Boolean deleted;
     @NotBlank(message = "Email is not null")
     @Email(message = "Email is not valid")
+    @CheckEmail
     private String email;
     private String studentStatus;
-
     @NotBlank(message = "Phone number is not null")
     @Pattern(regexp = "(^$|[0-9]{10,11})*$", message = "must has 10 or 11 numbers")
     private String phoneNumber;
@@ -60,12 +66,35 @@ public class StudentDTO implements Serializable {
         this.name = name;
     }
 
-    public String getBirthday() {
-        return birthday;
+//    public String getBirthday() {
+//        return birthday;
+//    }
+//
+//    public void setBirthday(String birthday) {
+//        this.birthday = birthday;
+//    }
+public int getDate() {
+    return date;
+}
+
+    public void setDate(int date) {
+        this.date = date;
     }
 
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
     }
 
     public String getGender() {

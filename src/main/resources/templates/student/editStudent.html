@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{fragments/main_layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+          integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/creates.css}"/>
+</head>
+<body>
+<div class="containers" layout:fragment="content">
+    <div class="w3-container">
+        <a href="/students/list">Back to list student</a>
+        <hr>
+    </div>
+    <div class="w3-container w3-green">
+        <h1>Create Student</h1>
+    </div>
+    <form action="#" th:action="@{/students/update}" method="post" th:object="${students}">
+        <input type="hidden" th:field="*{id}">
+
+        <div class="container1">
+            <label>Name </label>
+            <input th:field="*{name}" type="text" placeholder="Your Name ..." />
+            <span style="color:red;" class="w3-text-red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+        </div>
+        <div class="container1">
+            <label> Email  </label>
+            <input th:field="*{email}" type="text" placeholder="Your Email ..." />
+            <span style="color:red;" class="w3-text-red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+        </div>
+        <div class="container1">
+            <label>Phone number </label>
+            <input th:field="*{phoneNumber}" type="text" placeholder="Your phone number ..." />
+            <span style="color:red;" class="w3-text-red" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></span>
+        </div>
+        <div class="container1">
+            <label> Date Of Birth :</label>
+            <div class="container2">
+                <!--<div class="dates">-->
+                <select th:field="*{date}">
+                    <option th:each=" date : ${dates}" th:value="${date}" th:text="${date}"></option>
+                </select>
+                <!--</div>-->
+                <!--<div class="months">-->
+                <select th:field="*{month}">
+                    <option th:each=" month : ${months}" th:value="${month}" th:text="'Thang ' + ${month}"></option>
+                </select>
+                <!--</div>-->
+                <!--<div class="years">-->
+                <select th:field="*{year}">
+                    <option th:each=" year : ${years}" th:value="${year}" th:text="${year}"></option>
+                </select>
+                <!--</div>-->
+            </div>
+
+        </div>
+        <div class="container1">
+            <label>Gender : </label>
+            <div class="gender">
+                <input type="radio"  th:field="*{gender}" value="Male"/>  Male
+                <input type="radio"  th:field="*{gender}" value="Female"/>  Female
+            </div>
+        </div>
+        <div class="container1">
+            <label>Status : </label>
+            <select th:field="*{studentStatus}">
+                <option class="w3-blue-grey" value="studying">Đang học</option>
+                <option class="w3-blue-grey" value="stop">Thôi học</option>
+                <option class="w3-blue-grey" value="reserve">Bảo lưu</option>
+                <option class="w3-blue-grey" value="graduating">Tốt nghiệp</option>
+            </select>
+        </div>
+        <div class="container1">
+            <label>Class :</label>
+            <select th:field="*{classRoom}">
+                <option th:each="class : ${classes}" th:value="${class.id}" th:text="${class.name}"></option>
+            </select>
+        </div>
+
+        <p>By creating an account meaning you agree to our <a href="#">Terms & Privacy</a>.</p>
+
+        <div class="container1">
+            <button type="button" class="cancelbtn"><i class="fas fa-times"></i> Cancel</button>
+            <button type="submit" class="signupbtn"><i class="fas fa-sign-in-alt"></i> Sign Up</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

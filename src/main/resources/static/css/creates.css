@@ -1,0 +1,100 @@
+body {
+    margin: 0px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.containers {
+    border-radius: 10px;
+    padding: 5px;
+    background-color: #f2f2f2;
+}
+.container1 , select{
+    padding: 5px;
+    margin-bottom: 10px;
+
+}
+label {
+    display: block;
+    color: black;
+    font-size: 15px;
+    margin-bottom: 5px;
+    margin-top: 10px;
+}
+
+input[type="text"] {
+    width: 100%;
+    margin: 8px 0px;
+    padding: 20px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background-color: #f3f3f3;
+    display: inline-block;
+}
+
+input[type="text"]:focus {
+    border: 2px solid blue;
+    border-radius: 4px;
+}
+
+input[type="radio"] {
+    display: inline-block;
+    color: red;
+    margin-left: 5px;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px 20px;
+    margin: 10px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.8;
+}
+
+button:hover {
+    opacity:1;
+}
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+    padding: 16px 20px;
+    background-color: #f44336;
+}
+
+    /* Float cancel and signup buttons and add an equal width */
+.cancelbtn, .signupbtn {
+    float: left;
+    width: 50%;
+}
+
+
+@media screen and (max-width: 800px) {
+    .cancelbtn, .signupbtn {
+        width: 100%;
+    }
+}
+p{
+    padding:10px;
+}
+a {
+    padding :10px;
+    color:dodgerblue;
+    text-decoration: none;
+}
+a:hover{
+    text-decoration: underline;
+
+}
+
+
+input[type="radio"] p {
+    margin-left: 2px;
+}
+
+
+

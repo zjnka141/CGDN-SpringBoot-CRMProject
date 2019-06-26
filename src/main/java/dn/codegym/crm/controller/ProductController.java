@@ -6,12 +6,12 @@ import dn.codegym.crm.entity.Product;
 import dn.codegym.crm.repository.ProductRepository;
 import dn.codegym.crm.service.ClassRoomService;
 import dn.codegym.crm.service.ProductService;
-import dn.codegym.crm.validator.ProductDTOValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -32,18 +32,6 @@ public class ProductController {
     private ProductRepository productRepository;
 
     @Autowired
-    private ProductDTOValidator productDTOValidator;
-
-    @InitBinder
-    protected void initBinder(WebDataBinder dataBinder) {
-        Object target = dataBinder.getTarget();
-        if (target == null) {
-            return;
-        }
-        if (target.getClass() == ProductDTO.class) {
-            dataBinder.setValidator(productDTOValidator);
-        }
-    }
 
     @GetMapping("/create")
     public ModelAndView showCreateForm() {
@@ -53,7 +41,7 @@ public class ProductController {
     }
 
     @PostMapping("/create")
-    public String saveProduct(@Valid @ModelAttribute("product") ProductDTO productDTO,
+    public String saveProduct(@Validated @ModelAttribute("product") ProductDTO productDTO,
                              BindingResult result,
                              RedirectAttributes redirect) {
         if (result.hasErrors()) {
