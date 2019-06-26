@@ -31,8 +31,6 @@ public class ProductController {
     @Autowired
     private ProductRepository productRepository;
 
-    @Autowired
-
     @GetMapping("/create")
     public ModelAndView showCreateForm() {
         ModelAndView modelAndView = new ModelAndView("product/create");
