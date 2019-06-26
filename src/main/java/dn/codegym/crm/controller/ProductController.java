@@ -22,7 +22,7 @@ import java.util.Optional;
 
 
 @Controller
-@RequestMapping("products")
+@RequestMapping("/products")
 public class ProductController {
     @Autowired
     private ProductService productService;
