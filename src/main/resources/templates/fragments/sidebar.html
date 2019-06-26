@@ -1,0 +1,26 @@
+<div th:fragment="sidebar"
+        xmlns:th="http://www.w3.org/1999/xhtml">
+<nav id="sidebar">
+    <div class="sidebar-header" align="middle">
+        <img th:src="@{/assets/images/codegym-logo.png}" alt="img" style="width:80px;height:80px">
+        <p align="middle">CODEGYM VIỆT NAM</p>
+    </div>
+    <ul>
+        <li>
+            <a href="/products/list" th:text="#{lang.products}">Sản phẩm</a>
+        </li>
+        <li>
+            <a href="/classes/list" th:text="#{lang.classes}">Lớp</a>
+        </li>
+        <li>
+            <a href="/students/list" th:text="#{lang.students}">Học sinh</a>
+        </li>
+        <li>
+            <a href="/leads/list" th:text="#{lang.leads}">Khách hàng tìm năng</a>
+        </li>
+        <li>
+            <a href="/campaigns/list" th:text="#{lang.campaigns}">Chiến lược quảng bá</a>
+        </li>
+    </ul>
+</nav>
+</div>

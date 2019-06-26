@@ -8,21 +8,24 @@
 </head>
 <body>
 <div layout:fragment="content">
-        <h3 class="box-title">Create Product</h3>
-        <form class="form-horizontal" action="/products/create" method="post" th:object="${product}">
-            <label for="inputName" class="col-sm-2 control-label">Name</label>
+    <div align="middle">
+        <h3 class="box-title">Thêm mới sản phẩm</h3>
+    </div>
 
-            <input type="text" th:field="*{name}" class="form-control" id="inputName" placeholder="Name">
+    <div class="container col-8" align="left">
+        <form action="/products/create" method="post" th:object="${product}">
+            <div class="form-group">
+                <label for="productName">Tên sản phẩm</label>
+                <input type="text" th:field="*{name}" class="form-control" id="productName" aria-describedby="name"
+                       placeholder="Điền tên sản phẩm ...">
+            </div>
             <span th:if="${#fields.hasErrors('name')}"><i class="fa fa-times-circle-o" th:errors="*{name}"></i></span>
-
-            <label for="inputDescription" class="col-sm-2 control-label">Description</label>
-
-            <textarea th:field="*{description}" class="form-control" id="inputDescription" placeholder="Description"/>
+            <div class="form-group">
+                <label for="description">Mô tả sản phẩm</label>
+                <textarea rows="6" th:field="*{description}" class="form-control" id="description" placeholder="Mô tả sản phẩm ..."/>
+            </div>
             <span th:if="${#fields.hasErrors('description')}"><i class="fa fa-times-circle-o" th:errors="*{description}"></i></span>
-
-
-            <button type="submit" class="btn btn-info pull-right">Create product</button>
-
+            <button type="submit" class="btn btn-info">Thêm mới</button>
         </form>
     </div>
 </div>

@@ -1,33 +1,81 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.w3.org/1999/xhtml"
-      layout:decorate="~{fragments/main_layout}" xmlns:th="http://www.w3.org/1999/xhtml">
-    <head>
+      layout:decorate="~{fragments/main_layout}">
+<head>
     <meta charset="UTF-8">
     <title>Home Page</title>
 </head>
 <body>
 <div layout:fragment="content">
-    <h1 th:text="#{lang.tittle}"></h1>
-
-    <h2><a th:text="#{lang.functions}"></a></h2>
-
-    <ul>
-        <h3>
-            <li><a href="/products/list" th:text="#{lang.products}">List Of Products</a></li>
-        </h3>
-        <h3>
-            <li><a href="/classes/list" th:text="#{lang.classes}">List Of Classes</a></li>
-        </h3>
-        <h3>
-            <li><a href="/students/list" th:text="#{lang.students}">List Of Students</a></li>
-        </h3>
-        <h3>
-            <li><a href="/leads/list" th:text="#{lang.leads}">List Of Leads</a></li>
-        </h3>
-        <h3>
-            <li><a href="/campaigns/list" th:text="#{lang.campaigns}">List Of Campaigns</a></li>
-        </h3>
-    </ul>
+    <div class="container homeContent">
+        <table class="table table-bordered">
+            <!--<h1 th:text="#{lang.tittle}"></h1>-->
+            <!--<h2><a th:text="#{lang.functions}"></a></h2>-->
+            <tbody>
+            <tr>
+                <td style="width: 209px;text-align: center" rowspan="2"><strong>Lớp</strong></td>
+                <td style="width: 470px;text-align: center" rowspan="2"><strong>Lịch học</strong></td>
+                <td style="width: 399px;text-align: center"><strong>Lịch khai giảng</strong></td>
+            </tr>
+            <tr>
+                <td style="width: 399px; text-align: center">Quý 2</td>
+            </tr>
+            <tr>
+                <td style="width: 209px">CGC8 JAVA</td>
+                <td style="width: 470px">
+                    <ul>
+                        <li>4 tháng</li>
+                        <li>8 tiếng/ ngày, 5 buổi/tuần</li>
+                        <li>Từ 8h00 &#8211; 17h30</li>
+                        <li>Thứ 2 đến thứ 6</li>
+                    </ul>
+                </td>
+                <td style="width: 399px">24/06/2019</td>
+            </tr>
+            <tr></tr>
+            <tr>
+                <td style="width: 209px">CGC8 PHP</td>
+                <td style="width: 470px">
+                    <ul>
+                        <li>4 tháng</li>
+                        <li>8 tiếng/ ngày, 5 buổi/tuần</li>
+                        <li>Từ 8h00 &#8211; 17h30</li>
+                        <li>Thứ 2 đến thứ 6</li>
+                    </ul>
+                </td>
+                <td style="width: 399px">24/06/2019</td>
+            </tr>
+            <tr></tr>
+            <tr>
+                <td style="width: 209px">CGC4 JAVA</td>
+                <td style="width: 470px">
+                    <ul>
+                        <li>7 tháng</li>
+                        <li>4 tiếng/ngày, 5 buổi/tuần</li>
+                        <li>Từ 8h00 &#8211; 12h00</li>
+                        <li>Thứ 2 đến thứ 6</li>
+                    </ul>
+                </td>
+                <td style="width: 399px">24/06/2019</td>
+            </tr>
+            <tr></tr>
+            <tr>
+                <td style="width: 209px">CGC4 PHP</td>
+                <td style="width: 470px">
+                    <ul>
+                        <li>7 tháng</li>
+                        <li>4 tiếng/ngày, 5 buổi/tuần</li>
+                        <li>Từ 8h00 &#8211; 12h00</li>
+                        <li>Thứ 2 đến thứ 6</li>
+                    </ul>
+                </td>
+                <td style="width: 399px">24/06/2019</td>
+            </tr>
+            <tr></tr>
+            <tr></tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 </body>
 </html>
