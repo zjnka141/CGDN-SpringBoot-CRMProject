@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{fragments/main_layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Information</title>
+    <script>
+        // Accordion
+        function myFunction(id) {
+            var x = document.getElementById(id);
+            if (x.className.indexOf("w3-show") == -1) {
+                x.className += " w3-show";
+                x.previousElementSibling.className += " w3-theme-d1";
+            } else {
+                x.className = x.className.replace("w3-show", "");
+                x.previousElementSibling.className =
+                    x.previousElementSibling.className.replace(" w3-theme-d1", "");
+            }
+        }
+
+        // Used to toggle the menu on smaller screens when clicking on the menu button
+        function openNav() {
+            var x = document.getElementById("navDemo");
+            if (x.className.indexOf("w3-show") == -1) {
+                x.className += " w3-show";
+            } else {
+                x.className = x.className.replace(" w3-show", "");
+            }
+        }
+    </script>
+</head>
+<body >
+<div class="w3-theme-l5" layout:fragment="content">
+<!-- Navbar -->
+<!-- <div class="w3-top">
+ <div class="w3-bar w3-theme-phi w3-left-align w3-large">
+  <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-while w3-large w3-theme-d2"
+  href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
+  <a href="#" class="w3-bar-item w3-button w3-padding-large w3-theme-phi">
+    <img src="../CRM/img/logo.jpg" alt="logo" style="height: 20px;width: 20px">
+    <span class="w3-text-yellow w3-lobster">  Codegym Home</span>
+  </a>
+</div>
+</div> -->
+
+<!-- Page Container -->
+<div class="w3-container w3-content" style="max-width:1400px; padding-bottom: 120px">
+    <!-- The Grid -->
+    <div class="w3-row">
+        <!-- Left Column -->
+        <div class="w3-col m5">
+            <!-- Profile -->
+            <div class="w3-card w3-round w3-white">
+                <div class="w3-container">
+                    <h4 class="w3-center">Thông tin học viên</h4>
+                    <p class="w3-center"><img src="/assets/images/user2.jpg" class="w3-circle" style="height:100px;width:100px" alt="Avatar"></p>
+                    <hr>
+                    <p><i class="fa fa-id-card fa-fw w3-margin-right w3-text-theme"></i>Số ID: <span th:text="${student.getId()}"></span></p>
+                    <p><i class="fa fa-id-badge fa-fw w3-margin-right w3-text-theme"></i>Họ và tên: <span th:text="${student.getName()}"></span></p>
+                    <!-- <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i>Quê quán:</p> -->
+                    <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i>Ngày sinh: <span th:text="${student.getYear()}"></span></p>
+                    <p><i class="fa fa-venus-mars fa-fw w3-margin-right w3-text-theme"></i>Giới tính: <span th:text="${student.getGender()}"></span></p>
+                    <p><i class="fa fa-envelope fa-fw w3-margin-right w3-text-theme"></i>Hộp thư: <span th:text="${student.getEmail()}"></span></p>
+                    <p><i class="fa fa-phone fa-fw w3-margin-right w3-text-theme"></i>Số ĐT: <span th:text="${student.getPhoneNumber()}"></span></p>
+                </div>
+            </div>
+            <br>
+
+            <!-- Accordion -->
+            <div class="w3-card w3-round">
+                <div class="w3-white">
+                    <button onclick="myFunction('Demo1')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-outdent fa-fw w3-margin-right"></i> Thông tin khởi tạo</button>
+                    <div id="Demo1" class="w3-hide w3-container">
+                        <p>Ngày khởi tạo: </p>
+                        <p>Người khởi tạo:</p>
+                    </div>
+                    <button onclick="myFunction('Demo2')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-outdent fa-fw w3-margin-right"></i> Thông tin chỉnh sửa</button>
+                    <div id="Demo2" class="w3-hide w3-container">
+                        <p>Ngày chỉnh sửa: </p>
+                        <p>Người chỉnh sửa:</p>
+                    </div>
+                </div>
+            </div>
+            <br>
+
+            <!-- Interests -->
+            <div class="w3-card w3-round w3-white w3-hide-small">
+                <div class="w3-container">
+                    <p>Sở thích</p>
+                    <p>
+                        <span class="w3-tag w3-small w3-theme-d5">Đọc báo</span>
+                        <span class="w3-tag w3-small w3-theme-d4">Đá bóng</span>
+                        <span class="w3-tag w3-small w3-theme-d3">Chơi game</span>
+                        <span class="w3-tag w3-small w3-theme-d2">Đọc sách</span>
+                    </p>
+                </div>
+            </div>
+            <br>
+
+            <!-- Alert Box -->
+            <div class="w3-container w3-display-container w3-round w3-theme-l4 w3-border w3-theme-border w3-margin-bottom w3-hide-small">
+        <span onclick="this.parentElement.style.display='none'" class="w3-button w3-theme-l3 w3-display-topright">
+          <i class="fa fa-times"></i>
+        </span>
+                <p><strong>Chú ý</strong></p>
+                <p>Mọi thông tin chỉnh sửa cần cẩn thận để tránh sai sót</p>
+            </div>
+            <!-- End Left Column -->
+        </div>
+
+        <!-- Middle Column -->
+        <div class="w3-col m7">
+
+            <div class="w3-row-padding">
+                <div class="w3-col m12">
+                    <div class="w3-card w3-round w3-white">
+                        <div class="w3-container w3-padding">
+                            <h3 class="w3-opacity" align="middle">KHÓA HỌC THAM GIA</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
+                <img src="/assets/images/java-core.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
+                <span class="w3-right w3-opacity">05/02/2019</span>
+                <h4>Java Core</h4><br>
+                <hr class="w3-clear">
+                <p>Tổng quan Java Core</p>
+                <div class="w3-row-padding" style="margin:0 -16px">
+                    <div class="w3-half">
+                        <p>Đã hoàn thành: 05/05/2019</p>
+                    </div>
+                    <div class="w3-half">
+                        <p>Điểm: 79/100</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
+                <img src="/assets/images/spring.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
+                <span class="w3-right w3-opacity">06/05/2019</span>
+                <h4>Java Spring</h4><br>
+                <hr class="w3-clear">
+                <p>Tổng quan Java Spring, MVC, Boot</p>
+                <div class="w3-row-padding" style="margin:0 -16px">
+                    <div class="w3-half">
+                        <p>Đã hoàn thành: 14/06/2019</p>
+                    </div>
+                    <div class="w3-half">
+                        <p>Điểm: 100/100</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
+                <img src="/assets/images/angular.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
+                <span class="w3-right w3-opacity">15/06/2019</span>
+                <h4>Angular</h4><br>
+                <hr class="w3-clear">
+                <p>Tổng quan về Angular FW</p>
+                <div class="w3-row-padding" style="margin:0 -16px">
+                    <div class="w3-half">
+                        <p>Chưa hoàn hành</p>
+                    </div>
+                    <div class="w3-half">
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- End Middle Column -->
+        </div>
+        <!-- End Grid -->
+    </div>
+    <!-- End Page Container -->
+</div>
+</div>
+<br>
+
+<!-- Footer -->
+<!-- <footer class="w3-container w3-theme-d3 w3-padding-16">
+  <span style="float: middle;">© 2019 Copyright: Codegym VN</span>
+  <a href="https://www.facebook.com/codegymdanang/" class="btn-floating btn-sm rgba-white-slight mx-1" style="float: right;">
+    <i class="fa fa-facebook-f"> Facebook</i>
+  </a>
+  <a href="https://goo.gl/maps/27krvGXUNEfhL8MMA" class="btn-floating btn-sm rgba-white-slight mx-1" style="float: right;">
+    <i class="fa fa-map-marker">Maps-</i>
+  </a>
+</footer> -->
+
+</body>
+</html>
