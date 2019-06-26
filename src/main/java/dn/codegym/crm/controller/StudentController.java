@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("students")
+@RequestMapping("/students")
 public class StudentController {
     DateMonth dateMonth = new DateMonth();
     @ModelAttribute("dates")
