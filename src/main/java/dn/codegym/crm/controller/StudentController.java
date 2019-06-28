@@ -46,14 +46,14 @@ public class StudentController {
     @GetMapping("/create")
     public ModelAndView createStudent() {
         //change code
-        ModelAndView modelAndView = new ModelAndView("student/createStudents");
+        ModelAndView modelAndView = new ModelAndView("student/create");
         modelAndView.addObject("student",new StudentDTO());
         return modelAndView;
     }
     @PostMapping("/create")
     public String saveStudent(@Valid @ModelAttribute("student") StudentDTO studentDTO, BindingResult bindingResult, RedirectAttributes redirect) {
         if(bindingResult.hasFieldErrors()) {
-            return  "/student/createStudents";
+            return  "/student/create";
         }else {
 
             studentService.save(studentDTO);

@@ -95,6 +95,9 @@ a:hover{
 input[type="radio"] p {
     margin-left: 2px;
 }
+.content-fragment{
+    padding-bottom: 200px;
+}
 
 
 
