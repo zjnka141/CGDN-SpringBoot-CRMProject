@@ -5,6 +5,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Create Student</title>
+    <style>
+        .container{
+            padding-bottom: 130px;
+        }
+    </style>
 </head>
 <body>
 <div layout:fragment="content" class="container">
@@ -24,10 +29,30 @@
                 <input class="w3-input w3-border w3-sand" type="text" th:field="*{name}">
                 <span class="w3-text-red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
             </p>
+            <!--<p>-->
+                <!--<label class="w3-text-green"><b>Birth day</b></label>-->
+                <!--<input class="w3-input w3-border w3-sand" type="date" th:field="*{birthday}">-->
+                <!--<span class="w3-text-red" th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}"></span>-->
+            <!--</p>-->
             <p>
-                <label class="w3-text-green"><b>Birth day</b></label>
-                <input class="w3-input w3-border w3-sand" type="date" th:field="*{birthday}">
-                <span class="w3-text-red" th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}"></span>
+                <label> Date Of Birth :</label>
+            <div class="container2">
+                <!--<div class="dates">-->
+                <select th:field="*{date}">
+                    <option th:each=" date : ${dates}" th:value="${date}" th:text="${date}"></option>
+                </select>
+                <!--</div>-->
+                <!--<div class="months">-->
+                <select th:field="*{month}">
+                    <option th:each=" month : ${months}" th:value="${month}" th:text="'Thang ' + ${month}"></option>
+                </select>
+                <!--</div>-->
+                <!--<div class="years">-->
+                <select th:field="*{year}">
+                    <option th:each=" year : ${years}" th:value="${year}" th:text="${year}"></option>
+                </select>
+                <!--</div>-->
+            </div>
             </p>
             <p>
                 <label class="w3-text-green"><b>Gender</b></label>
