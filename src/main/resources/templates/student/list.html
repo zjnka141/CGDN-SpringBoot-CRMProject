@@ -33,7 +33,9 @@
                 <th:block th:each="student, iterStat : ${students}">
                     <tr>
                         <td th:text="${iterStat.count}"></td>
-                        <td th:text="${student.name}"></td>
+                        <td>
+                            <a th:href="@{/students/list/{id} (id=${student.getId()})}" th:text="${student.name}"></a>
+                        </td>
                         <td th:text="${student.birthday}"></td>
                         <td th:text="${student.gender}"></td>
                         <td th:text="${student.email}"></td>

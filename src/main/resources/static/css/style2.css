@@ -10,6 +10,9 @@ body {
 .homeContent{
     padding-bottom: 120px;
 }
+#content{
+    padding-bottom: 120px;
+}
 
 p {
     font-family: 'Open Sans', sans-serif;
