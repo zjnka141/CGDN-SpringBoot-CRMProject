@@ -2,22 +2,28 @@ package dn.codegym.crm.controller;
 
 import dn.codegym.crm.dto.LeadDTO;
 import dn.codegym.crm.dto.LeadDetailDTO;
+//import dn.codegym.crm.dto.LeadMapper;
 import dn.codegym.crm.dto.StudentDTO;
 import dn.codegym.crm.entity.Campaign;
 import dn.codegym.crm.entity.ClassRoom;
 import dn.codegym.crm.entity.Lead;
 import dn.codegym.crm.service.*;
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -38,6 +44,7 @@ public class LeadController {
     @Autowired
     private LeadDetailService leadDetailService;
 
+//    LeadMapper leadMapper = Mappers.getMapper(LeadMapper.class);
 
     @ModelAttribute("classes")
     public Page<ClassRoom> classRooms(Pageable pageable) {
@@ -55,33 +62,67 @@ public class LeadController {
         modelAndView.addObject("lead", new LeadDTO());
         return modelAndView;
     }
+//
+//    @PostMapping("/create")
+//    public String saveLead(@Valid @ModelAttribute("lead") LeadDTO lead, BindingResult bindingResult, RedirectAttributes redirect) {
+//        if (bindingResult.hasErrors()) {
+//            return "/lead/create";
+//        } else {
+//            leadService.create(lead);
+//            redirect.addFlashAttribute("message", "New lead created successfully!");
+//            return "redirect:/leads/list";
+//        }
+//    }
 
-    @PostMapping("/create")
-    public String saveLead(@Valid @ModelAttribute("lead") LeadDTO lead, BindingResult bindingResult, RedirectAttributes redirect) {
-        if (bindingResult.hasErrors()) {
-            return "/lead/create";
-        } else {
-            leadService.create(lead);
-            redirect.addFlashAttribute("message", "New lead created successfully!");
-            return "redirect:/leads/list";
-        }
-    }
+//    @PostMapping("/create")
+//    @ResponseBody
+//    public ResponseEntity<?> addProduct(@Validated @RequestBody LeadDTO leadDTO,
+//                                        BindingResult bindingResult, Model model){
+//        if(bindingResult.hasErrors()){
+//            return new ResponseEntity<List>(bindingResult.getAllErrors(), HttpStatus.OK);
+//        }
+//        leadService.save(leadMapper.toLead(leadDTO));
+////        return "redirect:/products/manager";
+//        return new ResponseEntity<>("Success",HttpStatus.OK);
+//    }
+
+//    @GetMapping("/list")
+//    public ModelAndView listLeads(@RequestParam("name") Optional<String> name, Pageable pageable) {
+//        Page<Lead> leads;
+//        ModelAndView modelAndView = new ModelAndView("lead/list");
+//        if (name.isPresent()) {
+//            leads = leadService.findAllByDeletedIsFalseAndNameContainingAndCampaignNull(name.get(), pageable);
+//            modelAndView.addObject("name", name.get());
+//            if (leads.getTotalElements() == 0) {
+//                modelAndView.addObject("message", "Lead name not found!");
+//            }
+//        } else {
+//            leads = leadService.findAllByDeletedIsFalseAndCampaignNull(pageable);
+//        }
+//        modelAndView.addObject("leads", leads);
+//        return modelAndView;
+//    }
+
 
     @GetMapping("/list")
-    public ModelAndView listLeads(@RequestParam("name") Optional<String> name, Pageable pageable) {
-        Page<Lead> leads;
+    public ModelAndView listCampaign(Pageable pageable) {
         ModelAndView modelAndView = new ModelAndView("lead/list");
-        if (name.isPresent()) {
-            leads = leadService.findAllByDeletedIsFalseAndNameContainingAndCampaignNull(name.get(), pageable);
-            modelAndView.addObject("name", name.get());
-            if (leads.getTotalElements() == 0) {
-                modelAndView.addObject("message", "Lead name not found!");
-            }
-        } else {
-            leads = leadService.findAllByDeletedIsFalseAndCampaignNull(pageable);
-        }
+        Page<Lead> leads = leadService.findAllByDeletedIsFalse(pageable);
         modelAndView.addObject("leads", leads);
+        modelAndView.addObject("lead", new LeadDTO());
         return modelAndView;
+    }
+
+    @GetMapping("/searchLead")
+    public ModelAndView findAllByName(@ModelAttribute("name") String name, Pageable pageable) {
+        Page<Lead> leads = leadService.searchLead(name, pageable);
+        ModelAndView modelAndView = new ModelAndView("lead/list", "leads", leads);
+        if (leads.getTotalElements() == 0) {
+            modelAndView.addObject("message", "No results were found");
+            return modelAndView;
+        } else {
+            return modelAndView;
+        }
     }
 
     @GetMapping("/edit/{id}")
