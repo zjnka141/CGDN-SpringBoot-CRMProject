@@ -5,12 +5,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-<!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"-->
-<!--          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
-<!--    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>-->
-<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>-->
-<!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>-->
-<!--    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">-->
 
     <title>List Of Leads</title>
 
@@ -94,7 +88,6 @@
 </head>
 <body>
 <div layout:fragment="content">
-    <div class="container">
     <div class="page-header">
 
         <a href="/leads/status/G1">G1</a>
@@ -110,7 +103,7 @@
             </form>
         </div>
     </div>
-
+    <input th:value="${leadsInJson}" type="hidden" id="leadsInJSON"/>
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="page-header1">
@@ -151,57 +144,12 @@
                                     <td th:text="${iterStat.count}"></td>
 
                                     <td>
-                                        <a href="#myModal" data-toggle="modal" th:text="${lead.name}" style="color: #007bff !important"
+                                        <a href="#"
+                                           th:lead-id="${lead.id}"
+                                           onclick="openModal(event);"
+                                           th:text="${lead.name}" style="color: #007bff !important"
                                            class="text-info"
                                            title="View Lead"> </a>
-
-                                        <!-- Modal HTML -->
-                                        <div id="myModal" class="modal fade" tabindex="-1">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header d-flex justify-content-between">
-                                                        <h5 class="modal-title">View of Lead</h5>
-                                                        <button type="button" th:size="50px" data-dismiss="modal">
-                                                            <i class="fas fa-times-circle"></i>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <table class="table" th:object="${lead}">
-                                                            <tr>
-                                                                <td>Tên:</td>
-                                                                <td th:text="${lead.name}"></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Số điện thoại:</td>
-                                                                <td th:text="${lead.phoneNumber}"></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Giới tính</td>
-                                                                <td th:text="${lead.gender}"></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Email:</td>
-                                                                <td th:text="${lead.email}"></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Công việc</td>
-                                                                <td th:text="${lead.job}"></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Nơi làm việc</td>
-                                                                <td th:text="${lead.source}"></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Sản phẩm</td>
-                                                                <td th:text="${lead.product}"></td>
-                                                            </tr>
-                                                        </table>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </td>
 
                                     <td th:text="${lead.status}"></td>
@@ -211,152 +159,20 @@
                                     <td><a th:href="@{/leads/consulting/__${lead.id}__}">Consulting</a></td>
                                     <td><a th:href="@{/leads/move/__${lead.id}__}">Move</a></td>
 
-<!--                                    <a class="text-info" th:href="@{/leads/edit/__${lead.id}__}"-->
-<!--                                       title="Chỉnh sửa Lead"><i-->
-<!--                                            class="fa fa-edit" style="color: #007bff !important"></i></a>-->
+                                    <!--                                    <a class="text-info" th:href="@{/leads/edit/__${lead.id}__}"-->
+                                    <!--                                       title="Chỉnh sửa Lead"><i-->
+                                    <!--                                            class="fa fa-edit" style="color: #007bff !important"></i></a>-->
                                     <td>
-                                                                            <a class="text-info" th:href="@{/leads/edit/__${lead.id}__}"
-                                                                               title="Chỉnh sửa Lead"><i
-                                                                                    class="fa fa-edit" style="color: #007bff !important"></i></a>
+                                        <a class="text-info" th:href="@{/leads/edit/__${lead.id}__}"
+                                           title="Chỉnh sửa Lead"><i
+                                                class="fa fa-edit" style="color: #007bff !important"></i></a>
 
-
-<!--                                        <li class="nav-item ml-auto" title="Chỉnh sửa Lead">-->
-<!--                                            <button class="btn btn-primary" data-toggle="modal" data-target="#editModal"><i-->
-<!--                                                    class="fas fa-edit" style="color: #007bff !important"></i></button>-->
-<!--                                        </li>-->
-<!--                                        <div class="modal" id="editModal">-->
-<!--                                            <div class="modal-dialog">-->
-<!--                                                <div class="modal-content">-->
-<!--                                                    &lt;!&ndash; Modal Header &ndash;&gt;-->
-<!--                                                    <div class="modal-header">-->
-<!--                                                        <h4 class="modal-title">Chỉnh sửa lead</h4>-->
-<!--                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>-->
-<!--                                                    </div>-->
-
-<!--                                                    &lt;!&ndash; Modal body &ndash;&gt;-->
-<!--                                                    <div class="modal-body">-->
-<!--                                                        <form id="myForm">-->
-<!--                                                            <p class="text-success" id="add-success"></p>-->
-<!--                                                            <input type="text" hidden>-->
-
-<!--                                                            <div class="form-group">-->
-<!--                                                                <label for="name">Tên:</label>-->
-<!--                                                                <input type="text" id="name" name="name" th:field="*{name}" class="form-control">-->
-<!--                                                                <small id="error-name" class="text-danger"></small>-->
-<!--                                                            </div>-->
-
-<!--                                                            <div class="form-group">-->
-<!--                                                                <label for="gender">Giới tính:</label>-->
-<!--                                                                <select name="gender" id="gender" th:field="*{gender}" class="form-control">-->
-<!--                                                                    <option value="Male">Male</option>-->
-<!--                                                                    <option value="Female">Female</option>-->
-<!--                                                                </select>-->
-<!--                                                            </div>-->
-<!--                                                            <div class="form-group">-->
-<!--                                                                <label class="w3-text-green">Sản phẩm:</label>-->
-<!--                                                                <select th:field="*{product}">-->
-<!--                                                                    <option value="BootcampJavaFulltime">Bootcamp Java Fulltime</option>-->
-<!--                                                                    <option value="BootcampPHPFulltime">Bootcamp PHP Fulltime</option>-->
-<!--                                                                    <option value="BootcampJavaPartime">Bootcamp Java Partime</option>-->
-<!--                                                                    <option value="BootcampPHPPartime">Bootcamp PHP Partime</option>-->
-<!--                                                                    <option value="AcceleratorJava">Accelerator Java</option>-->
-<!--                                                                    <option value="AcceleratorPHP">Accelerator PHP</option>-->
-<!--                                                                </select>-->
-<!--                                                            </div>-->
-
-<!--                                                            <div class="form-group">-->
-<!--                                                                <label class="w3-text-green">Status:</label>-->
-<!--                                                                <select th:field="*{status}">-->
-<!--                                                                    <option value="G1">G1</option>-->
-<!--                                                                    <option value="G2">G2</option>-->
-<!--                                                                    <option value="G3">G3</option>-->
-<!--                                                                    <option value="G4">G4</option>-->
-<!--                                                                    <option value="G5">G5</option>-->
-<!--                                                                    <option value="G6">G6</option>-->
-<!--                                                                </select>-->
-<!--                                                            </div>-->
-
-<!--                                                            <div class="form-group">-->
-<!--                                                                <label class="w3-text-green">Last Update Satus Date:</label>-->
-<!--                                                                <input class="w3-input w3-border w3-sand" type="date" th:field="*{lastUpdateStatusDate}">-->
-<!--                                                                <span th:if="${#fields.hasErrors('lastUpdateStatusDate')}" th:errors="*{lastUpdateStatusDate}"></span>-->
-<!--                                                            </div>-->
-
-<!--                                                            <div class="form-group">-->
-<!--                                                                <label class="w3-text-green">Email:</label>-->
-<!--                                                                <input class="w3-input w3-border w3-sand" type="text" th:field="*{email}">-->
-<!--                                                                <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>-->
-<!--                                                            </div>-->
-
-<!--                                                            <div class="form-group">-->
-<!--                                                                <label class="w3-text-green">Phone Number:</label>-->
-<!--                                                                <input class="w3-input w3-border w3-sand" type="text" th:field="*{phoneNumber}">-->
-<!--                                                                <span th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></span>-->
-<!--                                                            </div>-->
-
-<!--                                                            <div class="form-group">-->
-<!--                                                                <label class="w3-text-green">Job:</label>-->
-<!--                                                                <input class="w3-input w3-border w3-sand" type="text" th:field="*{job}">-->
-<!--                                                                <span></span>-->
-<!--                                                            </div>-->
-
-<!--                                                            <div class="form-group">-->
-<!--                                                                <label class="w3-text-green">Source:</label>-->
-<!--                                                                <input class="w3-input w3-border w3-sand" type="text" th:field="*{source}">-->
-<!--                                                                <span></span>-->
-<!--                                                            </div>-->
-
-<!--                                                            <div class="form-group">-->
-<!--                                                                <label class="w3-text-green">Admission Date:</label>-->
-<!--                                                                <input class="w3-input w3-border w3-sand" type="date" th:field="*{admissionDate}">-->
-<!--                                                                <span th:if="${#fields.hasErrors('lastUpdateStatusDate')}" th:errors="*{lastUpdateStatusDate}"></span>-->
-<!--                                                            </div>-->
-
-<!--                                                            <div class="form-group">-->
-<!--                                                                <label class="w3-text-green">Email:</label>-->
-<!--                                                                <input class="w3-input w3-border w3-sand" type="text" th:field="*{email}">-->
-<!--                                                                <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>-->
-<!--                                                            </div>-->
-
-<!--                                                            <div class="btn-group" style="width: 100%;">-->
-<!--                                                                <button class="btn btn-success" type="submit" id="submitButton">Chỉnh sửa-->
-<!--                                                                </button>-->
-<!--                                                            </div>-->
-<!--                                                        </form>-->
-<!--                                                    </div>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
                                     </td>
                                     <td>
                                         <a class="text-info" th:href="@{/leads/delete/__${lead.id}__}"
                                            onclick="return confirm('Bạn có muốn xoá lead này hay không?')"
                                            title="Xóa Lead"><i
                                                 class="fa fa-trash" style="color: #007bff !important"></i></a>
-
-<!--                                        <div class="modal" id="deleteModal">-->
-<!--                                            <div class="modal-dialog">-->
-<!--                                                <div class="modal-content">-->
-<!--                                                    &lt;!&ndash; Modal Header &ndash;&gt;-->
-<!--                                                    <div class="modal-header">-->
-<!--                                                        <h4 class="modal-title text-danger">Xóa sản phẩm</h4>-->
-<!--                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>-->
-<!--                                                    </div>-->
-
-<!--                                                    &lt;!&ndash; Modal body &ndash;&gt;-->
-<!--                                                    <div class="modal-body">-->
-<!--                                                        <p>Bạn muốn xóa sản phẩm này?</p>-->
-<!--                                                        <div class="float-right">-->
-<!--                                                            <a class="btn btn-success">Đồng ý-->
-<!--                                                            </a>-->
-<!--                                                            <button class="btn btn-danger" data-dismiss="modal">Hủy</button>-->
-<!--                                                        </div>-->
-<!--                                                    </div>-->
-
-
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
                                     </td>
                                 </tr>
                             </th:block>
@@ -385,70 +201,81 @@
             </div>
         </div>
     </div>
-</div>
-</div>
-<script>
-    $(document).ready(function () {
-        document.getElementById("search_textbox").addEventListener("keydown", function (event) {
-            if (event.keyCode == 13) {
-                window.location.href = "/products/search?q=" + document.getElementById("search_textbox").value;
-            }
-        });
-        $("#submitButton").click(function (event) {
-            // Stop default form Submit.
-            event.preventDefault();
-            lead = {
-                "id": 0,
-                "name": $("#name").val(),
-                "price": $("#price").val(),
-                "category": {
-                    "id": $("#category").val()
-                },
-                "producer": {
-                    "id": $("#producer").val()
+
+
+    <!-- Modal HTML -->
+    <div id="myModal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header d-flex justify-content-between">
+                    <h5 class="modal-title">View of Lead</h5>
+                    <button type="button" th:size="50px" data-dismiss="modal">
+                        <i class="fas fa-times-circle"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table">
+
+                        <tr>
+                            <td>Tên:</td>
+                            <td id="name" ></td>
+                        </tr>
+                        <tr>
+                            <td>Số điện thoại:</td>
+                            <td id="phone"></td>
+                        </tr>
+                        <tr>
+                            <td>Giới tính</td>
+                            <td id="gender"></td>
+                        </tr>
+                        <tr>
+                            <td>Email:</td>
+                            <td id="email"></td>
+                        </tr>
+                        <tr>
+                            <td>Công việc</td>
+                            <td id="job"></td>
+                        </tr>
+                        <tr>
+                            <td>Nơi làm việc</td>
+                            <td id="place"></td>
+                        </tr>
+                        <tr>
+                            <td>Sản phẩm</td>
+                            <td id="product"></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(event) {
+            // var lead = getLeadById(leadId, leads);
+            var leadId = $(event.target).attr('lead-id');
+            console.log(leadId);
+            $('#myModal').modal('show');
+
+            var leadsInJson = $("#leadsInJSON").val();
+            var leads = JSON.parse(leadsInJson);
+            for (var i = 0; i < leads.content.length; i++) {
+                if(leadId ==(leads.content[i].id)) {
+                    console.log(leads.content[i]);
+                    $('#name').text(leads.content[i].name);
+                    $('#phone').text(leads.content[i].phoneNumber);
+                    $('#gender').text(leads.content[i].gender);
+                    $('#email').text(leads.content[i].email);
+                    $('#job').text(leads.content[i].job);
+                    $('#place').text(leads.content[i].source);
+                    $('#product').text(leads.content[i].product);
                 }
             }
-            // product = $("#myForm").serialize()
-            console.log(JSON.stringify(lead));
-            // Call Ajax Submit.
-            ajaxSubmitForm();
-        });
+        }
 
-        function ajaxSubmitForm() {
-            $.ajax({
-                type: "POST",
-                contentType: "application/json",
-                url: "/leads/edit",
-                data: JSON.stringify(lead),
-                cache: false,
-                timeout: 6000,
-                success: function (data) {
-                    console.log(data);
-                    if (data != "Success") {
-                        $('small[id^="error"]').text('');
-                        $('#add-success').html("");
-                        $.each(data, function (index, errorMsg) {
-                            $('#error-' + errorMsg.field).text(errorMsg.defaultMessage);
-                        })
-                    } else {
-                        $('small[id^="error"]').text('');
-                        $('#add-success').html("<i class='fas fa-check-circle'></i> Đã chỉnh sửa thành công");
-                        document.getElementById("myForm").reset();
-                    }
-                },
-                error: function (e) {
-                    console.log(e);
-                }
-            })
-        };
-
-        // Reset form when modal hidden
-        $('#addModal').on('hidden.bs.modal', function () {
-            $('small[id^="error"]').text('');
-            $('#add-success').html("");
-            document.getElementById("myForm").reset();
-        });
-    });
-</script>
+    </script>
+</div>
 </body>
 </html>
